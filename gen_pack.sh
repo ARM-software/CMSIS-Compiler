@@ -22,7 +22,7 @@ PACK_BUILD=./build
 PACK_DIRS="
   Documentation
   Source
-  Templates
+  Template
 "
 
 # Specify file names to be added to pack base directory
@@ -41,7 +41,10 @@ PACK_PATCH_FILES=""
 PACKCHK_ARGS=()
 
 # Specify additional dependencies for packchk
-PACKCHK_DEPS=""
+PACKCHK_DEPS="
+  ARM.CMSIS-View.pdsc
+  Keil.MDK-Middleware.pdsc
+"
 
 # Optional: restrict fallback modes for changelog generation
 # Default: full

@@ -1,0 +1,581 @@
+/*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
+/**
+\mainpage
+The software component \b Compiler allows you to retarget I/O functions of the standard C run-time library and is explained
+in the following sections:
+
+- \ref Retarget_Overview : provides an overview about the Compiler software component, the technical background and the
+  channels that can be retargeted.
+- \ref Retarget_Details : explains the available options for retargeting the channels and describes the available user code
+  templates.
+- \ref Retarget_Examples : shows retargeting examples for different channel/variant use cases.
+- \ref Retarget_Files : contains the \ref retarget_io_c "retarget_io.c" file and the user code template files for the different channel/variant use cases.
+
+\page Retarget_Overview Overview
+Application code frequently uses standard I/O library functions, such as \c printf(), \c scanf(), or \c fgetc() to perform
+input/output operations. The structure of these functions in the standard ARM Compiler C run-time library is:
+
+\image html "struct_comp_function.png"  "Function Structure"
+
+High-level and low-level functions are not target-dependent and use the system I/O functions to interface with hardware.
+However, the high-level library functions perform input/output by calling the low-level ones,
+which themselves call the system I/O functions, which are target-dependent.
+
+To retarget input/output, you can:
+ - \b Avoid the \em high-level library functions.
+ - \b Redefine the \em low-level library functions.
+ - \b Redefine the \em system \em I/O functions.
+
+Whether redefining the low-level library functions or the system I/O functions is a better solution, depends on your use
+case. For example, UARTs write a single character at a time and the default \c fputc() uses buffering, so redefining this
+function without a buffer might suit a UART. However, where buffer operations are possible, redefining the system I/O
+functions would probably be more appropriate.
+
+The <a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0475k/chr1358938937854.html" target="_blank">MicroLib</a> of
+the ARM Compiler C run-time library interfaces to the hardware via low-level functions. It implements a reduced set of
+high-level functions and therefore does not implement system I/O functions. Thus, in case of using the MicroLib, you cannot
+redefine the system I/O functions. Using any of the features of the ARM Compiler component provides the
+<a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0475k/chr1358938924063.html" target="_blank">assert</a> facility
+for MicroLib.
+
+The page \ref Retarget_Details explains the details about how retargeting is done using the ARM Compiler component.
+
+Semihosting
+===========
+
+<a href="https://developer.arm.com/documentation/dui0471/m/what-is-semihosting-/what-is-semihosting-" target="_blank">Semihosting</a> is
+a mechanism that enables code running on an ARM target to communicate and use the Input/Output facilities on a host computer
+that is running a debugger.
+
+Semihosting is not supported by µVision. Thus, you cannot use semihosting SWI operations. In case you have to write your own
+retarget code, ensure that no semihosting functions of the C library get linked into your application. This is done by
+importing the symbol \c __use_no_semihosting_swi. This can be done in any C or assembler source file in your project. In a C
+module, use the \c \#pragma directive:
+\code
+#pragma import(__use_no_semihosting_swi)
+\endcode
+
+In an assembler module, use the \c IMPORT directive:
+\code
+IMPORT __use_no_semihosting_swi
+\endcode
+<br/>
+*/
+
+/* ========================================================================================================================== */
+/**
+\page Retarget_Details Retargeting Channels and Variants
+
+\section Retarget_Channels Channels for Retargeting
+
+The software component \b Compiler can retarget the I/O functions into following standard I/O channels:
+
+I/O Channel |  Description
+------------|--------------------
+\b File     | Channel for all file related operations (\c fscanf, \c fprintf, \c fopen, \c fclose, etc.)
+\b STDERR   | Standard error stream of the application to output diagnostic messages.
+\b STDIN    | Standard input stream going into the application (\c scanf etc.).
+\b STDOUT   | Standard output stream of the application (\c printf etc.).
+\b TTY      | Teletypewriter, which is the last resort for error output.
+
+The channels are available for selection in <b>Compiler::I/O</b> component as shown on the figure below:
+
+\image html "retarget_interfaces.png"  "Retarget Interfaces of the Compiler component"
+
+Most retargeting channels have various \ref Retarget_Variants.
+
+\section Retarget_Variants Retarget Variants
+
+The variant selection allows you to change the target hardware interface of the I/O channel. The following variants are
+available:
+
+|Variant           | Description
+|------------------|--------------------
+|\b File \b System | Use the <a href="http://www.keil.com/pack/doc/mw/FileSystem/html/index.html" target="_blank">File System</a> component for file related operations. If no File System is enabled, the validation output window will issue a related message to do so.
+|\b Breakpoint     | When the I/O channel is used, the application stops with <a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0489i/Cihbiggi.html" target="_blank">BKPT</a> instruction. No additional code is required.
+|\b ITM            | Use <a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0314h/Chdegecg.html" target="_blank">Instrumentation Trace Macrocell (ITM)</a> for I/O communication via the debugger (only available for Cortex-M3/M4/M7 processors).<br/> Data is exchanged using Debug (printf) Viewer.<br/> No additional code is required to output or input data through the ITM channel. However, you have to configure the ITM channel for tracing (refer to the documentation of your debug adapter).<br/> For example, for ULINK<i>pro</i>, the setup is explained <a href="http://www.keil.com/support/man/docs/ulinkpro/ulinkpro_capture_tracedata.htm" target="_blank">here</a>.
+|\b User           | Retarget I/O functions to a user defined interface (such as \ref uct_usart "USART", \ref uct_keyboard "keyboard", \ref uct_display "graphics display", or a \ref uct_template "application specific").<br/>See \subpage variant_User for further details.
+|\b EVR            | STDIO can also be redirected using the <a class="el" href="../../EventRecorder/html/index.html">Event Recorder</a> (especially interesting for targets without <a href="http://www2.keil.com/coresight/#swv">ITM</a>).<br/>Refer to \ref Retarget_Examples_er for an example. |
+
+\note Depending on the selected variant, certain \c \#defines are set in the header file \b RTE_Components.h that enable the
+      appropriate code sections in the \ref retarget_io_c " retarget_io.c file".
+\note Retargeting \b STDOUT using the \em EVR variant is available for all Cortex-M based devices.
+*/
+
+/* ========================================================================================================================== */
+/**
+\page variant_User Retarget Variant "User"
+If you select the Compiler component variant \b User in the Manage Run-Time Environment, user code templates are available
+that help you to implement your own functionality. You can import the templates into a project using the context menu
+\b Add \b New \b Item \b to \b Group from the Project window. Depending on your selection, you get templates that support
+retargeting via display, USART, or keyboard. Also, a template for a custom implementation is available.
+
+\image html "retarget_addTemplates.png" "Retargeting Code Templates"
+
+\section uct_display Output via Display
+
+You may use the <a href="http://www.keil.com/pack/doc/mw/Graphics/html/index.html" target="_blank">Graphics</a> component or
+write your own output routines. The following user code templates are available:
+
+|Component | Name                 |File Name|
+|----------|----------------------|----|
+|I/O:STDOUT| STDOUT via Display | \ref stdout_display_c "stdout_display.c"
+|I/O:STERR | STDERR via Display | \ref stderr_display_c "stderr_display.c"
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each display user code template
+contains a function to initialize the display. When using the same hardware for multiple channels, remove the initialization
+function from one template and call the other function during the initialization of the device's peripherals.
+
+\section uct_usart Input/Output via USART
+You may use a
+<a href="http://www.keil.com/pack/doc/CMSIS/Driver/html/group__usart__interface__gr.html" target="_blank">CMSIS-Driver USART</a>
+or write your own output routines. The following user code templates are available:
+
+|Component | Name                 |File Name|
+|----------|----------------------|----|
+|I/O:STDOUT| STDOUT via USART | \ref stdout_USART_c "stdout_USART.c"
+|I/O:STDIN | STDIN via USART  | \ref stdin_USART_c "stdin_USART.c"
+|I/O:STERR | STDERR via USART | \ref stderr_USART_c "stderr_USART.c"
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each USART user code template
+contains a function to initialize the USART. When using the same hardware for multiple channels, the initialization functions
+need to be merged in one single function. Call this function during the initialization of the device's peripherals.
+
+\section uct_keyboard Input via Keyboard
+You may use software components that support the keyboard functionality or write you own routines. For example, you may use
+the HID class of the <a href="http://www.keil.com/pack/doc/mw/USB/html/_u_s_b__host.html" target="_blank">USB Host</a>
+component to read data from a USB keyboard. The following user code template is available:
+
+|Component | Name                 |File Name|
+|----------|----------------------|----|
+|I/O:STDIN | STDIN via Keyboard  | \ref stdin_keyboard_c "stdin_keyboard.c"
+
+\section uct_template Input/Output via Template
+Use these templates for custom interfaces that are not mentioned above. The following user code templates are available:
+
+|Component | Name                 |File Name|
+|----------|----------------------|----|
+|I/O:STDOUT| STDOUT User template | \ref stdout_user_c "stdout_user.c"
+|I/O:STDIN | STDIN User template  | \ref stdin_user_c "stdin_user.c"
+|I/O:STERR | STDERR User template | \ref stderr_user_c "stderr_user.c"
+|I/O:TTY   | TTY User template    | \ref tty_user_c "tty_user.c"
+
+<br/>
+*/
+
+/* ========================================================================================================================== */
+/**
+\page Retarget_Examples Examples
+
+The software pack <a href="https://www.keil.com/dd2/pack/#/Keil.ARM_Compiler" target="_blank"><b>Keil:ARM_Compiler</b></a>
+contains several example projects that show how to do I/O retargeting. Use Pack Installer to copy the projects to your
+working folder. Build the selected project and enter a debug session.
+
+The following  example projects are available:
+
+Example Project                  | Description
+:--------------------------------|:-----------------------------------------
+\subpage Retarget_Examples_Dsip  | Shows how to use a USB keyboard for STDIN and a TFT LCD for STDOUT.
+\subpage Retarget_Examples_ITM   | Shows how to use ITM for STDOUT.
+\subpage Retarget_Examples_UART  | Shows how to use a U(S)ART for STDOUT.
+\subpage Retarget_Examples_er    | µVision simulator example that shows how to use Event Recorder for STDOUT.
+*/
+
+/* ========================================================================================================================== */
+/**
+\page Retarget_Examples_Dsip  Retarget Input via Keyboard and Output via Display
+
+For development boards from Keil (for example MCB4300, MCB1800, MCBSTM32F200/400), example projects are available that show
+how to use a USB keyboard for STDIN and a TFT LCD for STDOUT. These examples are usually called \b USB \b Host \b Keyboard
+and can be found using Pack Installer:
+
+\image html PI_USB_Keyboard.png "Pack Installer showing the USB Host Keyboard Example Project"
+
+Copy the project to your harddrive and examine how the example works. This will be the base for the next steps that show how
+to change the example to use \ref Retarget_Examples_ITM "ITM for STDOUT", and later a
+\ref Retarget_Examples_UART "UART for STDOUT and STDIN".
+*/
+
+/* ========================================================================================================================== */
+/**
+\page Retarget_Examples_ITM  Retarget Output via ITM
+
+Copy the \b USB \b Host \b Keyboard example application to your PC as described in \ref Retarget_Examples_Dsip. To change the
+retarget option for \b STDOUT to \b ITM, open the \b Manage \b Run-Time \b Environment window and set the Variant as shown
+here:
+
+\image html "SelITMOutput.png" "Select ITM as Output Channel"
+
+This will change the \c \#defines in the RTE_Components.h file and thus execute another code section in
+\ref retarget_io_c "retarget_io.c". Adapting the code is not required. The code in the file \b stdout_display.c is now
+disabled because of the new \c \#defines. Sending data via the ITM channel does not require additional code.
+
+Configure your debug adapter for tracing and enable the ITM channel 0 as described in
+<a href="http://www.keil.com/support/man/docs/ulinkpro/ulinkpro_tr_stimulusports.htm">ITM Stimulus Ports</a>.
+
+Build the project, download it to the target, and start a debug session. Open the \b Debug \b (printf) \b Viewer window
+(View -> Serial Windows -> Debug (printf) Viewer) to observe the application's output. Input is still coming from the USB
+keyboard.
+
+\image html "ITMOutput.png" "Output redirected to Debug (printf) Viewer"
+*/
+
+/* ========================================================================================================================== */
+/**
+\page Retarget_Examples_er  Retarget STDOUT via Event Recorder
+
+Copy the \b SCVD \b printf \b Redirect \b Example application for the µVision Simulator to your PC using Pack Installer. This
+simple application is already set to redirect printf output on an Arm Cortex-M0 to the Event Recorder.
+
+
+To retarget STDOUT to the
+<a href="../../EventRecorder/html/index.html">Event Recorder</a> in a user application, these steps are required:
+ -# In the Manage Run-Time Environment window, set the component <b>Compiler:I/O:STDOUT</b> to use \b Variant \em EVR.
+ -# Select the component <b>Compiler:Event Recorder</b> or use the \b Resolve button.
+ \image html er_comp_selection.png
+ -# In the user code, include \c EventRecorder.h and call the \c EventRecorderInitialize() function in main():
+ \code
+#include "cmsis_os2.h"                  // ARM::CMSIS:RTOS2:Keil RTX5
+#include "stdio.h"
+#include "EventRecorder.h"              // Keil.ARM Compiler::Compiler:Event Recorder
+
+typedef struct {
+  uint32_t hi;
+  uint32_t low;
+} MyType;
+
+MyType mysymbol;
+
+int main(void) {
+  int       i;
+  EventRecorderInitialize(EventRecordAll, 1);
+
+  while (1) {
+    for( i=0; i<=30; i++ ) {
+      printf("The value of i is %d\n", i);
+      mysymbol.hi = i*i;
+      mysymbol.low = i;
+    }
+  }
+}
+ \endcode
+ -# (For simulation only!) Open the target options dialog and add a Debug.ini file to simulate the DWT Cycle Counter:
+ \code
+MAP 0xE0001000, 0xE0001007 READ WRITE
+
+signal void DWT_CYCCNT (void) {
+  while (1) {
+    rwatch(0xE0001004);
+    _WWORD(0xE0001004, states);
+  }
+}
+
+DWT_CYCCNT()
+ \endcode
+
+Build and run the project. Open the <b>Debug (printf) Viewer</b> window using View - Serial Windows - Debug (printf) Viewer.
+The printf output will be shown here:
+
+\image html debug_printf_output.png
+
+If you are using the Event Recorder window at the same time, you will notice that it also shows the printf output, just
+with hexadecimal display:
+
+\image html er_printf_output.png
+
+\note
+
+- If your output is garbled, you might want to consider increasing the buffer size for the Event Recorder.
+- The Event Recorder window will display missed events to notify you about buffer size problems.
+\image html garbled_output.png
+<br/>
+*/
+
+/* ========================================================================================================================== */
+/**
+\page Retarget_Examples_UART  Retarget Input and Output via UART
+
+Copy the \b USB \b Host \b Keyboard example application to your PC as described in \ref Retarget_Examples_Dsip.
+
+\section Retarget_Examples_UART_variants Variant Selection
+To change the retarget option for \b STDIN and \b STDOUT to \b USART, open the \b Manage \b Run-Time \b Environment window
+and set the \b Variants as shown here:
+
+\image html "SelOutput.png" "Select USART as Input and Output Channel"
+
+This will change the \c \#defines in the RTE_Components.h file and thus execute another code section in
+\ref retarget_io_c "retarget_io.c".
+
+\section Retarget_Examples_UART_uct Add User Code Templates for the USART
+Use the context menu in the Project window to add user code template files to the source code. Right-click on the group
+\b Source, select <b>Add new Items to Group</b>. Click on <b>User Code Templates</b>, expand the component <b>Compiler</b>,
+and add the templates for STDIN and STDOUT via USART.
+
+\image html "SelTemplatesUART.png" "Select Templates for UART Retargeting"
+
+This adds the files \b stdin_usart.c and \b stdout_usart.c to the group \b Source. The files contain predefined functions
+which need little modifications if you are using CMSIS-Driver for USARTs.
+
+\section Retarget_Examples_UART_cmsis_driver Use CMSIS-Driver USART
+But first, enable the CMSIS-Driver in the \b Manage
+\b Run-Time \b Environment window:
+
+\image html "CMSIS_Driver_USART.png" "Enable the CMSIS-Driver USART"
+
+The \b Validation \b Output window might show related component dependencies. Click \b Resolve to automatically add the
+required components to your project.
+
+\section Retarget_Examples_UART_configure_USART Configure the USART Driver
+Under \b Device, open the file \b RTE_Device.h and enable the correct USART (here: \b USART1). Configure the pins according to
+your target hardware (refer to the board documentation for further details; here \b PB6/PB7):
+
+\image html "RTE_Device_h.png" "Device Configuration using RTE_Device.h"
+
+\section Retarget_Examples_UART_connect Connect the Retargeting Functions to the Correct Driver Instance
+Open \b stdout_USART.c and \b stdin_USART.c. Use the \b Configuration \b Wizard view to set the correct hardware interface
+(here: \b Driver_USART1) in both files:
+
+\image html "Driver_Config_Wizard.png" "Driver Configuration using the Configuration Wizard"
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each user code template
+contains a function to initialize the underlying hardware. This is fine as long as you are not using the same hardware for
+multiple channels.
+
+\section Retarget_Examples_UART_code Adapt the Code
+In this example, the USART is used for STDIN and STDOUT simultaneously. Thus, one of the initialization functions need to be
+commented out and the content needs to be merged with the other one. Change to \b Text \b Editor mode for both files. In
+\c stdout_USART.c comment out the function \c stdout_init (lines 62 to 83):
+
+\code
+//int stdout_init (void) {
+//  int32_t status;
+
+//  status = ptrUSART->Initialize(NULL);
+//  if (status != ARM_DRIVER_OK) return (-1);
+
+//  status = ptrUSART->PowerControl(ARM_POWER_FULL);
+//  if (status != ARM_DRIVER_OK) return (-1);
+
+//  status = ptrUSART->Control(ARM_USART_MODE_ASYNCHRONOUS |
+//                             ARM_USART_DATA_BITS_8       |
+//                             ARM_USART_PARITY_NONE       |
+//                             ARM_USART_STOP_BITS_1       |
+//                             ARM_USART_FLOW_CONTROL_NONE,
+//                             USART_BAUDRATE);
+//  if (status != ARM_DRIVER_OK) return (-1);
+
+//  status = ptrUSART->Control(ARM_USART_CONTROL_TX, 1);
+//  if (status != ARM_DRIVER_OK) return (-1);
+
+//  return (0);
+//}
+\endcode
+
+Copy the last call to the \b Control struct of the USART driver to the \c stdin_init function (line 62) in \c stdin_USART.c:
+
+\code
+int stdin_init (void) {
+  int32_t status;
+
+  status = ptrUSART->Initialize(NULL);
+  if (status != ARM_DRIVER_OK) return (-1);
+
+  status = ptrUSART->PowerControl(ARM_POWER_FULL);
+  if (status != ARM_DRIVER_OK) return (-1);
+
+  status = ptrUSART->Control(ARM_USART_MODE_ASYNCHRONOUS |
+                             ARM_USART_DATA_BITS_8       |
+                             ARM_USART_PARITY_NONE       |
+                             ARM_USART_STOP_BITS_1       |
+                             ARM_USART_FLOW_CONTROL_NONE,
+                             USART_BAUDRATE);
+  if (status != ARM_DRIVER_OK) return (-1);
+
+  status = ptrUSART->Control(ARM_USART_CONTROL_RX, 1);
+  if (status != ARM_DRIVER_OK) return (-1);
+
+  status = ptrUSART->Control(ARM_USART_CONTROL_TX, 1);
+  if (status != ARM_DRIVER_OK) return (-1);
+
+return (0);
+}
+\endcode
+
+The \c stdin_init() function needs to be called in \c main. Change the following line in the \c Keyboard.c file:
+
+\code
+extern int stdin_init (void);
+\endcode
+
+In \b main(), replace \c stdout_init() with \c stdin_init():
+
+\code
+:
+SystemClock_Config();                      /* Configure the System Clock    */
+
+stdout_init();                             /* Initialize printf output      */
+
+ADC_Initialize          ();                /* Initialize A/D converter      */
+:
+\endcode
+
+\section Retarget_Examples_UART_remove Remove old Template Files
+Before building the project, remove the old user code templates from the target build. Right-click the files
+\c stdin_keyboard.c and \c stdout_display.c, select \b Options \b for \b File, and disable \b Include \b in \b Target
+\b Build:
+
+\image html "FileOptions.png" "Remove Unnecessary User Code Template Files from Target Build"
+
+\section Retarget_Examples_UART_run Run the Application
+Build the project, configure for debugging, and download the application to the development board. Connect the development
+board with an RS232 cable to a PC. Open a terminal program with the correct COM port setting and observe that a menu is
+displayed. Enter a command via your keyboard and test the application:
+
+\image html "Terminal_Output.png" "Input and Output on the Terminal with MCB1800"
+
+\note If you do not see any output on the terminal, check the baud rate settings (9600 baud), COM port number, or verify that
+      hte correct USB driver is used (in case you have a USB-Serial converter attached to the PC).
+*/
+
+/* ========================================================================================================================== */
+/**
+\page Retarget_Files Files
+This section contains the listings for all files available in the Compiler component:
+- \subpage retarget_io_c
+- \subpage stderr_display_c
+- \subpage stderr_USART_c
+- \subpage stderr_user_c
+- \subpage stdin_keyboard_c
+- \subpage stdin_USART_c
+- \subpage stdin_user_c
+- \subpage stdout_display_c
+- \subpage stdout_USART_c
+- \subpage stdout_user_c
+- \subpage tty_user_c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page retarget_io_c retarget_io.c File
+
+The software component Compiler adds the file \b %retarget_io.c to the project. The header file \b RTE_Components.h, which
+gets included by the file \b %retarget_io.c, is configured automatically and sets the necessary \c \#defines according to the
+variants selected in the RTE. \ref variant_User "User code templates" are available that help you to implement your own
+functionality.
+
+\include retarget_io.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stderr_display_c stderr_display.c File
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each display user code template
+contains a function to initialize the display (here: \c stderr_init). When using the same hardware for multiple channels,
+remove the initialization function from one template and call the other function during the initialization of the device's
+peripherals.
+
+\include stderr_display.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stderr_USART_c stderr_USART.c File
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each USART user code template
+contains a function to initialize the USART (here: \c stderr_init). When using the same hardware for multiple channels, the
+initialization functions need to be merged in one single function. Call this function during the initialization of the
+device's peripherals.
+
+\include stderr_USART.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stderr_user_c stderr_user.c File
+
+\include stderr_user.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stdin_keyboard_c stdin_keyboard.c File
+
+\include stdin_keyboard.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stdin_USART_c stdin_USART.c File
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each USART user code template
+contains a function to initialize the USART (here \c stdin_init). When using the same hardware for multiple channels, the
+initialization functions need to be merged in one single function. Call this function during the initialization of the
+device's peripherals.
+
+\include stdin_USART.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stdin_user_c stdin_user.c File
+
+\include stdin_user.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stdout_display_c stdout_display.c File
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each display user code template
+contains a function to initialize the display (here: \c stderr_init). When using the same hardware for multiple channels,
+remove the initialization function from one template and call the other function during the initialization of the device's
+peripherals.
+
+\include stdout_display.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stdout_USART_c stdout_USART.c File
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each USART user code template
+contains a function to initialize the USART (here: \c stdout_init). When using the same hardware for multiple channels, the
+initialization functions need to be merged in one single function. Call this function during the initialization of the
+device's peripherals.
+
+\include stdout_USART.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stdout_user_c stdout_user.c File
+
+\include stdout_user.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page tty_user_c tty_user.c File
+
+\include tty_user.c
+*/

@@ -49,7 +49,7 @@
       <description>ARMCC and Cortex-M with EVR</description>
       <require Tcompiler="ARMCC"/>
       <require condition="Cortex-M Device"/>
-      <require Cclass="Compiler" Cgroup="Event Recorder"/>
+      <require Cclass="CMSIS" Cgroup="Event Recorder"/>
     </condition>
     <condition id="ARMCC Cortex-M with File System">
       <description>ARMCC and Cortex-M with File System CORE</description>
@@ -216,10 +216,5 @@
         <file category="source" name="Source/retarget_io.c"/>
       </files>
     </component>
-
   </components>
-
-  <examples>
-
-  </examples>
 </package>
