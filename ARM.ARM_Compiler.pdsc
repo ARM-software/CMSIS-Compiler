@@ -66,6 +66,27 @@
   </taxonomy>
 
   <components>
+    <component Cclass="Compiler" Cgroup="OS Interface" Cvariant="CMSIS-RTOS2" Cversion="1.0.0" condition="ARMCC Cortex-M">
+      <description>C library OS interface implementation for CMSIS-RTOS2</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
+        #define RTE_Compiler_OS_Interface_CMSIS_RTOS2 /* Compiler OS Interface: CMSIS-RTOS2 */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="Source/retarget_os_rtos2.c"/>
+      </files>
+    </component>
+    <component Cclass="Compiler" Cgroup="OS Interface" Cvariant="User" Cversion="1.0.0" condition="ARMCC Cortex-M">
+      <description>User implementation of the C library OS interface</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
+        #define RTE_Compiler_OS_Interface_User  /* Compiler OS Interface: User */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="Template/retarget_os_user.c" attr="template" select="OS Interface Retarget User Template"/>
+      </files>
+    </component>
+
     <component Cclass="Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="Breakpoint" Cversion="1.2.0" condition="ARMCC Cortex-M">
       <description>Stop program execution at a breakpoint when using STDIN</description>
       <RTE_Components_h>
