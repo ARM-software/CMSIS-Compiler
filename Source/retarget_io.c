@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------
  * Name:    retarget_io.c
  * Purpose: Retarget I/O
- * Rev.:    1.2.0
+ * Rev.:    1.3.0
  *-----------------------------------------------------------------------------*/
  
 /*
@@ -35,8 +35,8 @@
 #include "EventRecorder.h"
 #endif
  
-#ifdef RTE_Compiler_IO_File_FS
-#include "rl_fs_lib.h"
+#ifdef RTE_Compiler_IO_File
+#include "retarget_fs.h"
 #endif
  
  
@@ -397,13 +397,16 @@ const char __stderr_name[] = ":STDERR";
   \param[in] name     File name
   \param[in] openmode Mode specification bitmap
  
-  \return    The return value is –1 if an error occurs.
+  \return    The return value is -1 if an error occurs.
 */
 #ifdef RETARGET_SYS
 __attribute__((weak))
 FILEHANDLE _sys_open (const char *name, int openmode) {
 #if (!defined(RTE_Compiler_IO_File))
   (void)openmode;
+#else
+  int32_t mode;
+  int32_t flag;
 #endif
  
   if (name == NULL) {
@@ -424,9 +427,26 @@ FILEHANDLE _sys_open (const char *name, int openmode) {
   }
  
 #ifdef RTE_Compiler_IO_File
-#ifdef RTE_Compiler_IO_File_FS
-  return (__sys_open(name, openmode));
-#endif
+  /* Set the open mode flags */
+  if ((openmode & (OPEN_R | OPEN_W | OPEN_A)) == OPEN_W) {
+    mode = FS_OPEN_WRONLY;
+    flag = FS_OPEN_CREATE | FS_OPEN_TRUNCATE;
+  }
+  else if ((openmode & (OPEN_R | OPEN_W | OPEN_A)) == OPEN_A) {
+    mode = FS_OPEN_WRONLY;
+    flag = FS_OPEN_APPEND;
+  }
+  else /* if ((openmode & (OPEN_R | OPEN_W | OPEN_A)) == OPEN_R) */ {
+    mode = FS_OPEN_RDONLY;
+    flag = 0;
+  }
+
+  if ((openmode & OPEN_PLUS) == OPEN_PLUS) {
+    mode &= ~(FS_OPEN_RDONLY | FS_OPEN_WRONLY);
+    mode  = FS_OPEN_RDWR;
+  }
+
+  return (fs_open(name, mode | flag));
 #else
   return (-1);
 #endif
@@ -459,9 +479,7 @@ int _sys_close (FILEHANDLE fh) {
   }
  
 #ifdef RTE_Compiler_IO_File
-#ifdef RTE_Compiler_IO_File_FS
-  return (__sys_close(fh));
-#endif
+  return (fs_close(fh));
 #else
   return (-1);
 #endif
@@ -526,9 +544,7 @@ int _sys_write (FILEHANDLE fh, const uint8_t *buf, uint32_t len, int mode) {
   }
  
 #ifdef RTE_Compiler_IO_File
-#ifdef RTE_Compiler_IO_File_FS
-  return (__sys_write(fh, buf, len));
-#endif
+  return ((int32_t)len - fs_write(fh, buf, len));
 #else
   return (-1);
 #endif
@@ -597,9 +613,7 @@ int _sys_read (FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode) {
   }
  
 #ifdef RTE_Compiler_IO_File
-#ifdef RTE_Compiler_IO_File_FS
-  return (__sys_read(fh, buf, len));
-#endif
+  return (fs_read(fh, buf, len));
 #else
   return (-1);
 #endif
@@ -705,9 +719,7 @@ int _sys_seek (FILEHANDLE fh, long pos) {
   }
  
 #ifdef RTE_Compiler_IO_File
-#ifdef RTE_Compiler_IO_File_FS
-  return (__sys_seek(fh, (uint32_t)pos));
-#endif
+  return ((int)fs_seek(fh, (int64_t)pos, FS_SEEK_SET));
 #else
   return (-1);
 #endif
@@ -744,11 +756,9 @@ long _sys_flen (FILEHANDLE fh) {
   }
  
 #ifdef RTE_Compiler_IO_File
-#ifdef RTE_Compiler_IO_File_FS
-  return (__sys_flen(fh));
-#endif
+  return ((long)fs_size(fh));
 #else
-  return (0);
+  return (-1);
 #endif
 }
 #endif

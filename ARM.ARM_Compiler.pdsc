@@ -51,13 +51,17 @@
       <require condition="Cortex-M Device"/>
       <require Cclass="CMSIS" Cgroup="Event Recorder"/>
     </condition>
-    <condition id="ARMCC Cortex-M with File System">
-      <description>ARMCC and Cortex-M with File System CORE</description>
+    <condition id="ARMCC Cortex-M File Interface">
+      <description>ARMCC Compiler File Interface</description>
       <require Tcompiler="ARMCC"/>
       <require condition="Cortex-M Device"/>
-      <accept Cbundle="MDK-Pro"    Cclass="File System" Cgroup="CORE"/>
-      <accept Cbundle="MDK-Plus"   Cclass="File System" Cgroup="CORE"/>
-      <accept Cbundle="MDK-Source" Cclass="File System" Cgroup="CORE"/>
+      <require Cclass="Compiler" Cgroup="I/O" Csub="File"/>
+    </condition>
+    <condition id="ARMCC Cortex-M IO File Interface">
+      <description>ARMCC Compiler I/O File Interface</description>
+      <require Tcompiler="ARMCC"/>
+      <require condition="Cortex-M Device"/>
+      <require Cclass="Compiler" Cgroup="File Interface"/>
     </condition>
   </conditions>
 
@@ -66,6 +70,17 @@
   </taxonomy>
 
   <components>
+    <component Cclass="Compiler" Cgroup="File Interface" Cvariant="User" Cversion="1.0.0" condition="ARMCC Cortex-M File Interface">
+      <description>Redirect file operations to a user defined file system</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_File            /* Compiler I/O: File */
+        #define RTE_Compiler_IO_File_User       /* Compiler I/O: File User */
+      </RTE_Components_h>
+      <files>
+        <file category="source"  name="Template/file_user.c" attr="template" select="File System Retarget User Template"/>
+      </files>
+    </component>
+
     <component Cclass="Compiler" Cgroup="OS Interface" Cvariant="CMSIS-RTOS2" Cversion="1.0.0" condition="ARMCC Cortex-M">
       <description>C library OS interface implementation for CMSIS-RTOS2</description>
       <RTE_Components_h>
@@ -227,13 +242,26 @@
         <file category="source" name="Template/tty_user.c" attr="template" select="TTY User Template"/>
       </files>
     </component>
-    <component Cclass="Compiler" Cgroup="I/O" Csub="File" Cvariant="File System" Cversion="1.2.0" condition="ARMCC Cortex-M with File System">
-      <description>Use retargeting together with the File System component</description>
+
+    <component Cclass="Compiler" Cgroup="I/O" Csub="File" Cvariant="Breakpoint" Cversion="1.0.0" condition="ARMCC Cortex-M">
+      <description>Stop program execution at a breakpoint when using file operations</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_File            /* Compiler I/O: File */
-        #define RTE_Compiler_IO_File_FS         /* Compiler I/O: File (File System) */
+        #define RTE_Compiler_IO_File_BKPT       /* Compiler I/O: File Breakpoint */
       </RTE_Components_h>
       <files>
+        <file category="source" name="Source/retarget_io.c"/>
+        <file category="source"  name="Template/file_user.c" attr="template" select="File System Retarget User Template"/>
+      </files>
+    </component>
+    <component Cclass="Compiler" Cgroup="I/O" Csub="File" Cvariant="File Interface" Cversion="1.0.0" condition="ARMCC Cortex-M IO File Interface">
+      <description>Redirect file operations to File Interface</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_File            /* Compiler I/O: File */
+        #define RTE_Compiler_IO_File_Interface  /* Compiler I/O: File Interface */
+      </RTE_Components_h>
+      <files>
+        <file category="header" name="Include/retarget_fs.h"/>
         <file category="source" name="Source/retarget_io.c"/>
       </files>
     </component>
