@@ -55,7 +55,7 @@
       <description>ARMCC Compiler File Interface</description>
       <require Tcompiler="ARMCC"/>
       <require condition="Cortex-M Device"/>
-      <require Cclass="Compiler" Cgroup="I/O" Csub="File"/>
+      <require Cclass="Compiler" Cgroup="I/O" Csub="File" Cvariant="File Interface"/>
     </condition>
     <condition id="ARMCC Cortex-M IO File Interface">
       <description>ARMCC Compiler I/O File Interface</description>
