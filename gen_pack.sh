@@ -21,6 +21,7 @@ PACK_BUILD=./build
 # Specify directory names to be added to pack base directory
 PACK_DIRS="
   Documentation
+  Include
   Source
   Template
 "
