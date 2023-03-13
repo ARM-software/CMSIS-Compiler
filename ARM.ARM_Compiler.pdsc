@@ -6,7 +6,7 @@
   <url>https://www.keil.com/pack/</url>
 
   <releases>
-    <release version="0.0.0">
+    <release version="1.0.0">
       Active Development ...
     </release>
   </releases>
@@ -63,45 +63,68 @@
       <require condition="Cortex-M Device"/>
       <require Cclass="Compiler" Cgroup="File Interface"/>
     </condition>
+    <condition id="ARMCC Cortex-M OS Interface CMSIS-RTOS2">
+      <description>Condition for Arm C Compiler OS Interface using CMSIS-RTOS2</description>
+      <require Tcompiler="ARMCC"/>
+      <require condition="Cortex-M Device"/>
+      <require Cclass="CMSIS" Cgroup="RTOS2"/>
+    </condition>
   </conditions>
 
   <taxonomy>
     <description Cclass="Compiler" Cgroup="I/O" doc="Documentation/html/index.html">Retarget Input/Output</description>
   </taxonomy>
 
+  <apis>
+    <api Cclass="Compiler" Cgroup="File Interface" Capiversion="1.0.0" exclusive="1" condition="ARMCC Cortex-M">
+      <description>File Operations Retarget Interface for Arm Compiler</description>
+      <files>
+        <file category="doc" name="Documentation/fs_api.html" />
+        <file category="header" name="Include/retarget_fs.h" />
+      </files>
+    </api>
+    
+    <api Cclass="Compiler" Cgroup="OS Interface" Capiversion="1.0.0" exclusive="1" condition="ARMCC Cortex-M">
+      <description>OS Retarget Interface for Arm Compiler</description>
+      <files>
+        <file category="doc" name="Documentation/os_api.html" />
+        <file category="header" name="Include/retarget_os.h" />
+      </files>
+    </api>
+  </apis>
+
   <components>
-    <component Cclass="Compiler" Cgroup="File Interface" Cvariant="User" Cversion="1.0.0" condition="ARMCC Cortex-M File Interface">
-      <description>Redirect file operations to a user defined file system</description>
+    <component Cclass="Compiler" Cgroup="File Interface" Csub="Custom" Cversion="1.0.0" condition="ARMCC Cortex-M File Interface">
+      <description>Access to #include retarget_fs.h and code template for custom implementation</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_File_Interface     /* Compiler File Interface */
+        #define RTE_Compiler_File_Interface_Custom /* Compiler File Interface: Custom */
+      </RTE_Components_h>
+      <files>
+        <file category="source"  name="Template/retarget_fs.c" attr="template" select="File Interface Custom Template"/>
+      </files>
+    </component>
+
+    <component Cclass="Compiler" Cgroup="I/O" Csub="File" Cvariant="Breakpoint" Cversion="1.0.0" condition="ARMCC Cortex-M">
+      <description>Stop program execution at a breakpoint when using file operations</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_File            /* Compiler I/O: File */
-        #define RTE_Compiler_IO_File_User       /* Compiler I/O: File User */
+        #define RTE_Compiler_IO_File_BKPT       /* Compiler I/O: File Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="source"  name="Template/file_user.c" attr="template" select="File System Retarget User Template"/>
+        <file category="source" name="Source/retarget_io.c"/>
       </files>
     </component>
-
-    <component Cclass="Compiler" Cgroup="OS Interface" Cvariant="CMSIS-RTOS2" Cversion="1.0.0" condition="ARMCC Cortex-M">
-      <description>C library OS interface implementation for CMSIS-RTOS2</description>
+    <component Cclass="Compiler" Cgroup="I/O" Csub="File" Cvariant="File Interface" Cversion="1.0.0" condition="ARMCC Cortex-M IO File Interface">
+      <description>Redirect file operations to File Interface</description>
       <RTE_Components_h>
-        #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
-        #define RTE_Compiler_OS_Interface_CMSIS_RTOS2 /* Compiler OS Interface: CMSIS-RTOS2 */
+        #define RTE_Compiler_IO_File            /* Compiler I/O: File */
+        #define RTE_Compiler_IO_File_Interface  /* Compiler I/O: File Interface */
       </RTE_Components_h>
       <files>
-        <file category="source" name="Source/retarget_os_rtos2.c"/>
+        <file category="source" name="Source/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="Compiler" Cgroup="OS Interface" Cvariant="User" Cversion="1.0.0" condition="ARMCC Cortex-M">
-      <description>User implementation of the C library OS interface</description>
-      <RTE_Components_h>
-        #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
-        #define RTE_Compiler_OS_Interface_User  /* Compiler OS Interface: User */
-      </RTE_Components_h>
-      <files>
-        <file category="source" name="Template/retarget_os_user.c" attr="template" select="OS Interface Retarget User Template"/>
-      </files>
-    </component>
-
     <component Cclass="Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="Breakpoint" Cversion="1.2.0" condition="ARMCC Cortex-M">
       <description>Stop program execution at a breakpoint when using STDIN</description>
       <RTE_Components_h>
@@ -243,26 +266,24 @@
       </files>
     </component>
 
-    <component Cclass="Compiler" Cgroup="I/O" Csub="File" Cvariant="Breakpoint" Cversion="1.0.0" condition="ARMCC Cortex-M">
-      <description>Stop program execution at a breakpoint when using file operations</description>
+    <component Cclass="Compiler" Cgroup="OS Interface" Csub="Custom" Cversion="1.0.0" condition="ARMCC Cortex-M">
+      <description>Access to #include retarget_os.h and code template for custom implementation</description>
       <RTE_Components_h>
-        #define RTE_Compiler_IO_File            /* Compiler I/O: File */
-        #define RTE_Compiler_IO_File_BKPT       /* Compiler I/O: File Breakpoint */
+        #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
+        #define RTE_Compiler_OS_Interface_Custom /* Compiler OS Interface: Custom */
       </RTE_Components_h>
       <files>
-        <file category="source" name="Source/retarget_io.c"/>
-        <file category="source"  name="Template/file_user.c" attr="template" select="File System Retarget User Template"/>
+        <file category="source" name="Template/retarget_os.c" attr="template" select="OS Interface Custom Template"/>
       </files>
     </component>
-    <component Cclass="Compiler" Cgroup="I/O" Csub="File" Cvariant="File Interface" Cversion="1.0.0" condition="ARMCC Cortex-M IO File Interface">
-      <description>Redirect file operations to File Interface</description>
+    <component Cclass="Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Cversion="1.0.0" condition="ARMCC Cortex-M OS Interface CMSIS-RTOS2">
+      <description>C library OS interface implementation using CMSIS-RTOS2</description>
       <RTE_Components_h>
-        #define RTE_Compiler_IO_File            /* Compiler I/O: File */
-        #define RTE_Compiler_IO_File_Interface  /* Compiler I/O: File Interface */
+        #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
+        #define RTE_Compiler_OS_Interface_CMSIS_RTOS2 /* Compiler OS Interface: CMSIS-RTOS2 */
       </RTE_Components_h>
       <files>
-        <file category="header" name="Include/retarget_fs.h"/>
-        <file category="source" name="Source/retarget_io.c"/>
+        <file category="source" name="Source/retarget_os_rtos2.c"/>
       </files>
     </component>
   </components>
