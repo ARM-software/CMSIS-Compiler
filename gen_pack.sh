@@ -44,7 +44,6 @@ PACKCHK_ARGS=()
 # Specify additional dependencies for packchk
 PACKCHK_DEPS="
   ARM.CMSIS-View.pdsc
-  Keil.MDK-Middleware.pdsc
 "
 
 # Optional: restrict fallback modes for changelog generation

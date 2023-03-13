@@ -31,12 +31,13 @@
  
 #include "RTE_Components.h"
  
-#ifdef RTE_Compiler_IO_STDOUT_EVR
-#include "EventRecorder.h"
+#if defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface)
+#include <errno.h>
+#include "retarget_fs.h"
 #endif
  
-#ifdef RTE_Compiler_IO_File
-#include "retarget_fs.h"
+#ifdef RTE_Compiler_IO_STDOUT_EVR
+#include "EventRecorder.h"
 #endif
  
  
@@ -402,11 +403,12 @@ const char __stderr_name[] = ":STDERR";
 #ifdef RETARGET_SYS
 __attribute__((weak))
 FILEHANDLE _sys_open (const char *name, int openmode) {
-#if (!defined(RTE_Compiler_IO_File))
-  (void)openmode;
-#else
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
   int32_t mode;
   int32_t flag;
+  int32_t rval;
+#else
+  (void)openmode;
 #endif
  
   if (name == NULL) {
@@ -426,27 +428,37 @@ FILEHANDLE _sys_open (const char *name, int openmode) {
     return (-1);
   }
  
-#ifdef RTE_Compiler_IO_File
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
   /* Set the open mode flags */
   if ((openmode & (OPEN_R | OPEN_W | OPEN_A)) == OPEN_W) {
-    mode = FS_OPEN_WRONLY;
-    flag = FS_OPEN_CREATE | FS_OPEN_TRUNCATE;
+    mode = RT_OPEN_WRONLY;
+    flag = RT_OPEN_CREATE | RT_OPEN_TRUNCATE;
   }
   else if ((openmode & (OPEN_R | OPEN_W | OPEN_A)) == OPEN_A) {
-    mode = FS_OPEN_WRONLY;
-    flag = FS_OPEN_APPEND;
+    mode = RT_OPEN_WRONLY;
+    flag = RT_OPEN_APPEND;
   }
   else /* if ((openmode & (OPEN_R | OPEN_W | OPEN_A)) == OPEN_R) */ {
-    mode = FS_OPEN_RDONLY;
+    mode = RT_OPEN_RDONLY;
     flag = 0;
   }
-
+ 
   if ((openmode & OPEN_PLUS) == OPEN_PLUS) {
-    mode &= ~(FS_OPEN_RDONLY | FS_OPEN_WRONLY);
-    mode  = FS_OPEN_RDWR;
+    mode &= ~(RT_OPEN_RDONLY | RT_OPEN_WRONLY);
+    mode  = RT_OPEN_RDWR;
   }
-
-  return (fs_open(name, mode | flag));
+ 
+  rval = rt_fs_open(name, mode | flag);
+  if (rval < 0) {
+    errno = rval;
+    rval = -1;
+  }
+  return (rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
@@ -468,6 +480,9 @@ FILEHANDLE _sys_open (const char *name, int openmode) {
 #ifdef RETARGET_SYS
 __attribute__((weak))
 int _sys_close (FILEHANDLE fh) {
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
+  int32_t rval;
+#endif
  
   switch (fh) {
     case FH_STDIN:
@@ -478,8 +493,17 @@ int _sys_close (FILEHANDLE fh) {
       return (0);
   }
  
-#ifdef RTE_Compiler_IO_File
-  return (fs_close(fh));
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
+  rval = rt_fs_close(fh);
+  if (rval < 0) {
+    errno = rval;
+  }
+  return (rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
@@ -510,7 +534,10 @@ __attribute__((weak))
 int _sys_write (FILEHANDLE fh, const uint8_t *buf, uint32_t len, int mode) {
 #if (defined(RTE_Compiler_IO_STDOUT) || defined(RTE_Compiler_IO_STDERR))
   int ch;
-#elif (!defined(RTE_Compiler_IO_File))
+#endif
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
+  int32_t rval;
+#else
   (void)buf;
   (void)len;
 #endif
@@ -543,8 +570,19 @@ int _sys_write (FILEHANDLE fh, const uint8_t *buf, uint32_t len, int mode) {
       return (0);
   }
  
-#ifdef RTE_Compiler_IO_File
-  return ((int32_t)len - fs_write(fh, buf, len));
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
+  rval = rt_fs_write(fh, buf, len);
+  if (rval < 0) {
+    errno = rval;
+  } else {
+    rval = (int32_t)len - rval;
+  }
+  return (rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
@@ -584,7 +622,10 @@ __attribute__((weak))
 int _sys_read (FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode) {
 #ifdef RTE_Compiler_IO_STDIN
   int ch;
-#elif (!defined(RTE_Compiler_IO_File))
+#endif
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
+  int32_t rval;
+#else
   (void)buf;
   (void)len;
 #endif
@@ -612,8 +653,21 @@ int _sys_read (FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode) {
       return (-1);
   }
  
-#ifdef RTE_Compiler_IO_File
-  return (fs_read(fh, buf, len));
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
+  rval = rt_fs_read(fh, buf, len);
+  if (rval < 0) {
+    errno = rval;
+  } else if (rval == 0) {
+    rval |= 0x80000000;
+  } else {
+    rval = (int32_t)len - rval;
+  }
+  return (rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
@@ -705,7 +759,9 @@ int _sys_istty (FILEHANDLE fh) {
 #ifdef RETARGET_SYS
 __attribute__((weak))
 int _sys_seek (FILEHANDLE fh, long pos) {
-#if (!defined(RTE_Compiler_IO_File))
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
+  int64_t rval;
+#else
   (void)pos;
 #endif
  
@@ -718,8 +774,17 @@ int _sys_seek (FILEHANDLE fh, long pos) {
       return (-1);
   }
  
-#ifdef RTE_Compiler_IO_File
-  return ((int)fs_seek(fh, (int64_t)pos, FS_SEEK_SET));
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
+  rval = rt_fs_seek(fh, (int64_t)pos, RT_SEEK_SET);
+  if (rval < 0) {
+    errno = (int)rval;
+  }
+  return ((int)rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
@@ -745,6 +810,9 @@ int _sys_seek (FILEHANDLE fh, long pos) {
 #ifdef RETARGET_SYS
 __attribute__((weak))
 long _sys_flen (FILEHANDLE fh) {
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
+  int64_t rval;
+#endif
  
   switch (fh) {
     case FH_STDIN:
@@ -755,8 +823,22 @@ long _sys_flen (FILEHANDLE fh) {
       return (0);
   }
  
-#ifdef RTE_Compiler_IO_File
-  return ((long)fs_size(fh));
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
+  rval = rt_fs_size(fh);
+  if (rval < 0) {
+    errno = (int)rval;
+  } else {
+    if (rval > INT32_MAX) {
+      errno = (int)RT_ERR_OVERFLOW;
+      rval = -1;
+    }
+  }
+  return ((long)rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif

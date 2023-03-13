@@ -17,6 +17,8 @@
  */
 
 #include <assert.h>
+#include "retarget_os.h"
+
 #include "cmsis_os2.h"
 #include "cmsis_compiler.h"
 
