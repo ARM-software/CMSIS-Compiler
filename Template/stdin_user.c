@@ -22,6 +22,7 @@
  * limitations under the License.
  */
  
+#include "retarget_stdin.h" 
  
 /**
   Get a character from stdin

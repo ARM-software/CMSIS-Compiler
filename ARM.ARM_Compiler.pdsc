@@ -152,6 +152,7 @@
         #define RTE_Compiler_IO_STDIN_User      /* Compiler I/O: STDIN User */
       </RTE_Components_h>
       <files>
+        <file category="header" name="Include/retarget_stdin.h"/>
         <file category="source" name="Source/retarget_io.c"/>
         <file category="source" name="Template/stdin_user.c"     attr="template" select="STDIN User Template"/>
         <file category="source" name="Template/stdin_USART.c"    attr="template" select="STDIN via USART"/>
@@ -195,6 +196,7 @@
         #define RTE_Compiler_IO_STDOUT_User     /* Compiler I/O: STDOUT User */
       </RTE_Components_h>
       <files>
+        <file category="header" name="Include/retarget_stdout.h"/>
         <file category="source" name="Source/retarget_io.c"/>
         <file category="source" name="Template/stdout_user.c"    attr="template" select="STDOUT User Template"/>
         <file category="source" name="Template/stdout_USART.c"   attr="template" select="STDOUT via USART"/>
@@ -228,6 +230,7 @@
         #define RTE_Compiler_IO_STDERR_User     /* Compiler I/O: STDERR User */
       </RTE_Components_h>
       <files>
+        <file category="header" name="Include/retarget_stderr.h"/>
         <file category="source" name="Source/retarget_io.c"/>
         <file category="source" name="Template/stderr_user.c"    attr="template" select="STDERR User Template"/>
         <file category="source" name="Template/stderr_USART.c"   attr="template" select="STDERR via USART"/>
@@ -261,6 +264,7 @@
         #define RTE_Compiler_IO_TTY_User        /* Compiler I/O: TTY User */
       </RTE_Components_h>
       <files>
+        <file category="header" name="Include/retarget_tty.h"/>
         <file category="source" name="Source/retarget_io.c"/>
         <file category="source" name="Template/tty_user.c" attr="template" select="TTY User Template"/>
       </files>

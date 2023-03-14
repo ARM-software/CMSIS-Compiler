@@ -1,6 +1,6 @@
 /*-----------------------------------------------------------------------------
- * Name:    stdout_user.c
- * Purpose: STDOUT User Template
+ * Name:    tty_user.c
+ * Purpose: TTY User Template
  * Rev.:    1.0.0
  *-----------------------------------------------------------------------------*/
  
@@ -22,6 +22,7 @@
  * limitations under the License.
  */
  
+#include "retarget_tty.h"
  
 /**
   Put a character to the teletypewritter

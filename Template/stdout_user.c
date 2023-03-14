@@ -22,6 +22,7 @@
  * limitations under the License.
  */
  
+#include "retarget_stdout.h"
  
 /**
   Put a character to the stdout
