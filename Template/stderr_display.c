@@ -22,6 +22,7 @@
  * limitations under the License.
  */
  
+#include "retarget_stderr.h"
 #include "GUI.h"
  
  

@@ -22,7 +22,7 @@
  * limitations under the License.
  */
  
- 
+#include "retarget_stderr.h"
 #include "Driver_USART.h"
  
 //-------- <<< Use Configuration Wizard in Context Menu >>> --------------------

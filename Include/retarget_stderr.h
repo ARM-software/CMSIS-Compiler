@@ -1,9 +1,3 @@
-/*-----------------------------------------------------------------------------
- * Name:    stdout_display.c
- * Purpose: STDOUT Display Template
- * Rev.:    1.0.0
- *-----------------------------------------------------------------------------*/
- 
 /*
  * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.
  *
@@ -21,36 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-#include "retarget_stdout.h"
-#include "GUI.h"
- 
- 
+
 /**
-  Initialize stdout
+  Initialize stderr
  
   \return          0 on success, or -1 on error.
 */
-int stdout_init (void) {
- 
-  GUI_Init();
- 
-  GUI_SetBkColor(GUI_BLACK);
-  GUI_Clear();
- 
-  GUI_SetColor(GUI_WHITE);
- 
-  return (0);
-}
- 
- 
+int stderr_init (void);
+
 /**
-  Put a character to the stdout
+  Put a character to the stderr
  
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */
-int stdout_putchar (int ch) {
-  GUI_DispChar((unsigned short)ch);
-  return (ch);
-}
+int stderr_putchar (int ch);
