@@ -4,9 +4,10 @@
   <name>ARM_Compiler</name>
   <description> ARM Compiler extensions for ARM Compiler 5 and ARM Compiler 6</description>
   <url>https://www.keil.com/pack/</url>
+  <repository type="git">https://github.com/ARM-software/CMSIS-ARM_Compiler.git</repository>
 
   <releases>
-    <release version="1.0.0">
+    <release version="0.0.0">
       Active Development ...
     </release>
   </releases>
@@ -79,7 +80,7 @@
     <api Cclass="Compiler" Cgroup="File Interface" Capiversion="1.0.0" exclusive="1" condition="ARMCC Cortex-M">
       <description>File Operations Retarget Interface for Arm Compiler</description>
       <files>
-        <file category="doc" name="Documentation/fs_api.html" />
+        <!-- <file category="doc" name="Documentation/fs_api.html" /> -->
         <file category="header" name="Include/retarget_fs.h" />
       </files>
     </api>
@@ -87,7 +88,7 @@
     <api Cclass="Compiler" Cgroup="OS Interface" Capiversion="1.0.0" exclusive="1" condition="ARMCC Cortex-M">
       <description>OS Retarget Interface for Arm Compiler</description>
       <files>
-        <file category="doc" name="Documentation/os_api.html" />
+        <!-- <file category="doc" name="Documentation/os_api.html" /> -->
         <file category="header" name="Include/retarget_os.h" />
       </files>
     </api>
