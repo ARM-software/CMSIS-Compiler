@@ -94,7 +94,7 @@
   </apis>
 
   <components>
-    <component Cclass="Compiler" Cgroup="File Interface" Csub="Custom" Cversion="1.0.0" condition="ARMCC Cortex-M File Interface">
+    <component Cclass="Compiler" Cgroup="File Interface" Csub="Custom" Capiversion="1.0.0" Cversion="1.0.0" custom="1" condition="ARMCC Cortex-M File Interface">
       <description>Access to #include retarget_fs.h and code template for custom implementation</description>
       <RTE_Components_h>
         #define RTE_Compiler_File_Interface     /* Compiler File Interface */
@@ -266,7 +266,7 @@
       </files>
     </component>
 
-    <component Cclass="Compiler" Cgroup="OS Interface" Csub="Custom" Cversion="1.0.0" condition="ARMCC Cortex-M">
+    <component Cclass="Compiler" Cgroup="OS Interface" Csub="Custom" Capiversion="1.0.0" Cversion="1.0.0" custom="1" condition="ARMCC Cortex-M">
       <description>Access to #include retarget_os.h and code template for custom implementation</description>
       <RTE_Components_h>
         #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
@@ -276,7 +276,7 @@
         <file category="source" name="Template/retarget_os.c" attr="template" select="OS Interface Custom Template"/>
       </files>
     </component>
-    <component Cclass="Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Cversion="1.0.0" condition="ARMCC Cortex-M OS Interface CMSIS-RTOS2">
+    <component Cclass="Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Capiversion="1.0.0" Cversion="1.0.0" condition="ARMCC Cortex-M OS Interface CMSIS-RTOS2">
       <description>C library OS interface implementation using CMSIS-RTOS2</description>
       <RTE_Components_h>
         #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
