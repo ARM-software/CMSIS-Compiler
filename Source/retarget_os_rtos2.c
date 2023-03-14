@@ -95,31 +95,18 @@ void *__user_perthread_libspace (void) {
   return libspace;
 }
 
-/* Mutex identifier */
-typedef void *mutex;
+/* Define retarget mutex structure to hold mutex identifier */
+struct rt_mutex_s {
+  osMutexId_t id;
+};
 
-/* Mutex function prototypes */
-__USED int  _mutex_initialize(mutex *m);
-__USED void _mutex_acquire   (mutex *m);
-__USED void _mutex_release   (mutex *m);
-__USED void _mutex_free      (mutex *m);
-
-
-/*
-  Initialize mutex
-
-  This function accepts a pointer to a pointer-sized word and initializes it as
-  a valid mutex. By default, _mutex_initialize() returns zero for a nonthreaded
-  application. Therefore, in a multithreaded application, _mutex_initialize()
-  must return a nonzero value on success so that at runtime, the library knows
-  that it is being used in a multithreaded environment.
-  Ensure that _mutex_initialize() initializes the mutex to an unlocked state.
-*/
-int _mutex_initialize(mutex *m) {
+/* Initialize mutex */
+__USED int _mutex_initialize(rt_mutex_t *mutex) {
   int result;
 
-  *m = osMutexNew(NULL);
-  if (*m != NULL) {
+  mutex->id = osMutexNew(NULL);
+
+  if (mutex->id != NULL) {
     result = 1;
   } else {
     result = 0;
@@ -127,43 +114,23 @@ int _mutex_initialize(mutex *m) {
   return result;
 }
 
-/*
-  Acquire mutex
-
-  This function causes the calling thread to obtain a lock on the supplied mutex.
-  _mutex_acquire() returns immediately if the mutex has no owner. If the mutex
-  is owned by another thread, _mutex_acquire() must block until it becomes available.
-  _mutex_acquire() is not called by the thread that already owns the mutex.
-*/
-void _mutex_acquire(mutex *m) {
+/* Acquire mutex */
+__USED void _mutex_acquire(rt_mutex_t *mutex) {
   if (os_kernel_is_active() != 0U) {
-    (void)osMutexAcquire(*m, osWaitForever);
+    (void)osMutexAcquire(mutex->id, osWaitForever);
   }
 }
 
-/*
-  Release mutex
-
-  This function causes the calling thread to release the lock on a mutex acquired
-  by _mutex_acquire(). The mutex remains in existence, and can be re-locked by a
-  subsequent call to mutex_acquire(). _mutex_release() assumes that the mutex is
-  owned by the calling thread.
-*/
-void _mutex_release(mutex *m) {
+/* Release mutex */
+__USED void _mutex_release(rt_mutex_t *mutex) {
   if (os_kernel_is_active() != 0U) {
-    (void)osMutexRelease(*m);
+    (void)osMutexRelease(mutex->id);
   }
 }
 
-/*
-  Free mutex
-
-  This function causes the calling thread to free the supplied mutex. Any operating
-  system resources associated with the mutex are freed. The mutex is destroyed and
-  cannot be reused. _mutex_free() assumes that the mutex is owned by the calling thread.
-*/
-void _mutex_free(mutex *m) {
-  (void)osMutexDelete(*m);
+/* Free mutex */
+__USED void _mutex_free(rt_mutex_t *mutex) {
+  (void)osMutexDelete(mutex->id);
 }
-#endif /* RTE_CMSIS_RTOS2_RTX5 */
+#endif
 #endif
