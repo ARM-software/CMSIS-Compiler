@@ -43,6 +43,7 @@ PACKCHK_ARGS=()
 
 # Specify additional dependencies for packchk
 PACKCHK_DEPS="
+  ARM.CMSIS.pdsc
   ARM.CMSIS-View.pdsc
 "
 
