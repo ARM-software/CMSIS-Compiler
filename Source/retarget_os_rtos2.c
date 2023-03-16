@@ -45,20 +45,47 @@ __attribute__((section(".bss.os.libspace")));
 static osThreadId_t os_libspace_id[OS_THREAD_LIBSPACE_NUM] \
 __attribute__((section(".bss.os.libspace")));
 
-/* Check if Kernel has been started */
-static uint32_t os_kernel_is_active (void) {
-  static uint8_t os_kernel_active = 0U;
-
-  if (os_kernel_active == 0U) {
-    if (osKernelGetState() > osKernelReady) {
-      os_kernel_active = 1U;
-    }
+/* Check if the kernel has been initialized */
+static uint32_t os_kernel_is_init (void) {
+  if (osKernelGetState() > osKernelInactive) {
+    return 1U;
+  } else {
+    return 0U;
   }
-  return (uint32_t)os_kernel_active;
 }
 
-/* Per-thread libspace retrieve function prototype */
-void *__user_perthread_libspace (void);
+/* Check if the kernel has been started */
+static uint32_t os_kernel_is_active (void) {
+  if (osKernelGetState() > osKernelReady) {
+    return 1U;
+  } else {
+    return 0U;
+  }
+}
+
+/* Check if the kernel is running */
+static uint32_t os_kernel_is_running (void) {
+  if (osKernelGetState() == osKernelRunning) {
+    return 1U;
+  } else {
+    return 0U;
+  }
+}
+
+/* Check if processor is in Thread or Handler mode */
+static uint32_t is_thread_mode (void) {
+  if (__get_IPSR() == 0U) {
+    return 1U; /* Thread mode  */
+  } else {
+    return 0U; /* Handler mode */
+  }
+}
+
+extern void _platform_post_stackheap_init (void);
+__WEAK void _platform_post_stackheap_init (void) {
+  (void)osKernelInitialize();
+}
+
 
 /*
   Retrieve thread local storage
@@ -72,7 +99,7 @@ void *__user_perthread_libspace (void) {
   uint32_t     n;
   void        *libspace;
 
-  if (os_kernel_is_active() != 0U) {
+  if (os_kernel_is_active()) {
     libspace = NULL;
     id = osThreadGetId();
 
@@ -101,28 +128,28 @@ struct rt_mutex_s {
 
 /* Initialize mutex */
 __USED int _mutex_initialize(rt_mutex_t *mutex) {
-  int result;
+  int result = 0;
 
-  mutex->id = osMutexNew(NULL);
+  if (os_kernel_is_init()) {
+    mutex->id = osMutexNew(NULL);
 
-  if (mutex->id != NULL) {
-    result = 1;
-  } else {
-    result = 0;
+    if (mutex->id != NULL) {
+      result = 1;
+    }
   }
   return result;
 }
 
 /* Acquire mutex */
 __USED void _mutex_acquire(rt_mutex_t *mutex) {
-  if (os_kernel_is_active() != 0U) {
+  if (os_kernel_is_running() && is_thread_mode()) {
     (void)osMutexAcquire(mutex->id, osWaitForever);
   }
 }
 
 /* Release mutex */
 __USED void _mutex_release(rt_mutex_t *mutex) {
-  if (os_kernel_is_active() != 0U) {
+  if (os_kernel_is_running() && is_thread_mode()) {
     (void)osMutexRelease(mutex->id);
   }
 }
