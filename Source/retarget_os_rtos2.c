@@ -24,9 +24,8 @@
 
 #include "RTE_Components.h"
 
-#if (( defined(__CC_ARM) ||                                          \
-      (defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050))) && \
-      !defined(__MICROLIB))
+/* Microlib does not support operating system functions */
+#if !defined(__MICROLIB)
 
 #if !(defined(RTE_CMSIS_RTOS2_RTX5) || defined(RTE_CMSIS_RTOS2_FreeRTOS)) || defined(RTE_RETARGET_OS_Interface_RTOS2_ENABLE)
 
