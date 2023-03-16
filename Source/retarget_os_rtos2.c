@@ -28,7 +28,7 @@
       (defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050))) && \
       !defined(__MICROLIB))
 
-#ifndef RTE_CMSIS_RTOS2_RTX5
+#if !(defined(RTE_CMSIS_RTOS2_RTX5) || defined(RTE_CMSIS_RTOS2_FreeRTOS)) || defined(RTE_RETARGET_OS_Interface_RTOS2_ENABLE)
 
 /* Number of Threads which use standard C/C++ library libspace */
 #ifndef OS_THREAD_LIBSPACE_NUM
