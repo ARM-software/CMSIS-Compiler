@@ -467,7 +467,7 @@ gets included by the file \b %retarget_io.c, is configured automatically and set
 variants selected in the RTE. \ref variant_User "User code templates" are available that help you to implement your own
 functionality.
 
-\include retarget_io.c
+\include armcc/retarget_io.c
 */
 
 

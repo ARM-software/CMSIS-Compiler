@@ -20,10 +20,10 @@ PACK_BUILD=./build
 
 # Specify directory names to be added to pack base directory
 PACK_DIRS="
-  Documentation
-  Include
-  Source
-  Template
+  documentation
+  include
+  source
+  template
 "
 
 # Specify file names to be added to pack base directory

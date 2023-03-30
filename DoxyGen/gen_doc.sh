@@ -80,8 +80,8 @@ echo "\"${DOXYGEN}\" RetargetIO.dxy"
 "${DOXYGEN}" RetargetIO.dxy
 
 if [[ $2 != 0 ]]; then
-  mkdir -p "${DIRNAME}/../Documentation/html/search/"
-  cp -f "${DIRNAME}/templates/search.css" "${DIRNAME}/../Documentation/html/search/"
+  mkdir -p "${DIRNAME}/../documentation/html/search/"
+  cp -f "${DIRNAME}/templates/search.css" "${DIRNAME}/../documentation/html/search/"
 fi
 
 projectName=$(grep -E "PROJECT_NAME\s+=" RetargetIO.dxy | sed -r -e 's/[^"]*"([^"]+)".*/\1/')
@@ -92,7 +92,7 @@ sed -e "s/{datetime}/${datetime}/" "${DIRNAME}/templates/footer.js.in" \
   | sed -e "s/{projectName}/${projectName//\//\\\/}/" \
   | sed -e "s/{projectNumber}/${VERSION}/" \
   | sed -e "s/{projectNumberFull}/${VERSION_FULL}/" \
-  > "${DIRNAME}/../Documentation/html/footer.js"
+  > "${DIRNAME}/../documentation/html/footer.js"
 
 popd  > /dev/null
 

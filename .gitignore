@@ -1,3 +1,6 @@
-Documentation/html
-DoxyGen/RetargetIO.dxy
-DoxyGen/src/history.txt
+documentation/html
+doxygen/RetargetIO.dxy
+doxygen/src/history.txt
+output
+build
+*.bak
