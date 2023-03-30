@@ -1,4 +1,4 @@
-# ARM Compiler Support
+# CMSIS-Compiler Support
 
 TBD
 
@@ -7,10 +7,11 @@ TBD
 ```txt
     📦
     ┣ 📂 .github          GitHub Action workflow and configuration
-    ┣ 📂 Documentation    Target directory for generated documentation
-    ┣ 📂 DoxyGen          Source directory for documentation
-    ┣ 📂 Source           Source code of software components
-    ┗ 📂 Template         User code templates
+    ┣ 📂 documentation    Target directory for generated documentation
+    ┣ 📂 doxygen          Source directory for documentation
+    ┣ 📂 include          Include header files of software components
+    ┣ 📂 source           Source code of software components
+    ┗ 📂 template         User code templates
 ```
 
 ## Generating Software Pack
@@ -22,7 +23,7 @@ Some helper scripts are provided to generate the release artifacts from this rep
 Generating the HTML-formatted documentation from its Doxygen-based source is done via
 
 ```bash
-CMSIS-ARM_Compiler $ ./DoxyGen/gen_doc.sh
+CMSIS-Comiler $ ./DoxyGen/gen_doc.sh
 ```
 
 Prerequisites for this script to succeed are:
@@ -33,7 +34,7 @@ Prerequisites for this script to succeed are:
 The CMSIS-Pack bundle can be generated with
 
 ```bash
-CMSIS-ARM_Compiler $ ./gen_pack.sh
+CMSIS-Comiler $ ./gen_pack.sh
 ```
 
 Prerequisites for this script to succeed are:
@@ -48,30 +49,6 @@ The version and changelog embedded into the documentation and pack are inferred 
 local Git history. In order to get the full changelog one needs to have a full clone (not
 a shallow one) including all release tags.
 
-One can check the inferred version by calling the helper script:
-
-```bash
-CMSIS-ARM_Compiler $ ./Scripts/git_describe.sh
-Git version: '1.0.1-dev5+g6a00f35'
-1.0.1-dev5+g6a00f35
-^ ^ ^    ^ ^
-| | |    | ┗ Commit SHA of the commit used for generation
-| | |    ┗ Number of commits added since latest tag
-| | ┗ Patch version from the latest tag incremented by one
-| ┗ Minor version as in the latest tag
-┗ Major version as in the latest tag
-```
-
-The full changelog can be inspected by calling the helper script:
-
-```bash
-CMSIS-ARM_Compiler $ ./Scripts/gen_changelog.sh [-h] [-f <format>]
-Generating changelog ...
-Git version: '1.2.4-dev5+g6a00f35'
-1.0.0 (2023-01-28)
-Initial release as drop-in replacement for Keil.ARM_Compiler.pack
-```
-
 The version numbers are taken from the available tags. The shown release dates and
 changelogs are one of:
 
@@ -80,7 +57,7 @@ changelogs are one of:
 
 ## License
 
-CMSIS-ARM_Compiler is licensed under Apache 2.0.
+CMSIS-Comiler is licensed under Apache 2.0.
 
 ## Contributions and Pull Requests
 
