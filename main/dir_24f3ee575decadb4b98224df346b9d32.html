@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-Compiler Support: Retarget STDOUT via Event Recorder</title>
+<title>CMSIS-Compiler Support: src Directory Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,7 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('Retarget_Examples_er.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('dir_24f3ee575decadb4b98224df346b9d32.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -103,76 +103,16 @@ $(document).ready(function(){initNavTree('Retarget_Examples_er.html',''); initRe
 </iframe>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">Retarget STDOUT via Event Recorder </div></div>
+<div class="header">
+  <div class="headertitle"><div class="title">src Directory Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p >Copy the <b>SCVD</b> <b>printf</b> <b>Redirect</b> <b>Example</b> application for the µVision Simulator to your PC using Pack Installer. This simple application is already set to redirect printf output on an Arm Cortex-M0 to the Event Recorder.</p>
-<p >To retarget STDOUT to the <a href="../../EventRecorder/html/index.html">Event Recorder</a> in a user application, these steps are required:</p><ol type="1">
-<li>In the Manage Run-Time Environment window, set the component <b>Compiler:I/O:STDOUT</b> to use <b>Variant</b> <em>EVR</em>.</li>
-<li>Select the component <b>Compiler:Event Recorder</b> or use the <b>Resolve</b> button. <div class="image">
-<img src="er_comp_selection.png" alt=""/>
-</div>
-</li>
-<li>In the user code, include <code>EventRecorder.h</code> and call the <code>EventRecorderInitialize()</code> function in main(): <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;cmsis_os2.h&quot;</span>                  <span class="comment">// ARM::CMSIS:RTOS2:Keil RTX5</span></div>
-<div class="line"><span class="preprocessor">#include &quot;stdio.h&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;EventRecorder.h&quot;</span>              <span class="comment">// Keil.ARM Compiler::Compiler:Event Recorder</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line">  uint32_t hi;</div>
-<div class="line">  uint32_t low;</div>
-<div class="line">} MyType;</div>
-<div class="line"> </div>
-<div class="line">MyType mysymbol;</div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div>
-<div class="line">  <span class="keywordtype">int</span>       i;</div>
-<div class="line">  EventRecorderInitialize(EventRecordAll, 1);</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">while</span> (1) {</div>
-<div class="line">    <span class="keywordflow">for</span>( i=0; i&lt;=30; i++ ) {</div>
-<div class="line">      printf(<span class="stringliteral">&quot;The value of i is %d\n&quot;</span>, i);</div>
-<div class="line">      mysymbol.hi = i*i;</div>
-<div class="line">      mysymbol.low = i;</div>
-<div class="line">    }</div>
-<div class="line">  }</div>
-<div class="line">}</div>
-</div><!-- fragment --></li>
-<li>(For simulation only!) Open the target options dialog and add a Debug.ini file to simulate the DWT Cycle Counter: <div class="fragment"><div class="line">MAP 0xE0001000, 0xE0001007 READ WRITE</div>
-<div class="line"> </div>
-<div class="line">signal <span class="keywordtype">void</span> DWT_CYCCNT (<span class="keywordtype">void</span>) {</div>
-<div class="line">  <span class="keywordflow">while</span> (1) {</div>
-<div class="line">    rwatch(0xE0001004);</div>
-<div class="line">    _WWORD(0xE0001004, states);</div>
-<div class="line">  }</div>
-<div class="line">}</div>
-<div class="line"> </div>
-<div class="line">DWT_CYCCNT()</div>
-</div><!-- fragment --></li>
-</ol>
-<p >Build and run the project. Open the <b>Debug (printf) Viewer</b> window using View - Serial Windows - Debug (printf) Viewer. The printf output will be shown here:</p>
-<div class="image">
-<img src="debug_printf_output.png" alt=""/>
-</div>
-<p >If you are using the Event Recorder window at the same time, you will notice that it also shows the printf output, just with hexadecimal display:</p>
-<div class="image">
-<img src="er_printf_output.png" alt=""/>
-</div>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<ul>
-<li>If your output is garbled, you might want to consider increasing the buffer size for the Event Recorder.</li>
-<li>The Event Recorder window will display missed events to notify you about buffer size problems. <div class="image">
-<img src="garbled_output.png" alt=""/>
-</div>
- <br  />
- </li>
-</ul>
-</div></div><!-- contents -->
-</div><!-- PageDoc -->
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_24f3ee575decadb4b98224df346b9d32.html">src</a></li>
     <li class="footer">
       <script type="text/javascript">
         <!--

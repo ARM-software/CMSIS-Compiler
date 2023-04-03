@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['examples_0',['Examples',['../Retarget_Examples.html',1,'']]]
+  ['cmsis_2dcompiler_20support_0',['CMSIS-Compiler Support',['../index.html',1,'']]]
 ];

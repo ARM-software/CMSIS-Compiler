@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "I/O Retargeting", "index.html", [
+  [ "CMSIS-Compiler Support", "index.html", [
     [ "Overview", "Retarget_Overview.html", [
       [ "Semihosting", "Retarget_Overview.html#autotoc_md0", null ]
     ] ],

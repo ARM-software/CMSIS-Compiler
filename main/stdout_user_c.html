@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>I/O Retargeting: stdout_user.c File</title>
+<title>CMSIS-Compiler Support: stdout_user.c File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
  <tr style="height: 55px;">
   <td id="projectlogo" style="padding: 1.5em;"><img alt="Logo" src="cmsis_logo_white_small.png"/></td>
   <td style="padding-left: 1em; padding-bottom: 1em;padding-top: 1em;">
-   <div id="projectname">I/O Retargeting
+   <div id="projectname">CMSIS-Compiler Support
    &#160;<span id="projectnumber"><script type="text/javascript">
      <!--
      writeHeader.call(this);
@@ -113,33 +113,25 @@ $(document).ready(function(){initNavTree('stdout_user_c.html',''); initResizable
 <div class="line"><span class="comment"> * Rev.:    1.0.0</span></div>
 <div class="line"><span class="comment"> *-----------------------------------------------------------------------------*/</span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">/* Copyright (c) 2013 - 2015 ARM LIMITED</span></div>
-<div class="line"><span class="comment"> </span></div>
-<div class="line"><span class="comment">   All rights reserved.</span></div>
-<div class="line"><span class="comment">   Redistribution and use in source and binary forms, with or without</span></div>
-<div class="line"><span class="comment">   modification, are permitted provided that the following conditions are met:</span></div>
-<div class="line"><span class="comment">   - Redistributions of source code must retain the above copyright</span></div>
-<div class="line"><span class="comment">     notice, this list of conditions and the following disclaimer.</span></div>
-<div class="line"><span class="comment">   - Redistributions in binary form must reproduce the above copyright</span></div>
-<div class="line"><span class="comment">     notice, this list of conditions and the following disclaimer in the</span></div>
-<div class="line"><span class="comment">     documentation and/or other materials provided with the distribution.</span></div>
-<div class="line"><span class="comment">   - Neither the name of ARM nor the names of its contributors may be used</span></div>
-<div class="line"><span class="comment">     to endorse or promote products derived from this software without</span></div>
-<div class="line"><span class="comment">     specific prior written permission.</span></div>
-<div class="line"><span class="comment">   *</span></div>
-<div class="line"><span class="comment">   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;</span></div>
-<div class="line"><span class="comment">   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span></div>
-<div class="line"><span class="comment">   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</span></div>
-<div class="line"><span class="comment">   ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDERS AND CONTRIBUTORS BE</span></div>
-<div class="line"><span class="comment">   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span></div>
-<div class="line"><span class="comment">   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span></div>
-<div class="line"><span class="comment">   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS</span></div>
-<div class="line"><span class="comment">   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN</span></div>
-<div class="line"><span class="comment">   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)</span></div>
-<div class="line"><span class="comment">   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span></div>
-<div class="line"><span class="comment">   POSSIBILITY OF SUCH DAMAGE.</span></div>
-<div class="line"><span class="comment">   ---------------------------------------------------------------------------*/</span></div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment"> * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * SPDX-License-Identifier: Apache-2.0</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * Licensed under the Apache License, Version 2.0 (the License); you may</span></div>
+<div class="line"><span class="comment"> * not use this file except in compliance with the License.</span></div>
+<div class="line"><span class="comment"> * You may obtain a copy of the License at</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><span class="comment"> * distributed under the License is distributed on an AS IS BASIS, WITHOUT</span></div>
+<div class="line"><span class="comment"> * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><span class="comment"> * See the License for the specific language governing permissions and</span></div>
+<div class="line"><span class="comment"> * limitations under the License.</span></div>
+<div class="line"><span class="comment"> */</span></div>
 <div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &quot;retarget_stdout.h&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> stdout_putchar (<span class="keywordtype">int</span> ch) {</div>
 <div class="line">  <span class="comment">// ...</span></div>
