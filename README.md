@@ -1,6 +1,8 @@
 # CMSIS-Compiler Support
 
-TBD
+## About
+
+The software component **Compiler** allows you to retarget I/O functions of the standard C run-time library based on the C compiler that you are using in your project.
 
 ## Repository top level structure
 
