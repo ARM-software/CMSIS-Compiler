@@ -482,4 +482,21 @@
       </files>
     </component>
   </components>
+
+  <examples>
+    <example name="retarget" folder="example" doc="README.md">
+      <description>Simple example retargeting stdout to USART.</description>
+      <board name="V2M-MPS2" vendor="ARM"/>
+      <project>
+        <environment name="cmsis" load="retarget.csolution.yml"/>
+      </project>
+      <attributes>
+        <category>Getting Started</category>
+        <component Cclass="CMSIS" Cgroup="CORE"/>
+        <component Cclass="Device" Cgroup="Startup"/>
+        <component Cclass="CMSIS Driver" Cgroup="USART"/>
+        <component Cclass="CMSIS-Compiler" Cgroup="I/O"/>
+      </attributes>
+      </example>
+  </examples>
 </package>

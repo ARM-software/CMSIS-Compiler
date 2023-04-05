@@ -4,3 +4,12 @@ doxygen/src/history.txt
 output
 build
 *.bak
+
+example/out
+example/tmp
+example/RTE/_**/*
+example/RTE/**/*.base@*
+
+*.cbuild-idx.yml
+*.cbuild.yml
+*.cprj

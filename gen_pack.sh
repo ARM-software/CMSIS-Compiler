@@ -21,6 +21,7 @@ PACK_BUILD=./build
 # Specify directory names to be added to pack base directory
 PACK_DIRS="
   documentation
+  example
   include
   source
   template
@@ -45,6 +46,7 @@ PACKCHK_ARGS=()
 PACKCHK_DEPS="
   ARM.CMSIS.pdsc
   ARM.CMSIS-View.pdsc
+  Keil.V2M-MPS2_CMx_BSP.pdsc
 "
 
 # Optional: restrict fallback modes for changelog generation
