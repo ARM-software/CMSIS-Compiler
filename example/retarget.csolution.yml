@@ -1,0 +1,22 @@
+solution:
+
+  packs:
+    - pack: ARM::CMSIS
+    - pack: ARM::CMSIS-Compiler
+    - pack: Keil::V2M-MPS2_CMx_BSP
+
+  target-types:
+    - type: VHT
+      device: CMSDK_CM3_VHT
+
+  build-types:
+    - type: Debug
+      debug: on
+      optimize: none
+
+    - type: Release
+      debug: off
+      optimize: size
+
+  projects:
+    - project: ./retarget.cproject.yml
