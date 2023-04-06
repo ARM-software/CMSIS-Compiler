@@ -13,3 +13,4 @@ example/RTE/**/*.base@*
 *.cbuild-idx.yml
 *.cbuild.yml
 *.cprj
+.clangd
