@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['retarget_20input_20and_20output_20via_20uart_0',['Retarget Input and Output via UART',['../Retarget_Examples_UART.html',1,'Retarget_Examples']]],
-  ['retarget_20input_20via_20keyboard_20and_20output_20via_20display_1',['Retarget Input via Keyboard and Output via Display',['../Retarget_Examples_Dsip.html',1,'Retarget_Examples']]],
-  ['retarget_20output_20via_20itm_2',['Retarget Output via ITM',['../Retarget_Examples_ITM.html',1,'Retarget_Examples']]],
-  ['retarget_20stdout_20via_20event_20recorder_3',['Retarget STDOUT via Event Recorder',['../Retarget_Examples_er.html',1,'Retarget_Examples']]],
-  ['retarget_20variant_20_22user_22_4',['Retarget Variant &quot;User&quot;',['../variant_User.html',1,'Retarget_Details']]],
-  ['retarget_5fio_2ec_20file_5',['retarget_io.c File',['../retarget_io_c.html',1,'Retarget_Files']]],
-  ['retargeting_20channels_20and_20variants_6',['Retargeting Channels and Variants',['../Retarget_Details.html',1,'']]],
-  ['revision_20history_7',['Revision History',['../rev_hist.html',1,'']]]
+  ['stderr_5fdisplay_2ec_20file_0',['stderr_display.c File',['../stderr_display_c.html',1,'Retarget_Files']]],
+  ['stderr_5fusart_2ec_20file_1',['stderr_USART.c File',['../stderr_USART_c.html',1,'Retarget_Files']]],
+  ['stderr_5fuser_2ec_20file_2',['stderr_user.c File',['../stderr_user_c.html',1,'Retarget_Files']]],
+  ['stdin_5fkeyboard_2ec_20file_3',['stdin_keyboard.c File',['../stdin_keyboard_c.html',1,'Retarget_Files']]],
+  ['stdin_5fusart_2ec_20file_4',['stdin_USART.c File',['../stdin_USART_c.html',1,'Retarget_Files']]],
+  ['stdin_5fuser_2ec_20file_5',['stdin_user.c File',['../stdin_user_c.html',1,'Retarget_Files']]],
+  ['stdout_5fdisplay_2ec_20file_6',['stdout_display.c File',['../stdout_display_c.html',1,'Retarget_Files']]],
+  ['stdout_5fusart_2ec_20file_7',['stdout_USART.c File',['../stdout_USART_c.html',1,'Retarget_Files']]],
+  ['stdout_5fuser_2ec_20file_8',['stdout_user.c File',['../stdout_user_c.html',1,'Retarget_Files']]]
 ];

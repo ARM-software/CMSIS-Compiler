@@ -29,7 +29,6 @@ var NAVTREE =
       [ "Semihosting", "Retarget_Overview.html#autotoc_md0", null ]
     ] ],
     [ "Retargeting Channels and Variants", "Retarget_Details.html", "Retarget_Details" ],
-    [ "Examples", "Retarget_Examples.html", "Retarget_Examples" ],
     [ "Files", "Retarget_Files.html", "Retarget_Files" ],
     [ "Revision History", "rev_hist.html", null ]
   ] ]

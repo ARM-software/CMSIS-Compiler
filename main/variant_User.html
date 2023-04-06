@@ -107,14 +107,15 @@ $(document).ready(function(){initNavTree('variant_User.html',''); initResizable(
   <div class="headertitle"><div class="title">Retarget Variant "User" </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p >If you select the Compiler component variant <b>User</b> in the Manage Run-Time Environment, user code templates are available that help you to implement your own functionality. You can import the templates into a project using the context menu <b>Add</b> <b>New</b> <b>Item</b> <b>to</b> <b>Group</b> from the Project window. Depending on your selection, you get templates that support retargeting via display, USART, or keyboard. Also, a template for a custom implementation is available.</p>
+<div class="textblock"><p >The Compiler component variant <b>User</b> provides code templates that help you to implement the functionality.</p>
+<p >In µVision, you can import the templates into a project using the context menu <b>Add</b> <b>New</b> <b>Item</b> <b>to</b> <b>Group</b> from the Project window. Depending on your selection, you get templates that support retargeting via display, USART, or keyboard. Also, a template for a custom implementation is available.</p>
 <div class="image">
 <img src="retarget_addTemplates.png" alt=""/>
 <div class="caption">
 Retargeting Code Templates</div></div>
 <h1><a class="anchor" id="uct_display"></a>
 Output via Display</h1>
-<p >You may use the <a href="http://www.keil.com/pack/doc/mw/Graphics/html/index.html" target="_blank">Graphics</a> component or write your own output routines. The following user code templates are available:</p>
+<p >You may use a <b>Graphics</b> component or write your own output routines. The following user code templates are available:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Component   </th><th class="markdownTableHeadNone">Name   </th><th class="markdownTableHeadNone">File Name    </th></tr>
@@ -126,7 +127,7 @@ Output via Display</h1>
 <dl class="section note"><dt>Note</dt><dd>To have the full flexibility for retargeting different channels to different target hardware, each display user code template contains a function to initialize the display. When using the same hardware for multiple channels, remove the initialization function from one template and call the other function during the initialization of the device's peripherals.</dd></dl>
 <h1><a class="anchor" id="uct_usart"></a>
 Input/Output via USART</h1>
-<p >You may use a <a href="http://www.keil.com/pack/doc/CMSIS/Driver/html/group__usart__interface__gr.html" target="_blank">CMSIS-Driver USART</a> or write your own output routines. The following user code templates are available:</p>
+<p >You may use a <a href="https://arm-software.github.io/CMSIS_5/develop/Driver/html/group__usart__interface__gr.html" target="_blank">CMSIS-Driver USART</a> or write your own output routines. The following user code templates are available:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Component   </th><th class="markdownTableHeadNone">Name   </th><th class="markdownTableHeadNone">File Name    </th></tr>
@@ -140,7 +141,7 @@ Input/Output via USART</h1>
 <dl class="section note"><dt>Note</dt><dd>To have the full flexibility for retargeting different channels to different target hardware, each USART user code template contains a function to initialize the USART. When using the same hardware for multiple channels, the initialization functions need to be merged in one single function. Call this function during the initialization of the device's peripherals.</dd></dl>
 <h1><a class="anchor" id="uct_keyboard"></a>
 Input via Keyboard</h1>
-<p >You may use software components that support the keyboard functionality or write you own routines. For example, you may use the HID class of the <a href="http://www.keil.com/pack/doc/mw/USB/html/_u_s_b__host.html" target="_blank">USB Host</a> component to read data from a USB keyboard. The following user code template is available:</p>
+<p >You may use software components that support the keyboard functionality or write you own routines. For example, you may use the HID class of a <b>USB Host</b> component to read data from a USB keyboard. The following user code template is available:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Component   </th><th class="markdownTableHeadNone">Name   </th><th class="markdownTableHeadNone">File Name    </th></tr>

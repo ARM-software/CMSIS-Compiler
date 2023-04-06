@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('Retarget_Overview.html',''); initResiz
   <div class="headertitle"><div class="title">Overview </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p >Application code frequently uses standard I/O library functions, such as <code>printf()</code>, <code>scanf()</code>, or <code>fgetc()</code> to perform input/output operations. The structure of these functions in the standard ARM Compiler C run-time library is:</p>
+<div class="textblock"><p >Application code frequently uses standard I/O library functions, such as <code>printf()</code>, <code>scanf()</code>, or <code>fgetc()</code> to perform input/output operations. The structure of these functions in the standard Arm Compiler C run-time library is:</p>
 <div class="image">
 <img src="struct_comp_function.png" alt=""/>
 <div class="caption">
@@ -119,12 +119,21 @@ Function Structure</div></div>
 <li><b>Redefine</b> the <em>system</em> <em>I/O</em> functions.</li>
 </ul>
 <p >Whether redefining the low-level library functions or the system I/O functions is a better solution, depends on your use case. For example, UARTs write a single character at a time and the default <code>fputc()</code> uses buffering, so redefining this function without a buffer might suit a UART. However, where buffer operations are possible, redefining the system I/O functions would probably be more appropriate.</p>
-<p >The <a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0475k/chr1358938937854.html" target="_blank">MicroLib</a> of the ARM Compiler C run-time library interfaces to the hardware via low-level functions. It implements a reduced set of high-level functions and therefore does not implement system I/O functions. Thus, in case of using the MicroLib, you cannot redefine the system I/O functions. Using any of the features of the ARM Compiler component provides the <a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0475k/chr1358938924063.html" target="_blank">assert</a> facility for MicroLib.</p>
-<p >The page <a class="el" href="Retarget_Details.html">Retargeting Channels and Variants</a> explains the details about how retargeting is done using the ARM Compiler component.</p>
+<p >The page <a class="el" href="Retarget_Details.html">Retargeting Channels and Variants</a> explains the details about how retargeting is done using the Arm Compiler component.</p>
 <h1><a class="anchor" id="autotoc_md0"></a>
 Semihosting</h1>
-<p ><a href="https://developer.arm.com/documentation/dui0471/m/what-is-semihosting-/what-is-semihosting-" target="_blank">Semihosting</a> is a mechanism that enables code running on an ARM target to communicate and use the Input/Output facilities on a host computer that is running a debugger.</p>
-<p >Semihosting is not supported by µVision. Thus, you cannot use semihosting SWI operations. In case you have to write your own retarget code, ensure that no semihosting functions of the C library get linked into your application. This is done by importing the symbol <code>__use_no_semihosting_swi</code>. This can be done in any C or assembler source file in your project. In a C module, use the <code>#pragma</code> directive: </p><div class="fragment"><div class="line"><span class="preprocessor">#pragma import(__use_no_semihosting_swi)</span></div>
+<p >Semihosting is a mechanism that enables code running on an Arm target to communicate and use the input/output facilities on a host computer that is running a debugger. Semihosting is not supported by all debuggers (see note).</p>
+<p >Examples of these facilities include keyboard input, screen output, and disk I/O. For example, you can use this mechanism to enable functions in the C library, such as <code>printf()</code> and <code>scanf()</code>, to use the screen and keyboard of the host instead of having a screen and keyboard on the target system.</p>
+<p >This is useful because development hardware often does not have all the input and output facilities of the final system. Semihosting enables the host computer to provide these facilities.</p>
+<p >Semihosting is implemented by a set of defined software instructions, for example, SVCs, that generate exceptions from program control. The application invokes the appropriate semihosting call and the debug agent then handles the exception The debug agent provides the required communication with the host.</p>
+<p >The semihosting interface is common across all debug agents provided by Arm. Semihosted operations work when you are debugging applications on your development platform, as shown in the following figure:</p>
+<div class="image">
+<img src="semihosting.png" alt=""/>
+<div class="caption">
+Semihosting</div></div>
+<dl class="section note"><dt>Note</dt><dd></dd></dl>
+<p>Semihosting is not supported by µVision. In case you have to write your own retarget code, ensure that no semihosting functions of the C library get linked into your application. This is done by importing the symbol <code>__use_no_semihosting_swi</code>. This can be done in any C or assembler source file in your project. In a C module, use the <code>#pragma</code> directive:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#pragma import(__use_no_semihosting_swi)</span></div>
 </div><!-- fragment --><p >In an assembler module, use the <code>IMPORT</code> directive: </p><div class="fragment"><div class="line">IMPORT __use_no_semihosting_swi</div>
 </div><!-- fragment --><p> <br  />
  </p>

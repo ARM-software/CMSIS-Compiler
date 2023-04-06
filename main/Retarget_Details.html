@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('Retarget_Details.html',''); initResiza
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="Retarget_Channels"></a>
 Channels for Retargeting</h1>
-<p >The software component <b>Compiler</b> can retarget the I/O functions into following standard I/O channels:</p>
+<p >The software component <b>Compiler::I/O</b> can retarget the input/output functions to following channels:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">I/O Channel   </th><th class="markdownTableHeadNone">Description    </th></tr>
@@ -124,11 +124,6 @@ Channels for Retargeting</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>TTY</b>   </td><td class="markdownTableBodyNone">Teletypewriter, which is the last resort for error output.   </td></tr>
 </table>
-<p >The channels are available for selection in <b>Compiler::I/O</b> component as shown on the figure below:</p>
-<div class="image">
-<img src="retarget_interfaces.png" alt=""/>
-<div class="caption">
-Retarget Interfaces of the Compiler component</div></div>
 <p >Most retargeting channels have various <a class="el" href="Retarget_Details.html#Retarget_Variants">Retarget Variants</a>.</p>
 <h1><a class="anchor" id="Retarget_Variants"></a>
 Retarget Variants</h1>
@@ -137,24 +132,25 @@ Retarget Variants</h1>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Variant   </th><th class="markdownTableHeadNone">Description    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>File</b> <b>System</b>   </td><td class="markdownTableBodyNone">Use the <a href="http://www.keil.com/pack/doc/mw/FileSystem/html/index.html" target="_blank">File System</a> component for file related operations. If no File System is enabled, the validation output window will issue a related message to do so.    </td></tr>
+<td class="markdownTableBodyNone"><b>File</b> <b>System</b>   </td><td class="markdownTableBodyNone">Use a file system component for file related operations.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>Breakpoint</b>   </td><td class="markdownTableBodyNone">When the I/O channel is used, the application stops with <a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0489i/Cihbiggi.html" target="_blank">BKPT</a> instruction. No additional code is required.    </td></tr>
+<td class="markdownTableBodyNone"><b>Breakpoint</b>   </td><td class="markdownTableBodyNone">When the I/O channel is used, the application stops with <a href="https://developer.arm.com/documentation/100073/latest/The-Arm-C-and-C---Libraries/Support-for-building-an-application-with-the-C-library/Using-the-C-and-C---libraries-with-an-application-in-a-semihosting-environment?lang=en" target="_blank">BKPT</a> instruction. No additional code is required.    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ITM</b>   </td><td class="markdownTableBodyNone">Use <a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0314h/Chdegecg.html" target="_blank">Instrumentation Trace Macrocell (ITM)</a> for I/O communication via the debugger (only available for Cortex-M3/M4/M7 processors).<br  />
- Data is exchanged using Debug (printf) Viewer.<br  />
- No additional code is required to output or input data through the ITM channel. However, you have to configure the ITM channel for tracing (refer to the documentation of your debug adapter).<br  />
- For example, for ULINK<em>pro</em>, the setup is explained <a href="http://www.keil.com/support/man/docs/ulinkpro/ulinkpro_capture_tracedata.htm" target="_blank">here</a>.    </td></tr>
+<td class="markdownTableBodyNone"><b>ITM</b>   </td><td class="markdownTableBodyNone">Use <a href="https://developer.arm.com/documentation/ddi0314/h/Instrumentation-Trace-Macrocell?lang=en" target="_blank">Instrumentation Trace Macrocell (ITM)</a> for I/O communication via the debugger (only available for Cortex-M3/M4/M7/M33/M55/M85 processors).<br  />
+ Usually, data is shown in a dedicated window.<br  />
+ No additional code is required to output or input data through the ITM channel. However, you have to configure the ITM channel for tracing.    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>User</b>   </td><td class="markdownTableBodyNone">Retarget I/O functions to a user defined interface (such as <a class="el" href="variant_User.html#uct_usart">USART</a>, <a class="el" href="variant_User.html#uct_keyboard">keyboard</a>, <a class="el" href="variant_User.html#uct_display">graphics display</a>, or a <a class="el" href="variant_User.html#uct_template">application specific</a>).<br  />
 See <a class="el" href="variant_User.html">Retarget Variant "User"</a> for further details.    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>EVR</b>   </td><td class="markdownTableBodyNone">STDIO can also be redirected using the <a href="../../EventRecorder/html/index.html" class="el">Event Recorder</a> (especially interesting for targets without <a href="http://www2.keil.com/coresight/#swv">ITM</a>).<br  />
-Refer to <a class="el" href="Retarget_Examples_er.html">Retarget STDOUT via Event Recorder</a> for an example.   </td></tr>
+<td class="markdownTableBodyNone"><b>EVR</b>   </td><td class="markdownTableBodyNone">STDIO can also be redirected using the <a href="https://arm-software.github.io/CMSIS-View/main/evr.html" target="_blank">Event Recorder</a> (especially interesting for targets without ITM (such as Cortex-M0/M0+/M23)).   </td></tr>
 </table>
-<dl class="section note"><dt>Note</dt><dd>Depending on the selected variant, certain <code>#defines</code> are set in the header file <b>RTE_Components.h</b> that enable the appropriate code sections in the <a class="el" href="retarget_io_c.html">retarget_io.c file</a>. </dd>
-<dd>
-Retargeting <b>STDOUT</b> using the <em>EVR</em> variant is available for all Cortex-M based devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd></dd></dl>
+<ul>
+<li>Depending on the selected variant, certain <code>#defines</code> are set in the header file <b>RTE_Components.h</b> that enable the appropriate code sections in the <a class="el" href="retarget_io_c.html">retarget_io.c file</a>.</li>
+<li>Retargeting <b>STDOUT</b> using the <em>EVR</em> variant is available for all Cortex-M based devices.</li>
+<li>The <a href="https://developer.arm.com/documentation/100073/latest/The-Arm-C-Micro-library?lang=en" target="_blank">microlib</a> of Arm Compiler C run-time library interfaces to the hardware via low-level functions. It implements a reduced set of high-level functions and therefore does not implement system I/O functions. Thus, in case of using the microlib, you cannot redefine the system I/O functions. Using any of the features of the Arm Compiler component provides the <a href="https://developer.arm.com/documentation/101754/latest/armasm-Legacy-Assembler-Reference/armasm-Directives-Reference/ASSERT-directive?lang=en" target="_blank">assert</a> facility for microlib. </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
