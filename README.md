@@ -25,7 +25,7 @@ Some helper scripts are provided to generate the release artifacts from this rep
 Generating the HTML-formatted documentation from its Doxygen-based source is done via
 
 ```bash
-CMSIS-Comiler $ ./DoxyGen/gen_doc.sh
+CMSIS-Compiler $ ./doxygen/gen_doc.sh
 ```
 
 Prerequisites for this script to succeed are:
@@ -36,7 +36,7 @@ Prerequisites for this script to succeed are:
 The CMSIS-Pack bundle can be generated with
 
 ```bash
-CMSIS-Comiler $ ./gen_pack.sh
+CMSIS-Compiler $ ./gen_pack.sh
 ```
 
 Prerequisites for this script to succeed are:

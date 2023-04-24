@@ -125,7 +125,7 @@ int32_t rt_fs_open (const char *path, int32_t mode);
 /**
   Close a file.
 
-  This function closes the file asociated with the file descriptor fd.
+  This function closes the file associated with the file descriptor fd.
 
   \param[in]     fd      file descriptor of an opened file
   \return        zero if the file was successfully closed, or error code on failure
