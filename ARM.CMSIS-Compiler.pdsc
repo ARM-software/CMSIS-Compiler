@@ -29,6 +29,7 @@
       <accept Dcore="Cortex-M85"/>
       <accept Dcore="ARMV8MBL"/>
       <accept Dcore="ARMV8MML"/>
+      <accept Dcore="ARMV81MML"/>
       <accept Dcore="Star-MC1"/>
       <accept Dcore="SC000"/>
       <accept Dcore="SC300"/>
