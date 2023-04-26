@@ -872,6 +872,8 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = src/compiler.txt \
+                         ../example/README.md \
+                         src/files.txt \
                          src/history.txt \
                          ../source/armcc/retarget_io.c
 
@@ -996,7 +998,8 @@ EXCLUDE_SYMBOLS        =
 # command).
 
 EXAMPLE_PATH           = ../source \
-                         ../template
+                         ../template \
+                         ../example
 
 # If the value of the EXAMPLE_PATH tag contains directories, you can use the
 # EXAMPLE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp and
