@@ -11,6 +11,7 @@ The software component **Compiler** allows you to retarget I/O functions of the 
     ┣ 📂 .github          GitHub Action workflow and configuration
     ┣ 📂 documentation    Target directory for generated documentation
     ┣ 📂 doxygen          Source directory for documentation
+    ┣ 📂 example          Usage examples
     ┣ 📂 include          Include header files of software components
     ┣ 📂 source           Source code of software components
     ┗ 📂 template         User code templates
