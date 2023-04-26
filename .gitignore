@@ -8,7 +8,6 @@ build
 example/out
 example/tmp
 example/RTE/_**/*
-example/RTE/**/*.base@*
 
 *.cbuild-idx.yml
 *.cbuild.yml
