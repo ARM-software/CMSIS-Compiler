@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-Compiler Support: Usage and Description</title>
+<title>CMSIS-Compiler Support: I/O Retarget example project</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,7 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -103,32 +103,46 @@ $(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
 </iframe>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Usage and Description</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">I/O Retarget example project </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all related documentation pages:</div><div class="directory">
-<div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span>]</div><table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="Retarget_Overview.html" target="_self">Overview</a></td><td class="desc"></td></tr>
-<tr id="row_1_"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_1_" class="arrow" onclick="toggleFolder('1_')">&#9660;</span><a class="el" href="Retarget_Details.html" target="_self">Retargeting Channels and Variants</a></td><td class="desc"></td></tr>
-<tr id="row_1_0_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="variant_User.html" target="_self">Retarget Variant &quot;User&quot;</a></td><td class="desc"></td></tr>
-<tr id="row_2_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html" target="_self">I/O Retarget example project</a></td><td class="desc"></td></tr>
-<tr id="row_3_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_3_" class="arrow" onclick="toggleFolder('3_')">&#9660;</span><a class="el" href="Retarget_Files.html" target="_self">Files</a></td><td class="desc"></td></tr>
-<tr id="row_3_0_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="retarget_io_c.html" target="_self">retarget_io.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_1_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stderr_display_c.html" target="_self">stderr_display.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_2_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stderr_USART_c.html" target="_self">stderr_USART.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_3_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stderr_user_c.html" target="_self">stderr_user.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_4_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdin_keyboard_c.html" target="_self">stdin_keyboard.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_5_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdin_USART_c.html" target="_self">stdin_USART.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_6_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdin_user_c.html" target="_self">stdin_user.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_7_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdout_display_c.html" target="_self">stdout_display.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_8_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdout_USART_c.html" target="_self">stdout_USART.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_9_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdout_user_c.html" target="_self">stdout_user.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_10_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="tty_user_c.html" target="_self">tty_user.c File</a></td><td class="desc"></td></tr>
-<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="rev_hist.html" target="_self">Revision History</a></td><td class="desc"></td></tr>
-</table>
-</div><!-- directory -->
-</div><!-- contents -->
+<div class="textblock"><p >This project prints "Hello World" and a counter value via the UART output. It is configured for Arm Virtual Hardware, but other target hardware that provides a CMSIS Driver:USART can be easily added.</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Prerequisites</h1>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Tools</h2>
+<ul>
+<li><a href="https://github.com/Open-CMSIS-Pack/devtools/releases">CMSIS-Toolbox 1.5.0</a> or higher</li>
+<li><a href="https://developer.arm.com/downloads/view/ACOMPE">Arm Compiler for Embedded</a>, or</li>
+<li><a href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">GCC Compiler for Arm bare-metal</a></li>
+<li><a href="https://developer.arm.com/Tools%20and%20Software/Arm%20Virtual%20Hardware">Arm Virtual Hardware</a> for local execution (e.g. delivered as part of Keil MDK)</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Packs</h2>
+<ul>
+<li>Required packs are listed in the file <a href="./retarget.csolution.yml"><code>retarget.csolution.yml</code></a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Project Structure</h1>
+<p >The project is generated using the <a href="https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/Overview.md">CMSIS-Toolbox</a> and is defined in <a href="https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/YML-Format.md"><code>csolution</code></a> format:</p>
+<ul>
+<li><a href="./retarget.csolution.yml"><code>retarget.csolution.yml</code></a> lists the required packs and defines the hardware target and build-types (along with the compiler).</li>
+<li><a href="./retarget.cproject.yml"><code>retarget.cproject.yml</code></a> defines the source files and the software components.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md6"></a>
+Build Project</h1>
+<p >Use the <code>cbuild</code> command to build the Debug configuration for VHT target defined in <code>.csolution.yml</code> solution file.</p>
+<div class="fragment"><div class="line">./example $ cbuild retarget.csolution.yml -v --update-rte -p --configuration .Debug+VHT</div>
+</div><!-- fragment --><p >&gt;Note: During the build process required packs may be downloaded (<code>-p</code> flag).</p>
+<p >By default the project is compiled using Arm Compiler. One can change the compiler selection in <code>.cdefault.yml</code> file to <code>GCC</code>.</p>
+<h1><a class="anchor" id="autotoc_md7"></a>
+Execute Project</h1>
+<p >The project is configured for execution on Arm Virtual Hardware which removes the requirement for a physical hardware board.</p>
+<div class="fragment"><div class="line">./example $ VHT_MPS2_Cortex-M3 -f vht-cm3-config.txt out/retarget/Debug/VHT/Debug+VHT.axf</div>
+</div><!-- fragment --><p >&gt;Note: The application image file has extension <code>.elf</code> when using GCC Compiler. </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

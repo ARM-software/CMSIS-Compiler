@@ -29,6 +29,15 @@ var NAVTREE =
       [ "Semihosting", "Retarget_Overview.html#autotoc_md0", null ]
     ] ],
     [ "Retargeting Channels and Variants", "Retarget_Details.html", "Retarget_Details" ],
+    [ "I/O Retarget example project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html", [
+      [ "Prerequisites", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md2", [
+        [ "Tools", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md3", null ],
+        [ "Packs", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md4", null ]
+      ] ],
+      [ "Project Structure", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md5", null ],
+      [ "Build Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md6", null ],
+      [ "Execute Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md7", null ]
+    ] ],
     [ "Files", "Retarget_Files.html", "Retarget_Files" ],
     [ "Revision History", "rev_hist.html", null ]
   ] ]
