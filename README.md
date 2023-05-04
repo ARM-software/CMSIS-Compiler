@@ -71,9 +71,17 @@ Once the release is published via the GitHub Web UI the release workflow generat
 documentation and the pack (see above) and attaches the resulting pack archive as an
 additional asset to the release.
 
-## License
+## License Terms
 
-CMSIS-Comiler is licensed under Apache 2.0.
+CMSIS-Compiler is licensed under [Apache License 2.0.](LICENSE).
+
+### Note
+
+Individual files contain the following tag instead of the full license text.
+
+SPDX-License-Identifier: Apache-2.0
+
+This enables machine processing of license information based on the SPDX License Identifiers that are here available: http://spdx.org/licenses/
 
 ## Contributions and Pull Requests
 
