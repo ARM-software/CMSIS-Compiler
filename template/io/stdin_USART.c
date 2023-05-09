@@ -34,7 +34,7 @@
 #define USART_DRV_NUM           0
  
 //   <o>Baudrate
-#define USART_BAUDRATE          9600
+#define USART_BAUDRATE          115200
  
 // </h>
  

@@ -16,48 +16,29 @@
  * limitations under the License.
  *---------------------------------------------------------------------------*/
 
-#include "RTE_Components.h"
-
-#include  CMSIS_device_header
-
-#ifdef RTE_Compiler_EventRecorder
-#include "EventRecorder.h"
-#endif
-
 #include <stdlib.h>
 #include <stdio.h>
+
+#include "RTE_Components.h"
+#include  CMSIS_device_header
 
 #include "retarget_stdout.h"
 
 int main (void) {
-  stdout_init();
+  uint32_t count;
 
-#if defined(RTE_Compiler_EventRecorder) && \
-    (defined(__MICROLIB) || \
-    !(defined(RTE_CMSIS_RTOS2_RTX5) || defined(RTE_CMSIS_RTOS2_FreeRTOS)))
-  EventRecorderInitialize(EventRecordAll, 1U);
-  EventRecorderClockUpdate();
-#endif
+  stdout_init();
 
   printf("Starting ...\r\n");
 
-  int32_t count = 0;
-
   while (1)  {
-    printf ("Hello World %d\r\n", count);
+    /* Use printf via USART to output "Hello World" lines */
+    for (count = 1U; count <= 10; count++) {
+      printf ("Hello World %d\r\n", count);
+    }
 
-    if (count > 100) break;
-    count++;
-
-    for (int32_t i=10000; i>0; i--) __NOP();
+    printf("\r\nFinished\r\n\x04");
   }
 
-  printf("\r\nFinished\r\n\x04");
-
   return 0;
-}
-
-void HardFault_Handler(void) {
-  printf("\r\n=== PANIC ===\r\n\x04");
-  exit(1);
 }

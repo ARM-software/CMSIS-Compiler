@@ -1,0 +1,115 @@
+/**
+\defgroup fs_interface_api File Interface
+@{
+*/
+
+/**
+\defgroup fs_interface_definitions Definitions
+@{
+*/
+
+/**
+\defgroup fs_interface_open_modes Open Modes
+@{
+  \def RT_OPEN_RDONLY
+  \def RT_OPEN_WRONLY
+  \def RT_OPEN_RDWR
+  \def RT_OPEN_APPEND
+  \def RT_OPEN_CREATE
+  \def RT_OPEN_TRUNCATE
+@}
+*/
+
+/**
+\defgroup fs_interface_attributes Attributes
+@{
+  \def RT_ATTR_FILE
+  \def RT_ATTR_DIR
+  \def RT_ATTR_LINK
+  \def RT_ATTR_RD
+  \def RT_ATTR_WR
+@}
+*/
+
+/**
+\defgroup fs_interface_seek_operations Seek Operations
+@{
+  \def RT_SEEK_SET
+  \def RT_SEEK_CUR
+  \def RT_SEEK_END
+@}
+*/
+
+/**
+\defgroup fs_interface_return_codes Return Codes
+@{
+  \def RT_ERR
+  \def RT_ERR_NOTSUP
+  \def RT_ERR_INVAL
+  \def RT_ERR_IO
+  \def RT_ERR_NOTFOUND
+  \def RT_ERR_EXIST
+  \def RT_ERR_ISDIR
+  \def RT_ERR_NOSPACE
+  \def RT_ERR_READONLY
+  \def RT_ERR_FILEDES
+  \def RT_ERR_MAXPATH
+  \def RT_ERR_BUSY
+  \def RT_ERR_NOTEMPTY
+  \def RT_ERR_MAXFILES
+  \def RT_ERR_OVERFLOW
+@}
+*/
+
+/**
+@}
+*/
+
+/**
+  \struct rt_fs_time_t
+*/
+
+/**
+  \struct rt_fs_stat_t
+*/
+
+/**
+  \fn int32_t rt_fs_open (const char *path, int32_t mode)
+*/
+
+/**
+  \fn int32_t rt_fs_close (int32_t fd)
+*/
+
+/**
+  \fn int32_t rt_fs_write (int32_t fd, const void *buf, uint32_t cnt)
+*/
+
+/**
+  \fn int32_t rt_fs_read (int32_t fd, void *buf, uint32_t cnt)
+*/
+
+/**
+  \fn int64_t rt_fs_seek (int32_t fd, int64_t offset, int32_t whence)
+*/
+
+/**
+  \fn int64_t rt_fs_size (int32_t fd)
+*/
+
+/**
+  \fn int32_t rt_fs_stat (int32_t fd, rt_fs_stat_t *stat)
+*/
+
+/**
+  \fn int32_t rt_fs_remove (const char *path)
+*/
+
+
+/**
+  \fn int32_t rt_fs_rename (const char *oldpath, const char *newpath)
+*/
+
+/**
+@}
+*/

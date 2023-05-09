@@ -1,9 +1,9 @@
 /*-----------------------------------------------------------------------------
- * Name:    stdout_display.c
- * Purpose: STDOUT Display Template
+ * Name:    retarget_os.c
+ * Purpose: OS Interface Retarget Template
  * Rev.:    1.0.0
  *-----------------------------------------------------------------------------*/
- 
+
 /*
  * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.
  *
@@ -21,36 +21,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-#include "retarget_stdout.h"
-#include "GUI.h"
- 
- 
-/**
-  Initialize stdout
- 
-  \return          0 on success, or -1 on error.
-*/
-int stdout_init (void) {
- 
-  GUI_Init();
- 
-  GUI_SetBkColor(GUI_BLACK);
-  GUI_Clear();
- 
-  GUI_SetColor(GUI_WHITE);
- 
-  return (0);
+
+/* Mutex identifier */
+typedef void *mutex;
+
+/* Mutex function prototypes */
+int  _mutex_initialize(mutex *m);
+void _mutex_acquire   (mutex *m);
+void _mutex_release   (mutex *m);
+void _mutex_free      (mutex *m);
+
+/* Initialize mutex */
+int _mutex_initialize(mutex *m) {
+  /* .. */
+  return 0;
 }
- 
- 
-/**
-  Put a character to the stdout
- 
-  \param[in]   ch  Character to output
-  \return          The character written, or -1 on write error.
-*/
-int stdout_putchar (int ch) {
-  GUI_DispChar((unsigned short)ch);
-  return (ch);
+
+/* Acquire mutex */
+void _mutex_acquire(mutex *m) {
+  /* .. */
+}
+
+/* Release mutex */
+void _mutex_release(mutex *m) {
+  /* .. */
+}
+
+/* Free mutex */
+void _mutex_free(mutex *m) {
+  /* .. */
 }

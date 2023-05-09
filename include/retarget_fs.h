@@ -109,6 +109,7 @@ typedef struct rt_fs_stat_s {
   - FS_OPEN_RDONLY: open file for reading only
   - FS_OPEN_WRONLY: open file for writing only
   - FS_OPEN_RDWR:   open file for reading and writing
+
   In addition, any combination of the values below can be set:
   - FS_OPEN_APPEND: if set, the file offset is set to the end of file prior to each write
   - FS_OPEN_CREATE: if set, the file is created if it does not exist

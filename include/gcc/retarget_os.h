@@ -59,14 +59,6 @@
   \param[in]  lock  pointer to user defined lock object
 */
 
-/**
-  \fn void __retarget_lock_init(_LOCK_T *lock)
-
-  \brief Allocate lock related resources.
-
-  \param[in]  lock  pointer to user defined lock object
-*/
-
 
 /**
   \fn void __retarget_lock_init_recursive(_LOCK_T *lock)
