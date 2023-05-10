@@ -35,7 +35,7 @@
 #include "retarget_os.h"
 #endif
 
-#ifdef RTE_Compiler_File_Interface
+#if defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface)
 #include "retarget_fs.h"
 #endif
 
@@ -53,7 +53,7 @@
 #define STDERR_CR_LF    0       /* STDERR: add CR for LF */
 #endif
 
-#ifdef RTE_Compiler_File_Interface
+#if defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface)
 /* Local function that converts between time formats */
 static void rt_to_stat_tim(rt_fs_time_t *rt_t, struct timespec *st_t);
 #endif
@@ -227,20 +227,25 @@ static int stderr_putchar (int ch) {
 */
 __attribute__((weak))
 int _open (const char *path, int oflag, ...) {
-#ifdef RTE_Compiler_IO_File
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
   int32_t rval;
 #else
   (void)path;
   (void)oflag;
 #endif
 
-#ifdef RTE_Compiler_IO_File
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
   rval = rt_fs_open(path, oflag);
   if (rval < 0) {
     errno = rval;
     rval = -1;
   }
   return (rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
@@ -257,7 +262,7 @@ int _open (const char *path, int oflag, ...) {
 */
 __attribute__((weak))
 int _close (int fildes) {
-#ifdef RTE_Compiler_IO_File
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
   int32_t rval;
 #endif
 
@@ -270,13 +275,18 @@ int _close (int fildes) {
       return (0);
   }
 
-#ifdef RTE_Compiler_IO_File
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
   rval = rt_fs_close(fildes);
   if (rval < 0) {
     errno = rval;
     rval = -1;
   }
   return (rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
@@ -302,7 +312,7 @@ ssize_t _write (int fildes, const void *buf, size_t nbyte) {
 #if (defined(RTE_Compiler_IO_STDOUT) || defined(RTE_Compiler_IO_STDERR))
   int ch;
   const uint8_t *u8buf;
-#elif (!defined(RTE_Compiler_IO_File))
+#elif !(defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
   (void)buf;
   (void)nbyte;
 #endif
@@ -353,13 +363,18 @@ ssize_t _write (int fildes, const void *buf, size_t nbyte) {
       return (sz);
   }
 
-#ifdef RTE_Compiler_IO_File
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
   sz = rt_fs_write(fildes, buf, nbyte);
   if (sz < 0) {
     errno = sz;
     sz = -1;
   }
   return (sz);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
@@ -386,7 +401,7 @@ ssize_t _read (int fildes, void *buf, size_t nbyte) {
   int ch;
   uint8_t *u8buf;
 #endif
-#ifdef RTE_Compiler_IO_File
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
   ssize_t sz;
 #else
   (void)buf;
@@ -415,13 +430,18 @@ ssize_t _read (int fildes, void *buf, size_t nbyte) {
       return (-1);
   }
 
-#ifdef RTE_Compiler_IO_File
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
   sz = rt_fs_read(fildes, buf, nbyte);
   if (sz < 0) {
     errno = sz;
     sz = -1;
   }
   return (sz);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
@@ -475,7 +495,7 @@ int _isatty (int fildes) {
 */
 __attribute__((weak))
 off_t _lseek (int fildes, off_t offset, int whence) {
-#ifdef RTE_Compiler_IO_File
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
   int64_t rval;
 #else
   (void)offset;
@@ -491,7 +511,8 @@ off_t _lseek (int fildes, off_t offset, int whence) {
       return (-1);
   }
 
-#ifdef RTE_Compiler_IO_File
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
   rval = rt_fs_seek(fildes, offset, whence);
   if (rval < 0) {
     errno = (int)rval;
@@ -505,6 +526,10 @@ off_t _lseek (int fildes, off_t offset, int whence) {
     }
   }
   return ((off_t)rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
@@ -525,7 +550,7 @@ off_t _lseek (int fildes, off_t offset, int whence) {
 */
 __attribute__((weak))
 int _fstat (int fildes, struct stat *buf) {
-#ifdef RTE_Compiler_IO_File
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
   int32_t rval;
   rt_fs_stat_t rt_stat;
 #endif
@@ -543,7 +568,8 @@ int _fstat (int fildes, struct stat *buf) {
       return (0);
   }
 
-#ifdef RTE_Compiler_IO_File
+#if defined(RTE_Compiler_IO_File)
+#if defined(RTE_Compiler_IO_File_Interface)
   rval = rt_fs_stat(fildes, &rt_stat);
   if (rval < 0) {
     errno = rval;
@@ -569,12 +595,16 @@ int _fstat (int fildes, struct stat *buf) {
     buf->st_size = rt_fs_size(fildes);
   }
   return (rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  return (-1);
+#endif
 #else
   return (-1);
 #endif
 }
 
-#ifdef RTE_Compiler_File_Interface
+#if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
 /* Convert time from rt_fs_time_t to struct timespec format */
 void rt_to_stat_tim(rt_fs_time_t *rt_t, struct timespec *st_t) {
   struct tm time_tm = {
@@ -605,9 +635,12 @@ __attribute__((weak))
 int _stat (const char *path, struct stat *buf) {
   (void)path;
   (void)buf;
+#if defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+#endif
   /* Not implemented */
   errno = ENOSYS;
-  return -1;
+  return (-1);
 }
 #endif
 
@@ -623,13 +656,24 @@ int _stat (const char *path, struct stat *buf) {
 #ifdef RTE_Compiler_IO_File
 __attribute__((weak))
 int _link (const char *path1, const char *path2) {
+#if defined(RTE_Compiler_IO_File_Interface)
   int32_t rval;
+#else
+  (void)path1;
+  (void)path2;
+#endif
+#if defined(RTE_Compiler_IO_File_Interface)
   rval = rt_fs_rename(path1, path2);
   if (rval < 0) {
     errno = rval;
     rval = -1;
   }
   return (rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  errno = ENOSYS;
+  return (-1);
+#endif
 }
 #endif
 
@@ -645,13 +689,23 @@ int _link (const char *path1, const char *path2) {
 #ifdef RTE_Compiler_IO_File
 __attribute__((weak))
 int _unlink (const char *path) {
+#if defined(RTE_Compiler_IO_File_Interface)
   int32_t rval;
+#else
+  (void)path;
+#endif
+#if defined(RTE_Compiler_IO_File_Interface)
   rval = rt_fs_remove (path);
   if (rval < 0) {
     errno = rval;
     rval = -1;
   }
   return (rval);
+#elif defined(RTE_Compiler_IO_File_BKPT)
+  __asm("BKPT 0");
+  errno = ENOSYS;
+  return (-1);
+#endif
 }
 #endif
 
@@ -673,7 +727,7 @@ int _execve(const char *path, char *const argv[], char *const envp[]) {
   (void)envp;
   /* Transfering control to a new process is not supported */
   errno = ENOSYS;
-  return -1;
+  return (-1);
 }
 
 
@@ -682,7 +736,7 @@ __attribute__((weak))
 int _fork (void) {
   /* Creating a process is not supported */
   errno = ENOSYS;
-  return -1;
+  return (-1);
 }
 
 
@@ -700,7 +754,7 @@ int _kill (pid_t pid, int sig) {
   (void)sig;
   /* Nothing to do */
   errno = ENOSYS;
-  return -1;
+  return (-1);
 }
 
 
@@ -708,7 +762,7 @@ int _kill (pid_t pid, int sig) {
 __attribute__((weak))
 pid_t _getpid (void) {
   /* Only one process exists */
-  return 0;
+  return (0);
 }
 
 
@@ -718,7 +772,7 @@ pid_t wait (int *stat_loc) {
   (void)stat_loc;
   /* Only one process, cannot wait for other processes */
   errno = ENOSYS;
-  return -1;
+  return (-1);
 }
 
 
