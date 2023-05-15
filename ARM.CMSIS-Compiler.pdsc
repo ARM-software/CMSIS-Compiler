@@ -224,7 +224,7 @@
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cversion="1.0.0" condition="CortexDevice">
-      <description>Redirect STDOUT to a user defined output target (USART, Graphics Display or other)</description>
+      <description>Redirect STDOUT to a user defined output target (USART or other)</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
         #define RTE_Compiler_IO_STDOUT_User     /* Compiler I/O: STDOUT User */
@@ -236,7 +236,6 @@
 
         <file category="source" name="template/io/stdout_user.c"    attr="template" select="STDOUT User Template"/>
         <file category="source" name="template/io/stdout_USART.c"   attr="template" select="STDOUT via USART"/>
-        <file category="source" name="template/io/stdout_display.c" attr="template" select="STDOUT via Display"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="Breakpoint" Cversion="1.0.0" condition="CortexDevice">
@@ -262,7 +261,7 @@
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="User" Cversion="1.0.0" condition="CortexDevice">
-      <description>Redirect STDERR to a user defined output target (USART, Graphics Display or other)</description>
+      <description>Redirect STDERR to a user defined output target (USART or other)</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
         #define RTE_Compiler_IO_STDERR_User     /* Compiler I/O: STDERR User */
@@ -274,7 +273,6 @@
 
         <file category="source" name="template/io/stderr_user.c"    attr="template" select="STDERR User Template"/>
         <file category="source" name="template/io/stderr_USART.c"   attr="template" select="STDERR via USART"/>
-        <file category="source" name="template/io/stderr_display.c" attr="template" select="STDERR via Display"/>
       </files>
     </component>
 
