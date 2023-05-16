@@ -6,7 +6,7 @@ This project prints "Hello World" and a counter value via the UART output. It is
 
 ### Tools
 
-- [CMSIS-Toolbox 1.5.0](https://github.com/Open-CMSIS-Pack/devtools/releases) or higher
+- [CMSIS-Toolbox 1.7.0](https://github.com/Open-CMSIS-Pack/devtools/releases) or higher
 - [Arm Compiler for Embedded](https://developer.arm.com/downloads/view/ACOMPE), or
 - [GCC Compiler for Arm bare-metal](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
 - [Arm Virtual Hardware](https://developer.arm.com/Tools%20and%20Software/Arm%20Virtual%20Hardware) for local execution (e.g. delivered as part of Keil MDK)
@@ -40,7 +40,7 @@ selection in `.cdefault.yml` file to `GCC`.
 The project is configured for execution on Arm Virtual Hardware which removes the requirement for a physical hardware board.
 
 ```bash
-./example $ VHT_MPS2_Cortex-M3 -f vht-cm3-config.txt out/retarget/Debug/VHT/Debug+VHT.axf
+./example $ VHT_MPS2_Cortex-M3 -f vht-cm3-config.txt out/retarget/VHT/Debug/retarget.axf
 ```
 
 >Note: The application image file has extension `.elf` when using GCC Compiler.

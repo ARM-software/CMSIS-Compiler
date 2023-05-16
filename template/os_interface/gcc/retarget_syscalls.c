@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------------
- * Name:    retarget_syscalls_user.c
+ * Name:    retarget_syscalls.c
  * Purpose: System Call Routines Retarget Template
  * Rev.:    1.0.0
  *-----------------------------------------------------------------------------*/
@@ -130,7 +130,7 @@ pid_t _wait (int *stat_loc) {
 
 
 /* Extend heap space by incr bytes */
-void *_sbrk_r (struct _reent *reent, ptrdiff_t incr) {
+void *_sbrk (ptrdiff_t incr) {
   // ...
   return -1;
 }

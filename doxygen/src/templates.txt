@@ -1,0 +1,147 @@
+/* ========================================================================================================================== */
+/**
+\page rt_templates Templates
+This section contains the listings for all template files available in the CMSIS-Compiler component:
+- \subpage rt_template_file_interface
+- \subpage rt_template_io
+- \subpage rt_template_os_interface
+*/
+
+/* ========================================================================================================================== */
+/**
+\page rt_template_io I/O
+
+- \subpage stderr_USART_c
+- \subpage stderr_user_c
+- \subpage stdin_USART_c
+- \subpage stdin_user_c
+- \subpage stdout_USART_c
+- \subpage stdout_user_c
+- \subpage tty_user_c
+
+*/
+
+/* ========================================================================================================================== */
+/**
+\page stderr_USART_c STDERR via USART
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each USART user code template
+contains a function to initialize the USART (here: \c stderr_init). When using the same hardware for multiple channels, the
+initialization functions need to be merged in one single function. Call this function during the initialization of the
+device's peripherals.
+
+\include /io/stderr_USART.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stderr_user_c STDERR User Template
+
+\include /io/stderr_user.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stdin_USART_c STDIN via USART
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each USART user code template
+contains a function to initialize the USART (here \c stdin_init). When using the same hardware for multiple channels, the
+initialization functions need to be merged in one single function. Call this function during the initialization of the
+device's peripherals.
+
+\include /io/stdin_USART.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stdin_user_c STDIN User Template
+
+\include /io/stdin_user.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stdout_USART_c STDOUT via USART
+
+\note
+To have the full flexibility for retargeting different channels to different target hardware, each USART user code template
+contains a function to initialize the USART (here: \c stdout_init). When using the same hardware for multiple channels, the
+initialization functions need to be merged in one single function. Call this function during the initialization of the
+device's peripherals.
+
+\include /io/stdout_USART.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page stdout_user_c STDOUT User Template
+
+\include /io/stdout_user.c
+*/
+
+
+/* ========================================================================================================================== */
+/**
+\page tty_user_c TTY User Template
+
+\include /io/tty_user.c
+*/
+
+/* ========================================================================================================================== */
+/**
+\page rt_template_file_interface File Interface
+
+\ref fs_interface_api provides Custom component that can be used to implement its functionality using the code template below:
+
+- \subpage retarget_fs_c
+*/
+
+/* ========================================================================================================================== */
+/**
+\page retarget_fs_c File Interface Custom
+
+\include /file_interface/retarget_fs.c
+*/
+
+/* ========================================================================================================================== */
+/**
+\page rt_template_os_interface OS Interface
+
+\ref os_interface_api provides Custom component that can be used to implement its functionality using code templates below.
+Exposed OS Interface API is toolchain specific therefore make sure to select correct code template:
+
+- \subpage retarget_os_c_armcc
+- \subpage retarget_os_gcc
+*/
+
+/* ========================================================================================================================== */
+/**
+\page retarget_os_c_armcc Arm Compiler
+
+\include /os_interface/armcc/retarget_os.c
+*/
+
+/* ========================================================================================================================== */
+/**
+\page retarget_os_gcc GCC Newlib
+
+<b>Code template used to retarget locking routines</b>
+\include /os_interface/gcc/retarget_lock.c
+
+<b>Code template used to retarget system calls</b>\n
+
+\note
+- All system call functions are provided in this template although there may not be necessary to reimplement them all. Functions
+that are not necessary may be removed or kept depending on the linker settings.
+- Reimplementing functions like _open, _close, _write, etc. breaks compatibility with the CMSIS-Compiler:IO component.
+Make sure to remove them from custom implementation when application does not require to reimplement them.
+
+\include /os_interface/gcc/retarget_syscalls.c
+*/

@@ -1,6 +1,6 @@
 /*-----------------------------------------------------------------------------
- * Name:    stderr_USART.c
- * Purpose: STDERR USART Template
+ * Name:    stdout_USART.c
+ * Purpose: STDOUT USART Template
  * Rev.:    1.0.0
  *-----------------------------------------------------------------------------*/
  
@@ -22,19 +22,19 @@
  * limitations under the License.
  */
  
-#include "retarget_stderr.h"
+#include "retarget_stdout.h"
 #include "Driver_USART.h"
  
 //-------- <<< Use Configuration Wizard in Context Menu >>> --------------------
  
-// <h>STDERR USART Interface
+// <h>STDOUT USART Interface
  
 //   <o>Connect to hardware via Driver_USART# <0-255>
 //   <i>Select driver control block for USART interface
 #define USART_DRV_NUM           0
  
 //   <o>Baudrate
-#define USART_BAUDRATE          9600
+#define USART_BAUDRATE          115200
  
 // </h>
  
@@ -47,11 +47,11 @@ extern ARM_DRIVER_USART  USART_Driver_(USART_DRV_NUM);
  
  
 /**
-  Initialize stderr
+  Initialize stdout
  
   \return          0 on success, or -1 on error.
 */
-int stderr_init (void) {
+int stdout_init (void) {
   int32_t status;
  
   status = ptrUSART->Initialize(NULL);
@@ -67,21 +67,21 @@ int stderr_init (void) {
                              ARM_USART_FLOW_CONTROL_NONE,
                              USART_BAUDRATE);
   if (status != ARM_DRIVER_OK) return (-1);
- 
+
   status = ptrUSART->Control(ARM_USART_CONTROL_TX, 1);
   if (status != ARM_DRIVER_OK) return (-1);
- 
+
   return (0);
 }
  
  
 /**
-  Put a character to the stderr
+  Put a character to the stdout
  
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */
-int stderr_putchar (int ch) {
+int stdout_putchar (int ch) {
   uint8_t buf[1];
  
   buf[0] = ch;
