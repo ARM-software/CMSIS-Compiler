@@ -13,24 +13,24 @@ This project prints "Hello World" and a counter value via the UART output. It is
 
 ### Packs
 
-- Required packs are listed in the file [`retarget.csolution.yml`](./retarget.csolution.yml)
+- Required packs are listed in the file [`retarget.csolution.yml`](https://github.com/ARM-software/CMSIS-Compiler/blob/main/example/retarget.csolution.yml)
 
 ## Project Structure
 
-The project is generated using the [CMSIS-Toolbox](https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/Overview.md) and is defined in [`csolution`](https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/YML-Format.md) format:
+The project is generated using the [CMSIS-Toolbox](https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/Overview.md) and is defined in [`csolution`](https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/YML-Input-Format.md) format:
 
-- [`retarget.csolution.yml`](./retarget.csolution.yml) lists the required packs and defines the hardware target and build-types (along with the compiler).
-- [`retarget.cproject.yml`](./retarget.cproject.yml) defines the source files and the software components.
+- [`retarget.csolution.yml`](https://github.com/ARM-software/CMSIS-Compiler/blob/main/example/retarget.csolution.yml) lists the required packs and defines the hardware target and build-types (along with the compiler).
+- [`retarget.cproject.yml`](https://github.com/ARM-software/CMSIS-Compiler/blob/main/example/retarget.cproject.yml) defines the source files and the software components.
 
 ## Build Project
 
 Use the `cbuild` command to build the Debug configuration for VHT target defined in `.csolution.yml` solution file.
 
 ```bash
-./example $ cbuild retarget.csolution.yml -v --update-rte -p --configuration .Debug+VHT
+cbuild retarget.csolution.yml -v --update-rte -p --configuration .Debug+VHT
 ```
 
->Note: During the build process required packs may be downloaded (`-p` flag).
+> Note: During the build process required packs may be downloaded (`-p` flag).
 
 By default the project is compiled using Arm Compiler. One can change the compiler
 selection in `.cdefault.yml` file to `GCC`.
@@ -40,7 +40,7 @@ selection in `.cdefault.yml` file to `GCC`.
 The project is configured for execution on Arm Virtual Hardware which removes the requirement for a physical hardware board.
 
 ```bash
-./example $ VHT_MPS2_Cortex-M3 -f vht-cm3-config.txt out/retarget/VHT/Debug/retarget.axf
+VHT_MPS2_Cortex-M3 -f vht-cm3-config.txt out/retarget/VHT/Debug/retarget.axf
 ```
 
->Note: The application image file has extension `.elf` when using GCC Compiler.
+> Note: The application image file has extension `.elf` when using GCC Compiler.
