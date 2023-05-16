@@ -121,26 +121,30 @@ Tools</h2>
 <h2><a class="anchor" id="autotoc_md3"></a>
 Packs</h2>
 <ul>
-<li>Required packs are listed in the file <a href="./retarget.csolution.yml"><code>retarget.csolution.yml</code></a></li>
+<li>Required packs are listed in the file <a href="https://github.com/ARM-software/CMSIS-Compiler/blob/main/example/retarget.csolution.yml"><code>retarget.csolution.yml</code></a></li>
 </ul>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Project Structure</h1>
-<p >The project is generated using the <a href="https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/Overview.md">CMSIS-Toolbox</a> and is defined in <a href="https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/YML-Format.md"><code>csolution</code></a> format:</p>
+<p >The project is generated using the <a href="https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/Overview.md">CMSIS-Toolbox</a> and is defined in <a href="https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/YML-Input-Format.md"><code>csolution</code></a> format:</p>
 <ul>
-<li><a href="./retarget.csolution.yml"><code>retarget.csolution.yml</code></a> lists the required packs and defines the hardware target and build-types (along with the compiler).</li>
-<li><a href="./retarget.cproject.yml"><code>retarget.cproject.yml</code></a> defines the source files and the software components.</li>
+<li><a href="https://github.com/ARM-software/CMSIS-Compiler/blob/main/example/retarget.csolution.yml"><code>retarget.csolution.yml</code></a> lists the required packs and defines the hardware target and build-types (along with the compiler).</li>
+<li><a href="https://github.com/ARM-software/CMSIS-Compiler/blob/main/example/retarget.cproject.yml"><code>retarget.cproject.yml</code></a> defines the source files and the software components.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Build Project</h1>
 <p >Use the <code>cbuild</code> command to build the Debug configuration for VHT target defined in <code>.csolution.yml</code> solution file.</p>
-<div class="fragment"><div class="line">./example $ cbuild retarget.csolution.yml -v --update-rte -p --configuration .Debug+VHT</div>
-</div><!-- fragment --><p >&gt;Note: During the build process required packs may be downloaded (<code>-p</code> flag).</p>
-<p >By default the project is compiled using Arm Compiler. One can change the compiler selection in <code>.cdefault.yml</code> file to <code>GCC</code>.</p>
+<div class="fragment"><div class="line">cbuild retarget.csolution.yml -v --update-rte -p --configuration .Debug+VHT</div>
+</div><!-- fragment --><blockquote class="doxtable">
+<p >Note: During the build process required packs may be downloaded (<code>-p</code> flag). </p>
+</blockquote>
+<p>By default the project is compiled using Arm Compiler. One can change the compiler selection in <code>.cdefault.yml</code> file to <code>GCC</code>.</p>
 <h1><a class="anchor" id="autotoc_md6"></a>
 Execute Project</h1>
 <p >The project is configured for execution on Arm Virtual Hardware which removes the requirement for a physical hardware board.</p>
-<div class="fragment"><div class="line">./example $ VHT_MPS2_Cortex-M3 -f vht-cm3-config.txt out/retarget/VHT/Debug/retarget.axf</div>
-</div><!-- fragment --><p >&gt;Note: The application image file has extension <code>.elf</code> when using GCC Compiler. </p>
+<div class="fragment"><div class="line">VHT_MPS2_Cortex-M3 -f vht-cm3-config.txt out/retarget/VHT/Debug/retarget.axf</div>
+</div><!-- fragment --><blockquote class="doxtable">
+<p >Note: The application image file has extension <code>.elf</code> when using GCC Compiler. </p>
+</blockquote>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
