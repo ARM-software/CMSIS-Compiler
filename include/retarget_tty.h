@@ -18,14 +18,14 @@
 
 /**
   Initialize tty
- 
+
   \return          0 on success, or -1 on error.
 */
 int tty_init (void);
 
 /**
   Put a character to the teletypewritter
- 
+
   \param[in]   ch  Character to output
 */
 void ttywrch (int ch);

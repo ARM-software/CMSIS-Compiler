@@ -3,7 +3,7 @@
  * Purpose: TTY User Template
  * Rev.:    1.0.0
  *-----------------------------------------------------------------------------*/
- 
+
 /*
  * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.
  *
@@ -21,12 +21,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 #include "retarget_tty.h"
- 
+
 /**
   Put a character to the teletypewritter
- 
+
   \param[in]   ch  Character to output
 */
 void ttywrch (int ch) {

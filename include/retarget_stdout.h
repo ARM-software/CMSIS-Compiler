@@ -18,14 +18,14 @@
 
 /**
   Initialize stdout
- 
+
   \return          0 on success, or -1 on error.
 */
 int stdout_init (void);
 
 /**
   Put a character to the stdout
- 
+
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */

@@ -3,7 +3,7 @@
  * Purpose: STDIN User Template
  * Rev.:    1.0.0
  *-----------------------------------------------------------------------------*/
- 
+
 /*
  * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.
  *
@@ -21,12 +21,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-#include "retarget_stdin.h" 
- 
+
+#include "retarget_stdin.h"
+
 /**
   Get a character from stdin
- 
+
   \return     The next character from the input, or -1 on read error.
 */
 int stdin_getchar (void) {
