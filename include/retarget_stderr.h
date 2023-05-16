@@ -18,14 +18,14 @@
 
 /**
   Initialize stderr
- 
+
   \return          0 on success, or -1 on error.
 */
 int stderr_init (void);
 
 /**
   Put a character to the stderr
- 
+
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */

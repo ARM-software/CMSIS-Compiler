@@ -266,7 +266,7 @@
 
 /**
   \var extern char **environ
-  
+
   \brief A pointer to an array of character pointers to the environment strings.
 */
 
