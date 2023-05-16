@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['i_2fo_20retarget_20example_20project_0',['I/O Retarget example project',['../md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html',1,'']]]
+  ['file_20interface_0',['File Interface',['../rt_template_file_interface.html',1,'rt_templates']]],
+  ['file_20interface_20custom_1',['File Interface Custom',['../retarget_fs_c.html',1,'rt_template_file_interface']]]
 ];

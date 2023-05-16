@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['overview_0',['Overview',['../Retarget_Overview.html',1,'']]]
+  ['gcc_20newlib_0',['GCC Newlib',['../retarget_os_gcc.html',1,'rt_template_os_interface']]]
 ];

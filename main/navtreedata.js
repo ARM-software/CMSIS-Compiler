@@ -25,27 +25,42 @@
 var NAVTREE =
 [
   [ "CMSIS-Compiler Support", "index.html", [
-    [ "Overview", "Retarget_Overview.html", [
-      [ "Semihosting", "Retarget_Overview.html#autotoc_md0", null ]
-    ] ],
-    [ "Retargeting Channels and Variants", "Retarget_Details.html", "Retarget_Details" ],
-    [ "I/O Retarget example project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html", [
-      [ "Prerequisites", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md2", [
-        [ "Tools", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md3", null ],
-        [ "Packs", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md4", null ]
+    [ "Content", "index.html#doc_content", null ],
+    [ "Revision History", "rev_hist.html", null ],
+    [ "Overview", "rt_overview.html", null ],
+    [ "Low-Level I/O Retarget", "rt_io.html", [
+      [ "I/O Components", "rt_io.html#rt_io_components", [
+        [ "I/O Retarget Variants", "rt_io.html#rt_io_variants", [
+          [ "I/O:File Variants", "rt_io.html#rt_io_file_variants", null ],
+          [ "I/O:STDERR/STDIN/STDOUT Variants", "rt_io.html#rt_io_std_variants", null ]
+        ] ],
+        [ "I/O Retarget Variant \"User\"", "rt_io.html#variant_User", [
+          [ "Input/Output via USART", "rt_io.html#uct_usart", null ],
+          [ "Input/Output via Template", "rt_io.html#uct_template", null ]
+        ] ]
       ] ],
-      [ "Project Structure", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md5", null ],
-      [ "Build Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md6", null ],
-      [ "Execute Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md7", null ]
+      [ "File Interface Components", "rt_io.html#rt_file_interface", null ]
     ] ],
-    [ "Files", "Retarget_Files.html", "Retarget_Files" ],
-    [ "Revision History", "rev_hist.html", null ]
+    [ "Multithreading Support Retarget", "rt_os.html", [
+      [ "OS Interface", "rt_os.html#rt_os_components", null ]
+    ] ],
+    [ "I/O Retarget example project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html", [
+      [ "Prerequisites", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md1", [
+        [ "Tools", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md2", null ],
+        [ "Packs", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md3", null ]
+      ] ],
+      [ "Project Structure", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md4", null ],
+      [ "Build Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md5", null ],
+      [ "Execute Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md6", null ]
+    ] ],
+    [ "Templates", "rt_templates.html", "rt_templates" ],
+    [ "API Reference", "modules.html", "modules" ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"Retarget_Details.html"
+"group__fs__interface__api.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

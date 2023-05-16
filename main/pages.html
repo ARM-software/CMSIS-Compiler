@@ -43,7 +43,7 @@
     </script>
    </span>
    </div>
-   <div id="projectbrief">Debugger Views for Status and Event Information</div>
+   <div id="projectbrief">Standard C Library File, I/O and OS Retargeting</div>
   </td>
   <!--END !PROJECT_NAME-->
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
@@ -108,24 +108,25 @@ $(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock">Here is a list of all related documentation pages:</div><div class="directory">
-<div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span>]</div><table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="Retarget_Overview.html" target="_self">Overview</a></td><td class="desc"></td></tr>
-<tr id="row_1_"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_1_" class="arrow" onclick="toggleFolder('1_')">&#9660;</span><a class="el" href="Retarget_Details.html" target="_self">Retargeting Channels and Variants</a></td><td class="desc"></td></tr>
-<tr id="row_1_0_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="variant_User.html" target="_self">Retarget Variant &quot;User&quot;</a></td><td class="desc"></td></tr>
-<tr id="row_2_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html" target="_self">I/O Retarget example project</a></td><td class="desc"></td></tr>
-<tr id="row_3_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_3_" class="arrow" onclick="toggleFolder('3_')">&#9660;</span><a class="el" href="Retarget_Files.html" target="_self">Files</a></td><td class="desc"></td></tr>
-<tr id="row_3_0_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="retarget_io_c.html" target="_self">retarget_io.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_1_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stderr_display_c.html" target="_self">stderr_display.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_2_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stderr_USART_c.html" target="_self">stderr_USART.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_3_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stderr_user_c.html" target="_self">stderr_user.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_4_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdin_keyboard_c.html" target="_self">stdin_keyboard.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_5_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdin_USART_c.html" target="_self">stdin_USART.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_6_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdin_user_c.html" target="_self">stdin_user.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_7_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdout_display_c.html" target="_self">stdout_display.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_8_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdout_USART_c.html" target="_self">stdout_USART.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_9_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="stdout_user_c.html" target="_self">stdout_user.c File</a></td><td class="desc"></td></tr>
-<tr id="row_3_10_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="tty_user_c.html" target="_self">tty_user.c File</a></td><td class="desc"></td></tr>
-<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="rev_hist.html" target="_self">Revision History</a></td><td class="desc"></td></tr>
+<div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span><span onclick="javascript:toggleLevel(3);">3</span>]</div><table class="directory">
+<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="rt_overview.html" target="_self">Overview</a></td><td class="desc">Application code frequently uses standard C library functions, such as <code>fopen</code>, <code>fwrite</code>, <code>printf()</code>, <code>scanf()</code> and others to perform input/output operations </td></tr>
+<tr id="row_1_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="rt_io.html" target="_self">Low-Level I/O Retarget</a></td><td class="desc"><b>CMSIS-Compiler</b> splits low-level I/O retargeting into <b>standard I/O stream</b> related components and <b>file stream</b> related components </td></tr>
+<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="rt_os.html" target="_self">Multithreading Support Retarget</a></td><td class="desc"><b>CMSIS-Compiler</b> enables the standard C library multithreading interface retargeting via <b>OS Interface</b> component </td></tr>
+<tr id="row_3_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html" target="_self">I/O Retarget example project</a></td><td class="desc"></td></tr>
+<tr id="row_4_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_4_" class="arrow" onclick="toggleFolder('4_')">&#9660;</span><a class="el" href="rt_templates.html" target="_self">Templates</a></td><td class="desc">This section contains the listings for all template files available in the CMSIS-Compiler component: </td></tr>
+<tr id="row_4_0_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_4_0_" class="arrow" onclick="toggleFolder('4_0_')">&#9660;</span><a class="el" href="rt_template_file_interface.html" target="_self">File Interface</a></td><td class="desc"><a class="el" href="group__fs__interface__api.html">File Interface</a> provides Custom component that can be used to implement its functionality using the code template below: </td></tr>
+<tr id="row_4_0_0_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="retarget_fs_c.html" target="_self">File Interface Custom</a></td><td class="desc"></td></tr>
+<tr id="row_4_1_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_4_1_" class="arrow" onclick="toggleFolder('4_1_')">&#9660;</span><a class="el" href="rt_template_io.html" target="_self">I/O</a></td><td class="desc"></td></tr>
+<tr id="row_4_1_0_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="stderr_USART_c.html" target="_self">STDERR via USART</a></td><td class="desc"></td></tr>
+<tr id="row_4_1_1_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="stderr_user_c.html" target="_self">STDERR User Template</a></td><td class="desc"></td></tr>
+<tr id="row_4_1_2_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="stdin_USART_c.html" target="_self">STDIN via USART</a></td><td class="desc"></td></tr>
+<tr id="row_4_1_3_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="stdin_user_c.html" target="_self">STDIN User Template</a></td><td class="desc"></td></tr>
+<tr id="row_4_1_4_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="stdout_USART_c.html" target="_self">STDOUT via USART</a></td><td class="desc"></td></tr>
+<tr id="row_4_1_5_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="stdout_user_c.html" target="_self">STDOUT User Template</a></td><td class="desc"></td></tr>
+<tr id="row_4_1_6_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="tty_user_c.html" target="_self">TTY User Template</a></td><td class="desc"></td></tr>
+<tr id="row_4_2_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_4_2_" class="arrow" onclick="toggleFolder('4_2_')">&#9660;</span><a class="el" href="rt_template_os_interface.html" target="_self">OS Interface</a></td><td class="desc"><a class="el" href="group__os__interface__api.html">OS Interface</a> provides Custom component that can be used to implement its functionality using code templates below </td></tr>
+<tr id="row_4_2_0_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="retarget_os_c_armcc.html" target="_self">Arm Compiler</a></td><td class="desc"></td></tr>
+<tr id="row_4_2_1_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="retarget_os_gcc.html" target="_self">GCC Newlib</a></td><td class="desc"><b>Code template used to retarget locking routines</b> </td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->

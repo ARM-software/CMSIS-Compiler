@@ -43,7 +43,7 @@
     </script>
    </span>
    </div>
-   <div id="projectbrief">Debugger Views for Status and Event Information</div>
+   <div id="projectbrief">Standard C Library File, I/O and OS Retargeting</div>
   </td>
   <!--END !PROJECT_NAME-->
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
@@ -108,38 +108,38 @@ $(document).ready(function(){initNavTree('md__home_runner_work_CMSIS_Compiler_CM
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p >This project prints "Hello World" and a counter value via the UART output. It is configured for Arm Virtual Hardware, but other target hardware that provides a CMSIS Driver:USART can be easily added.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md1"></a>
 Prerequisites</h1>
-<h2><a class="anchor" id="autotoc_md3"></a>
+<h2><a class="anchor" id="autotoc_md2"></a>
 Tools</h2>
 <ul>
-<li><a href="https://github.com/Open-CMSIS-Pack/devtools/releases">CMSIS-Toolbox 1.5.0</a> or higher</li>
+<li><a href="https://github.com/Open-CMSIS-Pack/devtools/releases">CMSIS-Toolbox 1.7.0</a> or higher</li>
 <li><a href="https://developer.arm.com/downloads/view/ACOMPE">Arm Compiler for Embedded</a>, or</li>
 <li><a href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">GCC Compiler for Arm bare-metal</a></li>
 <li><a href="https://developer.arm.com/Tools%20and%20Software/Arm%20Virtual%20Hardware">Arm Virtual Hardware</a> for local execution (e.g. delivered as part of Keil MDK)</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Packs</h2>
 <ul>
 <li>Required packs are listed in the file <a href="./retarget.csolution.yml"><code>retarget.csolution.yml</code></a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
 Project Structure</h1>
 <p >The project is generated using the <a href="https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/Overview.md">CMSIS-Toolbox</a> and is defined in <a href="https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/YML-Format.md"><code>csolution</code></a> format:</p>
 <ul>
 <li><a href="./retarget.csolution.yml"><code>retarget.csolution.yml</code></a> lists the required packs and defines the hardware target and build-types (along with the compiler).</li>
 <li><a href="./retarget.cproject.yml"><code>retarget.cproject.yml</code></a> defines the source files and the software components.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Build Project</h1>
 <p >Use the <code>cbuild</code> command to build the Debug configuration for VHT target defined in <code>.csolution.yml</code> solution file.</p>
 <div class="fragment"><div class="line">./example $ cbuild retarget.csolution.yml -v --update-rte -p --configuration .Debug+VHT</div>
 </div><!-- fragment --><p >&gt;Note: During the build process required packs may be downloaded (<code>-p</code> flag).</p>
 <p >By default the project is compiled using Arm Compiler. One can change the compiler selection in <code>.cdefault.yml</code> file to <code>GCC</code>.</p>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
 Execute Project</h1>
 <p >The project is configured for execution on Arm Virtual Hardware which removes the requirement for a physical hardware board.</p>
-<div class="fragment"><div class="line">./example $ VHT_MPS2_Cortex-M3 -f vht-cm3-config.txt out/retarget/Debug/VHT/Debug+VHT.axf</div>
+<div class="fragment"><div class="line">./example $ VHT_MPS2_Cortex-M3 -f vht-cm3-config.txt out/retarget/VHT/Debug/retarget.axf</div>
 </div><!-- fragment --><p >&gt;Note: The application image file has extension <code>.elf</code> when using GCC Compiler. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

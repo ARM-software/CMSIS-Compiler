@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tty_5fuser_2ec_20file_0',['tty_user.c File',['../tty_user_c.html',1,'Retarget_Files']]]
+  ['multithreading_20support_20retarget_0',['Multithreading Support Retarget',['../rt_os.html',1,'']]]
 ];

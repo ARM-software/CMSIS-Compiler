@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-Compiler Support: stdout_USART.c File</title>
+<title>CMSIS-Compiler Support: STDOUT via USART</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -43,7 +43,7 @@
     </script>
    </span>
    </div>
-   <div id="projectbrief">Debugger Views for Status and Event Information</div>
+   <div id="projectbrief">Standard C Library File, I/O and OS Retargeting</div>
   </td>
   <!--END !PROJECT_NAME-->
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('stdout_USART_c.html',''); initResizabl
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">stdout_USART.c File </div></div>
+  <div class="headertitle"><div class="title">STDOUT via USART </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="section note"><dt>Note</dt><dd>To have the full flexibility for retargeting different channels to different target hardware, each USART user code template contains a function to initialize the USART (here: <code>stdout_init</code>). When using the same hardware for multiple channels, the initialization functions need to be merged in one single function. Call this function during the initialization of the device's peripherals.</dd></dl>
@@ -144,7 +144,7 @@ $(document).ready(function(){initNavTree('stdout_USART_c.html',''); initResizabl
 <div class="line"><span class="preprocessor">#define USART_DRV_NUM           0</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">//   &lt;o&gt;Baudrate</span></div>
-<div class="line"><span class="preprocessor">#define USART_BAUDRATE          9600</span></div>
+<div class="line"><span class="preprocessor">#define USART_BAUDRATE          115200</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// &lt;/h&gt;</span></div>
 <div class="line"> </div>

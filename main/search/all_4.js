@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['retarget_20variant_20_22user_22_0',['Retarget Variant &quot;User&quot;',['../variant_User.html',1,'Retarget_Details']]],
-  ['retarget_5fio_2ec_20file_1',['retarget_io.c File',['../retarget_io_c.html',1,'Retarget_Files']]],
-  ['retargeting_20channels_20and_20variants_2',['Retargeting Channels and Variants',['../Retarget_Details.html',1,'']]],
-  ['revision_20history_3',['Revision History',['../rev_hist.html',1,'']]]
+  ['day_0',['day',['../group__fs__interface__api.html#a72369a1087b2aeffe374bb054cb97c12',1,'rt_fs_time_t']]],
+  ['definitions_1',['Definitions',['../group__fs__interface__definitions.html',1,'']]]
 ];
