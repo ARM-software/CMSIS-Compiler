@@ -13,14 +13,14 @@ This project prints "Hello World" and a counter value via the UART output. It is
 
 ### Packs
 
-- Required packs are listed in the file [`retarget.csolution.yml`](https://github.com/ARM-software/CMSIS-Compiler/blob/main/example/retarget.csolution.yml)
+- Required packs are listed in the file `retarget.csolution.yml`
 
 ## Project Structure
 
 The project is generated using the [CMSIS-Toolbox](https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/Overview.md) and is defined in [`csolution`](https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/YML-Input-Format.md) format:
 
-- [`retarget.csolution.yml`](https://github.com/ARM-software/CMSIS-Compiler/blob/main/example/retarget.csolution.yml) lists the required packs and defines the hardware target and build-types (along with the compiler).
-- [`retarget.cproject.yml`](https://github.com/ARM-software/CMSIS-Compiler/blob/main/example/retarget.cproject.yml) defines the source files and the software components.
+- `retarget.csolution.yml` lists the required packs and defines the hardware target and build-types (along with the compiler).
+- `retarget.cproject.yml` defines the source files and the software components.
 
 ## Build Project
 
