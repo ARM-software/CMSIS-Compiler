@@ -2,7 +2,8 @@
 
 ## About
 
-The software component **Compiler** allows you to retarget I/O functions of the standard C run-time library based on the C compiler that you are using in your project.
+The software component **CMSIS-Compiler** allows you to retarget standard I/O streams and
+file operations to specific platform and enable thread safe operations using RTOS interface.
 
 ## Repository top level structure
 
