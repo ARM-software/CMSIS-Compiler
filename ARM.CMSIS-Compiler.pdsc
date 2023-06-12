@@ -176,7 +176,7 @@
         #define RTE_Compiler_IO_File_BKPT       /* Compiler I/O: File Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="Breakpoint" Cversion="1.0.0" condition="GCC CortexDevice">
@@ -186,7 +186,7 @@
         #define RTE_Compiler_IO_File_BKPT       /* Compiler I/O: File Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="File Interface" Cversion="1.0.0" condition="ARMCC CortexDevice FileInterface">
