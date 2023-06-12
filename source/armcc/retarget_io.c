@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------
  * Name:    retarget_io.c
  * Purpose: Retarget I/O
- * Rev.:    1.0.0
+ * Rev.:    1.0.1
  *-----------------------------------------------------------------------------*/
 
 /*
@@ -659,7 +659,7 @@ int _sys_read (FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode) {
   if (rval < 0) {
     errno = rval;
   } else if (rval == 0) {
-    rval |= 0x80000000;
+    rval = (int32_t)(len | 0x80000000);
   } else {
     rval = (int32_t)len - rval;
   }
