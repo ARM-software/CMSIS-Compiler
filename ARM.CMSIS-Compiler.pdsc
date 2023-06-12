@@ -14,13 +14,6 @@
   </releases>
 
   <conditions>
-    <condition id="ARMCC">
-      <require Tcompiler="ARMCC"/>
-    </condition>
-    <condition id="GCC">
-      <require Tcompiler="GCC"/>
-    </condition>
-
     <condition id="Cortex-M Device">
       <description>Cortex-M processor based device: Cortex-M0/M0+/M1/M3/M4/M7/M23/M33/M35P/M55/M85, ARMV8MBL/ML, Star-MC1, SC000/300</description>
       <accept Dcore="Cortex-M0"/>
@@ -53,22 +46,6 @@
       <accept condition="Cortex-A Device"/>
       <accept condition="Cortex-M Device"/>
     </condition>
-
-    <condition id="ARMCC CortexDevice">
-      <description>ARMCC and Cortex device</description>
-      <require Tcompiler="ARMCC"/>
-      <require condition="CortexDevice"/>
-    </condition>
-    <condition id="ARMCC CortexDevice ITM">
-      <description>ARMCC and Cortex device with ITM</description>
-      <require Tcompiler="ARMCC"/>
-      <require condition="Cortex-M Device"/>
-      <deny Dcore="Cortex-M0"/>
-      <deny Dcore="Cortex-M0+"/>
-      <deny Dcore="Cortex-M1"/>
-      <deny Dcore="SC000"/>
-    </condition>
-
     <condition id="CortexDevice ITM">
       <description>Cortex device with ITM</description>
       <require condition="Cortex-M Device"/>
@@ -92,6 +69,61 @@
       <require condition="CortexDevice"/>
       <require Cclass="CMSIS" Cgroup="RTOS2"/>
     </condition>
+
+    <condition id="ARMCC CortexDevice">
+      <description>ARMCC and Cortex device</description>
+      <require Tcompiler="ARMCC"/>
+      <require condition="CortexDevice"/>
+    </condition>
+    <condition id="GCC CortexDevice">
+      <description>GCC and Cortex device</description>
+      <require Tcompiler="GCC"/>
+      <require condition="CortexDevice"/>
+    </condition>
+
+    <condition id="ARMCC CortexDevice ITM">
+      <description>ARMCC and Cortex device with ITM</description>
+      <require Tcompiler="ARMCC"/>
+      <require condition="CortexDevice ITM"/>
+    </condition>
+    <condition id="GCC CortexDevice ITM">
+      <description>GCC and Cortex device with ITM</description>
+      <require Tcompiler="GCC"/>
+      <require condition="CortexDevice ITM"/>
+    </condition>
+
+    <condition id="ARMCC CortexDevice EVR">
+      <description>ARMCC and Cortex device using EVR</description>
+      <require Tcompiler="ARMCC"/>
+      <require condition="CortexDevice EVR"/>
+    </condition>
+    <condition id="GCC CortexDevice EVR">
+      <description>GCC and Cortex device using EVR</description>
+      <require Tcompiler="GCC"/>
+      <require condition="CortexDevice EVR"/>
+    </condition>
+
+    <condition id="ARMCC CortexDevice FileInterface">
+      <description>ARMCC and Cortex device using File Interface</description>
+      <require Tcompiler="ARMCC"/>
+      <require condition="CortexDevice FileInterface"/>
+    </condition>
+    <condition id="GCC CortexDevice FileInterface">
+      <description>GCC and Cortex device using File Interface</description>
+      <require Tcompiler="GCC"/>
+      <require condition="CortexDevice FileInterface"/>
+    </condition>
+
+    <condition id="ARMCC CortexDevice CMSIS-RTOS2">
+      <description>ARMCC and Cortex device using CMSIS-RTOS2</description>
+      <require Tcompiler="ARMCC"/>
+      <require condition="CortexDevice CMSIS-RTOS2"/>
+    </condition>
+    <condition id="GCC CortexDevice CMSIS-RTOS2">
+      <description>GCC and Cortex device using CMSIS-RTOS2</description>
+      <require Tcompiler="GCC"/>
+      <require condition="CortexDevice CMSIS-RTOS2"/>
+    </condition>
   </conditions>
 
   <taxonomy>
@@ -102,17 +134,23 @@
     <api Cclass="CMSIS-Compiler" Cgroup="File Interface" Capiversion="1.0.0" exclusive="1" condition="CortexDevice">
       <description>Standard C Library File Operations Retarget Interface</description>
       <files>
-        <!-- <file category="doc" name="documentation/fs_api.html" /> -->
-        <file category="header" name="include/retarget_fs.h" />
+        <file category="doc" name="documentation/html/group__fs__interface__api.html"/>
+        <file category="header" name="include/retarget_fs.h"/>
       </files>
     </api>
 
-    <api Cclass="CMSIS-Compiler" Cgroup="OS Interface" Capiversion="1.0.0" exclusive="1" condition="CortexDevice">
+    <api Cclass="CMSIS-Compiler" Cgroup="OS Interface" Capiversion="1.0.0" exclusive="1" condition="ARMCC CortexDevice">
       <description>Standard C Library OS Retarget Interface</description>
       <files>
-        <!-- <file category="doc" name="documentation/os_api.html" /> -->
-        <file category="header" name="include/armcc/retarget_os.h" condition="ARMCC"/>
-        <file category="header" name="include/gcc/retarget_os.h"   condition="GCC"/>
+        <file category="doc" name="documentation/html/group__retarget__os__armclib.html"/>
+        <file category="header" name="include/armcc/retarget_os.h"/>
+      </files>
+    </api>
+    <api Cclass="CMSIS-Compiler" Cgroup="OS Interface" Capiversion="1.0.0" exclusive="1" condition="GCC CortexDevice">
+      <description>Standard C Library OS Retarget Interface</description>
+      <files>
+        <file category="doc" name="documentation/html/group__retarget__os__newlib.html"/>
+        <file category="header" name="include/gcc/retarget_os.h"/>
       </files>
     </api>
   </apis>
@@ -130,8 +168,8 @@
       </files>
     </component>
 
-    <!-- I/O -->
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="Breakpoint" Cversion="1.0.0" condition="CortexDevice">
+    <!-- I/O::File -->
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="Breakpoint" Cversion="1.0.0" condition="ARMCC CortexDevice">
       <description>Stop program execution at a breakpoint when using file operations</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_File            /* Compiler I/O: File */
@@ -139,43 +177,81 @@
       </RTE_Components_h>
       <files>
         <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="Breakpoint" Cversion="1.0.0" condition="GCC CortexDevice">
+      <description>Stop program execution at a breakpoint when using file operations</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_File            /* Compiler I/O: File */
+        #define RTE_Compiler_IO_File_BKPT       /* Compiler I/O: File Breakpoint */
+      </RTE_Components_h>
+      <files>
         <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="File Interface" Cversion="1.0.0" condition="CortexDevice FileInterface">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="File Interface" Cversion="1.0.0" condition="ARMCC CortexDevice FileInterface">
       <description>Redirect file operations to File Interface</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_File            /* Compiler I/O: File */
         #define RTE_Compiler_IO_File_Interface  /* Compiler I/O: File Interface */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="Breakpoint" Cversion="1.0.0" condition="CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="File Interface" Cversion="1.0.0" condition="GCC CortexDevice FileInterface">
+      <description>Redirect file operations to File Interface</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_File            /* Compiler I/O: File */
+        #define RTE_Compiler_IO_File_Interface  /* Compiler I/O: File Interface */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
+      </files>
+    </component>
+    
+    <!-- I/O::STDIN -->
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="Breakpoint" Cversion="1.0.0" condition="ARMCC CortexDevice">
       <description>Stop program execution at a breakpoint when using STDIN</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDIN           /* Compiler I/O: STDIN */
         #define RTE_Compiler_IO_STDIN_BKPT      /* Compiler I/O: STDIN Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cversion="1.0.0" condition="CortexDevice ITM">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="Breakpoint" Cversion="1.0.0" condition="GCC CortexDevice">
+      <description>Stop program execution at a breakpoint when using STDIN</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_STDIN           /* Compiler I/O: STDIN */
+        #define RTE_Compiler_IO_STDIN_BKPT      /* Compiler I/O: STDIN Breakpoint */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cversion="1.0.0" condition="ARMCC CortexDevice ITM">
       <description>Retrieve STDIN from a debug output window using ITM</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDIN           /* Compiler I/O: STDIN */
         #define RTE_Compiler_IO_STDIN_ITM       /* Compiler I/O: STDIN ITM */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="User" Cversion="1.0.0" condition="CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cversion="1.0.0" condition="GCC CortexDevice ITM">
+      <description>Retrieve STDIN from a debug output window using ITM</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_STDIN           /* Compiler I/O: STDIN */
+        #define RTE_Compiler_IO_STDIN_ITM       /* Compiler I/O: STDIN ITM */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="User" Cversion="1.0.0" condition="ARMCC CortexDevice">
       <description>Retrieve STDIN from a user specified input source  (USART, Keyboard or other)</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDIN           /* Compiler I/O: STDIN */
@@ -183,47 +259,89 @@
       </RTE_Components_h>
       <files>
         <file category="header" name="include/retarget_stdin.h"/>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
 
         <file category="source" name="template/io/stdin_user.c"     attr="template" select="STDIN User Template"/>
         <file category="source" name="template/io/stdin_USART.c"    attr="template" select="STDIN via USART"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="Breakpoint" Cversion="1.0.0" condition="CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="User" Cversion="1.0.0" condition="GCC CortexDevice">
+      <description>Retrieve STDIN from a user specified input source  (USART, Keyboard or other)</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_STDIN           /* Compiler I/O: STDIN */
+        #define RTE_Compiler_IO_STDIN_User      /* Compiler I/O: STDIN User */
+      </RTE_Components_h>
+      <files>
+        <file category="header" name="include/retarget_stdin.h"/>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
+
+        <file category="source" name="template/io/stdin_user.c"     attr="template" select="STDIN User Template"/>
+        <file category="source" name="template/io/stdin_USART.c"    attr="template" select="STDIN via USART"/>
+      </files>
+    </component>
+
+    <!-- I/O::STDOUT -->
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="Breakpoint" Cversion="1.0.0" condition="ARMCC CortexDevice">
       <description>Stop program execution at a breakpoint when using STDOUT</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
         #define RTE_Compiler_IO_STDOUT_BKPT     /* Compiler I/O: STDOUT Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cversion="1.0.0" condition="CortexDevice ITM">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="Breakpoint" Cversion="1.0.0" condition="GCC CortexDevice">
+      <description>Stop program execution at a breakpoint when using STDOUT</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
+        #define RTE_Compiler_IO_STDOUT_BKPT     /* Compiler I/O: STDOUT Breakpoint */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cversion="1.0.0" condition="ARMCC CortexDevice ITM">
       <description>Redirect STDOUT to a debug output window using ITM</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
         #define RTE_Compiler_IO_STDOUT_ITM      /* Compiler I/O: STDOUT ITM */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="EVR" Cversion="1.0.0" condition="CortexDevice EVR">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cversion="1.0.0" condition="GCC CortexDevice ITM">
+      <description>Redirect STDOUT to a debug output window using ITM</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
+        #define RTE_Compiler_IO_STDOUT_ITM      /* Compiler I/O: STDOUT ITM */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="EVR" Cversion="1.0.0" condition="ARMCC CortexDevice EVR">
       <description>Redirect STDOUT to a debug output window using Event Recorder</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
         #define RTE_Compiler_IO_STDOUT_EVR      /* Compiler I/O: STDOUT EVR */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cversion="1.0.0" condition="CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="EVR" Cversion="1.0.0" condition="GCC CortexDevice EVR">
+      <description>Redirect STDOUT to a debug output window using Event Recorder</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
+        #define RTE_Compiler_IO_STDOUT_EVR      /* Compiler I/O: STDOUT EVR */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cversion="1.0.0" condition="ARMCC CortexDevice">
       <description>Redirect STDOUT to a user defined output target (USART or other)</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
@@ -231,36 +349,69 @@
       </RTE_Components_h>
       <files>
         <file category="header" name="include/retarget_stdout.h"/>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
 
         <file category="source" name="template/io/stdout_user.c"    attr="template" select="STDOUT User Template"/>
         <file category="source" name="template/io/stdout_USART.c"   attr="template" select="STDOUT via USART"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="Breakpoint" Cversion="1.0.0" condition="CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cversion="1.0.0" condition="GCC CortexDevice">
+      <description>Redirect STDOUT to a user defined output target (USART or other)</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
+        #define RTE_Compiler_IO_STDOUT_User     /* Compiler I/O: STDOUT User */
+      </RTE_Components_h>
+      <files>
+        <file category="header" name="include/retarget_stdout.h"/>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
+
+        <file category="source" name="template/io/stdout_user.c"    attr="template" select="STDOUT User Template"/>
+        <file category="source" name="template/io/stdout_USART.c"   attr="template" select="STDOUT via USART"/>
+      </files>
+    </component>
+
+    <!-- I/O::STDERR -->
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="Breakpoint" Cversion="1.0.0" condition="ARMCC CortexDevice">
       <description>Stop program execution at a breakpoint when using STDERR</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
         #define RTE_Compiler_IO_STDERR_BKPT     /* Compiler I/O: STDERR Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cversion="1.0.0" condition="CortexDevice ITM">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="Breakpoint" Cversion="1.0.0" condition="GCC CortexDevice">
+      <description>Stop program execution at a breakpoint when using STDERR</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
+        #define RTE_Compiler_IO_STDERR_BKPT     /* Compiler I/O: STDERR Breakpoint */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cversion="1.0.0" condition="ARMCC CortexDevice ITM">
       <description>Redirect STDERR to a debug output window using ITM</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
         #define RTE_Compiler_IO_STDERR_ITM      /* Compiler I/O: STDERR ITM */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="User" Cversion="1.0.0" condition="CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cversion="1.0.0" condition="GCC CortexDevice ITM">
+      <description>Redirect STDERR to a debug output window using ITM</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
+        #define RTE_Compiler_IO_STDERR_ITM      /* Compiler I/O: STDERR ITM */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="User" Cversion="1.0.0" condition="ARMCC CortexDevice">
       <description>Redirect STDERR to a user defined output target (USART or other)</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
@@ -268,14 +419,28 @@
       </RTE_Components_h>
       <files>
         <file category="header" name="include/retarget_stderr.h"/>
-        <file category="source" name="source/armcc/retarget_io.c"     condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c" condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_io.c"/>
+
+        <file category="source" name="template/io/stderr_user.c"    attr="template" select="STDERR User Template"/>
+        <file category="source" name="template/io/stderr_USART.c"   attr="template" select="STDERR via USART"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="User" Cversion="1.0.0" condition="GCC CortexDevice">
+      <description>Redirect STDERR to a user defined output target (USART or other)</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
+        #define RTE_Compiler_IO_STDERR_User     /* Compiler I/O: STDERR User */
+      </RTE_Components_h>
+      <files>
+        <file category="header" name="include/retarget_stderr.h"/>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
 
         <file category="source" name="template/io/stderr_user.c"    attr="template" select="STDERR User Template"/>
         <file category="source" name="template/io/stderr_USART.c"   attr="template" select="STDERR via USART"/>
       </files>
     </component>
 
+    <!-- I/O::TTY -->
     <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="TTY" Cvariant="Breakpoint" Cversion="1.0.0" condition="ARMCC CortexDevice">
       <description>Stop program execution at a breakpoint when using TTY</description>
       <RTE_Components_h>
@@ -311,28 +476,46 @@
     </component>
 
     <!-- OS Interface -->
-    <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="Custom" Capiversion="1.0.0" Cversion="1.0.0" custom="1" condition="CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="Custom" Capiversion="1.0.0" Cversion="1.0.0" custom="1" condition="ARMCC CortexDevice">
       <description>Access to #include retarget_os.h and code template for custom implementation</description>
       <RTE_Components_h>
         #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
         #define RTE_Compiler_OS_Interface_Custom /* Compiler OS Interface: Custom */
       </RTE_Components_h>
       <files>
-        <file category="source" name="template/os_interface/armcc/retarget_os.c"     condition="ARMCC" attr="template" select="OS Interface Custom Template"/>
-        <file category="source" name="template/os_interface/gcc/retarget_lock.c"     condition="GCC"   attr="template" select="OS Interface Lock Custom Template"/>
-        <file category="source" name="template/os_interface/gcc/retarget_syscalls.c" condition="GCC"   attr="template" select="OS Interface SysCalls Custom Template"/>
+        <file category="source" name="template/os_interface/armcc/retarget_os.c" attr="template" select="OS Interface Custom Template"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Capiversion="1.0.0" Cversion="1.0.0" condition="CortexDevice CMSIS-RTOS2">
+    <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="Custom" Capiversion="1.0.0" Cversion="1.0.0" custom="1" condition="GCC CortexDevice">
+      <description>Access to #include retarget_os.h and code template for custom implementation</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
+        #define RTE_Compiler_OS_Interface_Custom /* Compiler OS Interface: Custom */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="template/os_interface/gcc/retarget_lock.c"     attr="template" select="OS Interface Lock Custom Template"/>
+        <file category="source" name="template/os_interface/gcc/retarget_syscalls.c" attr="template" select="OS Interface SysCalls Custom Template"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Capiversion="1.0.0" Cversion="1.0.0" condition="ARMCC CortexDevice CMSIS-RTOS2">
       <description>C library OS interface implementation using CMSIS-RTOS2</description>
       <RTE_Components_h>
         #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
         #define RTE_Compiler_OS_Interface_CMSIS_RTOS2 /* Compiler OS Interface: CMSIS-RTOS2 */
       </RTE_Components_h>
       <files>
-        <file category="source" name="source/armcc/retarget_os_rtos2.c" condition="ARMCC"/>
-        <file category="source" name="source/gcc/retarget_lock_rtos2.c" condition="GCC"/>
-        <file category="source" name="source/gcc/retarget_syscalls.c"   condition="GCC"/>
+        <file category="source" name="source/armcc/retarget_os_rtos2.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Capiversion="1.0.0" Cversion="1.0.0" condition="GCC CortexDevice CMSIS-RTOS2">
+      <description>C library OS interface implementation using CMSIS-RTOS2</description>
+      <RTE_Components_h>
+        #define RTE_Compiler_OS_Interface       /* Compiler OS Interface */
+        #define RTE_Compiler_OS_Interface_CMSIS_RTOS2 /* Compiler OS Interface: CMSIS-RTOS2 */
+      </RTE_Components_h>
+      <files>
+        <file category="source" name="source/gcc/retarget_lock_rtos2.c"/>
+        <file category="source" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
   </components>
