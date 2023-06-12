@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------
  * Name:    retarget_syscalls.c
  * Purpose: Retarget System Calls
- * Rev.:    1.0.0
+ * Rev.:    1.0.1
  *-----------------------------------------------------------------------------*/
 
 /*
@@ -779,12 +779,12 @@ pid_t wait (int *stat_loc) {
 /* Extend heap space by incr bytes (reentrant version) */
 __attribute__((weak))
 void *_sbrk_r (struct _reent *reent, ptrdiff_t incr) {
-  extern   char  __HeapLimit;
-  extern   char  __HeapStart asm("end");
-  static   char *heap;
-           char *heap_prev;
-           char *sp;
-           void *p;
+  extern char  __HeapLimit;
+  extern char  __HeapStart __asm("end");
+  static char *heap;
+         char *heap_prev;
+         char *sp;
+         void *p;
 
   sp = (char *)__get_MSP();
 
