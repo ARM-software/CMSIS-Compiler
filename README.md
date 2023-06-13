@@ -74,7 +74,7 @@ additional asset to the release.
 
 ## License Terms
 
-CMSIS-Compiler is licensed under [Apache License 2.0.](LICENSE).
+CMSIS-Compiler is licensed under [Apache License 2.0](LICENSE).
 
 ### Note
 
