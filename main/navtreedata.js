@@ -26,6 +26,7 @@ var NAVTREE =
 [
   [ "CMSIS-Compiler Support", "index.html", [
     [ "Content", "index.html#doc_content", null ],
+    [ "License", "index.html#doc_license", null ],
     [ "Revision History", "rev_hist.html", null ],
     [ "Overview", "rt_overview.html", null ],
     [ "Low-Level I/O Retarget", "rt_io.html", [
