@@ -22,4 +22,9 @@ The \b CMSIS-Compiler component is available for
 <a href="https://developer.arm.com/Tools%20and%20Software/Arm%20Compiler%20for%20Embedded" target="_blank">Arm Compiler for Embedded</a>
 and the <a href="https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain" target="_blank">Arm GNU Toolchain (GCC)</a>.
 IAR Compiler support will be added in a future revision of the pack. 
+
+\section doc_license License
+
+CMSIS-Compiler is provided free of charge by Arm under the <a href="https://raw.githubusercontent.com/ARM-software/CMSIS-Compiler/main/LICENSE">Apache 2.0 License</a>.
+
 */
