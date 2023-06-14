@@ -59,6 +59,11 @@
 */
 #include <time.h>
 
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
+
 /**
   \brief Retrieve thread local storage.
 
@@ -127,5 +132,9 @@ void _mutex_release(rt_mutex_t *mutex);
   \param[in]  mutex     Pointer to mutex object
 */
 void _mutex_free(rt_mutex_t *mutex);
+
+#ifdef  __cplusplus
+}
+#endif
 
 #endif /* RETARGET_OS_H__ */
