@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------
  * Name:    retarget_syscalls.c
  * Purpose: Retarget System Calls
- * Rev.:    1.0.0
+ * Rev.:    1.0.1
  *-----------------------------------------------------------------------------*/
 
 /*
@@ -229,6 +229,7 @@ __attribute__((weak))
 int _open (const char *path, int oflag, ...) {
 #if (defined(RTE_Compiler_IO_File) && defined(RTE_Compiler_IO_File_Interface))
   int32_t rval;
+  int32_t mode;
 #else
   (void)path;
   (void)oflag;
@@ -236,7 +237,9 @@ int _open (const char *path, int oflag, ...) {
 
 #if defined(RTE_Compiler_IO_File)
 #if defined(RTE_Compiler_IO_File_Interface)
-  rval = rt_fs_open(path, oflag);
+  mode  = oflag & (O_RDONLY | O_WRONLY | O_RDWR | O_APPEND);
+  mode |= (oflag & (O_CREAT | O_TRUNC)) >> 1;
+  rval = rt_fs_open(path, mode);
   if (rval < 0) {
     errno = rval;
     rval = -1;
