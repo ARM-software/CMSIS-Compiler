@@ -783,10 +783,7 @@ void *_sbrk_r (struct _reent *reent, ptrdiff_t incr) {
   extern char  __HeapStart __asm("end");
   static char *heap;
          char *heap_prev;
-         char *sp;
          void *p;
-
-  sp = (char *)__get_MSP();
 
   if (heap == NULL) {
     /* Initialize current heap memory address */
@@ -797,12 +794,6 @@ void *_sbrk_r (struct _reent *reent, ptrdiff_t incr) {
 
   if ((heap + incr) > &__HeapLimit) {
     /* Out of heap memory */
-    reent->_errno = ENOMEM;
-
-    p = (void *)-1;
-  }
-  else if ((heap + incr) >= sp) {
-    /* Heap and stack collision */
     reent->_errno = ENOMEM;
 
     p = (void *)-1;
