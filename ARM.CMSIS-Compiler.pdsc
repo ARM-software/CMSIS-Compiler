@@ -46,7 +46,7 @@
       <accept condition="Cortex-A Device"/>
       <accept condition="Cortex-M Device"/>
     </condition>
-    <condition id="CortexDevice ITM">
+    <condition id="CortexDevice_ITM">
       <description>Cortex device with ITM</description>
       <require condition="Cortex-M Device"/>
       <deny Dcore="Cortex-M0"/>
@@ -54,20 +54,10 @@
       <deny Dcore="Cortex-M1"/>
       <deny Dcore="SC000"/>
     </condition>
-    <condition id="CortexDevice EVR">
-      <description>Cortex device using EVR</description>
-      <require condition="CortexDevice"/>
-      <require Cclass="CMSIS-View" Cgroup="Event Recorder"/>
-    </condition>
-    <condition id="CortexDevice FileInterface">
-      <description>Cortex device using File Interface</description>
-      <require condition="CortexDevice"/>
-      <require Cclass="CMSIS-Compiler" Cgroup="File Interface"/>
-    </condition>
-    <condition id="CortexDevice CMSIS-RTOS2">
-      <description>Cortex device using CMSIS-RTOS2</description>
-      <require condition="CortexDevice"/>
-      <require Cclass="CMSIS" Cgroup="RTOS2"/>
+
+    <condition id="IO">
+      <description>Deny selection of Compiler::I/O when using CMSIS-Compiler::I/O</description>
+      <deny Cclass="Compiler" Cgroup="I/O"/>
     </condition>
 
     <condition id="ARMCC CortexDevice">
@@ -81,48 +71,57 @@
       <require condition="CortexDevice"/>
     </condition>
 
-    <condition id="ARMCC CortexDevice ITM">
-      <description>ARMCC and Cortex device with ITM</description>
-      <require Tcompiler="ARMCC"/>
-      <require condition="CortexDevice ITM"/>
-    </condition>
-    <condition id="GCC CortexDevice ITM">
-      <description>GCC and Cortex device with ITM</description>
-      <require Tcompiler="GCC"/>
-      <require condition="CortexDevice ITM"/>
+    <condition id="ARMCC CortexDevice IO">
+      <description>ARMCC and Cortex device that denies old Compiler::I/O retargeting</description>
+      <require condition="ARMCC CortexDevice"/>
+      <require condition="IO"/>
     </condition>
 
-    <condition id="ARMCC CortexDevice EVR">
-      <description>ARMCC and Cortex device using EVR</description>
+    <condition id="ARMCC CortexDevice_ITM IO">
+      <description>ARMCC and Cortex device with ITM</description>
       <require Tcompiler="ARMCC"/>
-      <require condition="CortexDevice EVR"/>
+      <require condition="CortexDevice_ITM"/>
+      <require condition="IO"/>
+    </condition>
+    <condition id="GCC CortexDevice_ITM">
+      <description>GCC and Cortex device with ITM</description>
+      <require Tcompiler="GCC"/>
+      <require condition="CortexDevice_ITM"/>
+    </condition>
+
+    <condition id="ARMCC CortexDevice EVR IO">
+      <description>ARMCC and Cortex device using EVR</description>
+      <require condition="ARMCC CortexDevice"/>
+      <require Cclass="CMSIS-View" Cgroup="Event Recorder"/>
+      <require condition="IO"/>
     </condition>
     <condition id="GCC CortexDevice EVR">
       <description>GCC and Cortex device using EVR</description>
-      <require Tcompiler="GCC"/>
-      <require condition="CortexDevice EVR"/>
+      <require condition="GCC CortexDevice"/>
+      <require Cclass="CMSIS-View" Cgroup="Event Recorder"/>
     </condition>
 
-    <condition id="ARMCC CortexDevice FileInterface">
+    <condition id="ARMCC CortexDevice FileInterface IO">
       <description>ARMCC and Cortex device using File Interface</description>
-      <require Tcompiler="ARMCC"/>
-      <require condition="CortexDevice FileInterface"/>
+      <require condition="ARMCC CortexDevice"/>
+      <require Cclass="CMSIS-Compiler" Cgroup="File Interface"/>
+      <require condition="IO"/>
     </condition>
     <condition id="GCC CortexDevice FileInterface">
       <description>GCC and Cortex device using File Interface</description>
-      <require Tcompiler="GCC"/>
-      <require condition="CortexDevice FileInterface"/>
+      <require condition="GCC CortexDevice"/>
+      <require Cclass="CMSIS-Compiler" Cgroup="File Interface"/>
     </condition>
 
     <condition id="ARMCC CortexDevice CMSIS-RTOS2">
       <description>ARMCC and Cortex device using CMSIS-RTOS2</description>
-      <require Tcompiler="ARMCC"/>
-      <require condition="CortexDevice CMSIS-RTOS2"/>
+      <require condition="ARMCC CortexDevice"/>
+      <require Cclass="CMSIS" Cgroup="RTOS2"/>
     </condition>
     <condition id="GCC CortexDevice CMSIS-RTOS2">
       <description>GCC and Cortex device using CMSIS-RTOS2</description>
-      <require Tcompiler="GCC"/>
-      <require condition="CortexDevice CMSIS-RTOS2"/>
+      <require condition="GCC CortexDevice"/>
+      <require Cclass="CMSIS" Cgroup="RTOS2"/>
     </condition>
   </conditions>
 
@@ -169,7 +168,7 @@
     </component>
 
     <!-- I/O::File -->
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="Breakpoint" Cversion="1.0.1" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="Breakpoint" Cversion="1.0.1" condition="ARMCC CortexDevice IO">
       <description>Stop program execution at a breakpoint when using file operations</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_File            /* Compiler I/O: File */
@@ -189,7 +188,7 @@
         <file category="source" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="File Interface" Cversion="1.0.1" condition="ARMCC CortexDevice FileInterface">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="File" Cvariant="File Interface" Cversion="1.0.1" condition="ARMCC CortexDevice FileInterface IO">
       <description>Redirect file operations to File Interface</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_File            /* Compiler I/O: File */
@@ -211,7 +210,7 @@
     </component>
     
     <!-- I/O::STDIN -->
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="Breakpoint" Cversion="1.0.1" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="Breakpoint" Cversion="1.0.1" condition="ARMCC CortexDevice IO">
       <description>Stop program execution at a breakpoint when using STDIN</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDIN           /* Compiler I/O: STDIN */
@@ -231,7 +230,7 @@
         <file category="source" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cversion="1.0.1" condition="ARMCC CortexDevice ITM">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cversion="1.0.1" condition="ARMCC CortexDevice_ITM IO">
       <description>Retrieve STDIN from a debug output window using ITM</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDIN           /* Compiler I/O: STDIN */
@@ -241,7 +240,7 @@
         <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cversion="1.0.1" condition="GCC CortexDevice ITM">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cversion="1.0.1" condition="GCC CortexDevice_ITM">
       <description>Retrieve STDIN from a debug output window using ITM</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDIN           /* Compiler I/O: STDIN */
@@ -251,7 +250,7 @@
         <file category="source" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="User" Cversion="1.0.1" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="User" Cversion="1.0.1" condition="ARMCC CortexDevice IO">
       <description>Retrieve STDIN from a user specified input source  (USART, Keyboard or other)</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDIN           /* Compiler I/O: STDIN */
@@ -281,7 +280,7 @@
     </component>
 
     <!-- I/O::STDOUT -->
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="Breakpoint" Cversion="1.0.1" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="Breakpoint" Cversion="1.0.1" condition="ARMCC CortexDevice IO">
       <description>Stop program execution at a breakpoint when using STDOUT</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
@@ -301,7 +300,7 @@
         <file category="source" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cversion="1.0.1" condition="ARMCC CortexDevice ITM">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cversion="1.0.1" condition="ARMCC CortexDevice_ITM IO">
       <description>Redirect STDOUT to a debug output window using ITM</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
@@ -311,7 +310,7 @@
         <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cversion="1.0.1" condition="GCC CortexDevice ITM">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cversion="1.0.1" condition="GCC CortexDevice_ITM">
       <description>Redirect STDOUT to a debug output window using ITM</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
@@ -321,7 +320,7 @@
         <file category="source" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="EVR" Cversion="1.0.1" condition="ARMCC CortexDevice EVR">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="EVR" Cversion="1.0.1" condition="ARMCC CortexDevice EVR IO">
       <description>Redirect STDOUT to a debug output window using Event Recorder</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
@@ -341,7 +340,7 @@
         <file category="source" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cversion="1.0.1" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cversion="1.0.1" condition="ARMCC CortexDevice IO">
       <description>Redirect STDOUT to a user defined output target (USART or other)</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
@@ -371,7 +370,7 @@
     </component>
 
     <!-- I/O::STDERR -->
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="Breakpoint" Cversion="1.0.1" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="Breakpoint" Cversion="1.0.1" condition="ARMCC CortexDevice IO">
       <description>Stop program execution at a breakpoint when using STDERR</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
@@ -391,7 +390,7 @@
         <file category="source" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cversion="1.0.1" condition="ARMCC CortexDevice ITM">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cversion="1.0.1" condition="ARMCC CortexDevice_ITM IO">
       <description>Redirect STDERR to a debug output window using ITM</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
@@ -401,7 +400,7 @@
         <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cversion="1.0.1" condition="GCC CortexDevice ITM">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cversion="1.0.1" condition="GCC CortexDevice_ITM">
       <description>Redirect STDERR to a debug output window using ITM</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
@@ -411,7 +410,7 @@
         <file category="source" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="User" Cversion="1.0.1" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="User" Cversion="1.0.1" condition="ARMCC CortexDevice IO">
       <description>Redirect STDERR to a user defined output target (USART or other)</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_STDERR          /* Compiler I/O: STDERR */
@@ -441,7 +440,7 @@
     </component>
 
     <!-- I/O::TTY -->
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="TTY" Cvariant="Breakpoint" Cversion="1.0.1" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="TTY" Cvariant="Breakpoint" Cversion="1.0.1" condition="ARMCC CortexDevice IO">
       <description>Stop program execution at a breakpoint when using TTY</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_TTY             /* Compiler I/O: TTY */
@@ -451,7 +450,7 @@
         <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="TTY" Cvariant="ITM" Cversion="1.0.1" condition="ARMCC CortexDevice ITM">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="TTY" Cvariant="ITM" Cversion="1.0.1" condition="ARMCC CortexDevice_ITM IO">
       <description>Redirect TTY to a debug output window using ITM</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_TTY             /* Compiler I/O: TTY */
@@ -461,7 +460,7 @@
         <file category="source" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="TTY" Cvariant="User" Cversion="1.0.1" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="I/O" Csub="TTY" Cvariant="User" Cversion="1.0.1" condition="ARMCC CortexDevice IO">
       <description>Redirect TTY to a user defined output target</description>
       <RTE_Components_h>
         #define RTE_Compiler_IO_TTY             /* Compiler I/O: TTY */
