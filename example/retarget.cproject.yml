@@ -1,5 +1,9 @@
 project:
 
+  packs:
+    - pack: ARM::CMSIS
+    - pack: ARM::CMSIS-Compiler
+
   groups:
     - group: Documentation
       files:

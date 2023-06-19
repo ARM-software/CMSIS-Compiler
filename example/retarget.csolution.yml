@@ -1,12 +1,14 @@
 solution:
+  created-for: CMSIS-Toolbox@2.0.0
+  cdefault:
 
   packs:
     - pack: ARM::CMSIS
     - pack: ARM::CMSIS-Compiler
-    - pack: Keil::V2M-MPS2_CMx_BSP
+    - pack: Keil::V2M-MPS2_CMx_BSP@1.8.0
 
   target-types:
-    - type: VHT
+    - type: VHT_CM3
       device: CMSDK_CM3_VHT
 
   build-types:

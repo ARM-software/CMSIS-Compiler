@@ -33,8 +33,8 @@ int main (void) {
 
   while (1)  {
     /* Use printf via USART to output "Hello World" lines */
-    for (count = 1U; count <= 10; count++) {
-      printf ("Hello World %d\r\n", count);
+    for (count = 1U; count <= 10U; count++) {
+      printf ("Hello World %u\r\n", (unsigned int)count);
     }
 
     printf("\r\nFinished\r\n\x04");
