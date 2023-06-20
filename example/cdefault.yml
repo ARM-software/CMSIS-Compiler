@@ -4,22 +4,16 @@ default:
   compiler: AC6
 
   misc:
-    - for-compiler: GCC
-      C-CPP:
-        - -gdwarf-3
-      C:
-        - -std=gnu11
-      Link:
-        - --specs=nosys.specs
-
     - for-compiler: AC6
-      C-CPP:
-        - -Wno-macro-redefined
-        - -Wno-pragma-pack
-        - -Wno-parentheses-equality
       C:
-        - -std=gnu11
+        - -std=c11
       Link:
         - --entry=Reset_Handler
         - --info summarysizes
 
+    - for-compiler: GCC
+      C:
+        - -std=c11
+      Link:
+        - --entry=Reset_Handler
+        - -Wl,-Map=$elf()$.map
