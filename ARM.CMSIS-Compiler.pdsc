@@ -10,6 +10,7 @@
   <releases>
     <release version="0.0.0">
       Active Development ...
+      Modify RTE component defines from RTE_Compiler_* to RTE_CMSIS_Compiler_*
     </release>
   </releases>
 
