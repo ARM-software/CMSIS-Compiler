@@ -20,13 +20,13 @@
 
 #include "RTE_Components.h"
 
-#ifdef RTE_Compiler_IO_STDOUT_EVR
+#ifdef RTE_CMSIS_Compiler_IO_STDOUT_EVR
 #include "EventRecorder.h"
 #endif
 
-#if (defined(RTE_Compiler_IO_STDIN_ITM)  || \
-     defined(RTE_Compiler_IO_STDOUT_ITM) || \
-     defined(RTE_Compiler_IO_STDERR_ITM))
+#if (defined(RTE_CMSIS_Compiler_IO_STDIN_ITM)  || \
+     defined(RTE_CMSIS_Compiler_IO_STDOUT_ITM) || \
+     defined(RTE_CMSIS_Compiler_IO_STDERR_ITM))
 
 /* ITM registers */
 #define ITM_PORT0_U8          (*((volatile uint8_t  *)0xE0000000))
@@ -85,18 +85,18 @@ int32_t ITM_ReceiveChar (void) {
   return (ch);
 }
 
-#endif  /* RTE_Compiler_IO_STDxxx_ITM */
+#endif  /* RTE_CMSIS_Compiler_IO_STDxxx_ITM */
 
 /**
   Get a character from the stdio
 
   \return     The next character from the input, or -1 on read error.
 */
-#if   defined(RTE_Compiler_IO_STDIN)
+#if   defined(RTE_CMSIS_Compiler_IO_STDIN)
 
-#if   defined(RTE_Compiler_IO_STDIN_User)
+#if   defined(RTE_CMSIS_Compiler_IO_STDIN_User)
 extern int stdin_getchar (void);
-#elif defined(RTE_Compiler_IO_STDIN_ITM)
+#elif defined(RTE_CMSIS_Compiler_IO_STDIN_ITM)
 static int stdin_getchar (void) {
   int32_t ch;
 
@@ -105,7 +105,7 @@ static int stdin_getchar (void) {
   } while (ch == -1);
   return (ch);
 }
-#elif defined(RTE_Compiler_IO_STDIN_BKPT)
+#elif defined(RTE_CMSIS_Compiler_IO_STDIN_BKPT)
 static int stdin_getchar (void) {
   int32_t ch = -1;
 
@@ -130,15 +130,15 @@ FILE *const stdin = &__stdio;
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */
-#if   defined(RTE_Compiler_IO_STDOUT)
+#if   defined(RTE_CMSIS_Compiler_IO_STDOUT)
 
-#if   defined(RTE_Compiler_IO_STDOUT_User)
+#if   defined(RTE_CMSIS_Compiler_IO_STDOUT_User)
 extern int stdout_putchar (int ch);
-#elif defined(RTE_Compiler_IO_STDOUT_ITM)
+#elif defined(RTE_CMSIS_Compiler_IO_STDOUT_ITM)
 static int stdout_putchar (int ch) {
   return (ITM_SendChar(ch));
 }
-#elif defined(RTE_Compiler_IO_STDOUT_EVR)
+#elif defined(RTE_CMSIS_Compiler_IO_STDOUT_EVR)
 static int stdout_putchar (int ch) {
   static uint32_t index = 0U;
   static uint8_t  buffer[8];
@@ -153,7 +153,7 @@ static int stdout_putchar (int ch) {
   }
   return (ch);
 }
-#elif defined(RTE_Compiler_IO_STDOUT_BKPT)
+#elif defined(RTE_CMSIS_Compiler_IO_STDOUT_BKPT)
 static int stdout_putchar (int ch) {
   __asm("BKPT 0");
   return (ch);
@@ -176,15 +176,15 @@ FILE *const stdout = &__stdout;
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */
-#if   defined(RTE_Compiler_IO_STDERR)
+#if   defined(RTE_CMSIS_Compiler_IO_STDERR)
 
-#if   defined(RTE_Compiler_IO_STDERR_User)
+#if   defined(RTE_CMSIS_Compiler_IO_STDERR_User)
 extern int stderr_putchar (int ch);
-#elif defined(RTE_Compiler_IO_STDERR_ITM)
+#elif defined(RTE_CMSIS_Compiler_IO_STDERR_ITM)
 static int stderr_putchar (int ch) {
   return (ITM_SendChar(ch));
 }
-#elif defined(RTE_Compiler_IO_STDERR_BKPT)
+#elif defined(RTE_CMSIS_Compiler_IO_STDERR_BKPT)
 static int stderr_putchar (int ch) {
   __asm("BKPT 0");
   return (ch);
