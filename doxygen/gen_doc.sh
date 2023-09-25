@@ -10,7 +10,7 @@
 set -o pipefail
 
 # Set version of gen pack library
-REQUIRED_GEN_PACK_LIB="0.7.0"
+REQUIRED_GEN_PACK_LIB="0.8.4"
 
 DIRNAME=$(dirname $(readlink -f $0))
 REQ_DXY_VERSION="1.9.2"
