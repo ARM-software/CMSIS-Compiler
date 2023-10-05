@@ -22,31 +22,11 @@
 #include "cmsis_os2.h"
 #include "cmsis_compiler.h"
 
-#include "RTE_Components.h"
-
 /* Microlib does not support operating system functions */
 #if !defined(__MICROLIB)
 
-#if !(defined(RTE_CMSIS_RTOS2_RTX5) || defined(RTE_CMSIS_RTOS2_FreeRTOS)) || defined(RTE_RETARGET_OS_Interface_RTOS2_ENABLE)
-
-/* Number of Threads which use standard C/C++ library libspace */
-#ifndef OS_THREAD_LIBSPACE_NUM
-#define OS_THREAD_LIBSPACE_NUM      4
-#endif
-
-#define LIBSPACE_SIZE 96
-
-
-/* Memory for libspace */
-static uint32_t os_libspace[OS_THREAD_LIBSPACE_NUM+1][LIBSPACE_SIZE/4] \
-__attribute__((section(".bss.os.libspace")));
-
-/* Thread IDs for libspace */
-static osThreadId_t os_libspace_id[OS_THREAD_LIBSPACE_NUM] \
-__attribute__((section(".bss.os.libspace")));
-
 /* Check if the kernel has been initialized */
-static uint32_t os_kernel_is_init (void) {
+static uint32_t os_kernel_is_initialized (void) {
   if (osKernelGetState() > osKernelInactive) {
     return 1U;
   } else {
@@ -81,46 +61,6 @@ static uint32_t is_thread_mode (void) {
   }
 }
 
-extern void _platform_post_stackheap_init (void);
-__WEAK void _platform_post_stackheap_init (void) {
-  (void)osKernelInitialize();
-}
-
-
-/*
-  Retrieve thread local storage
-
-  This function returns a pointer to memory for storing data that is local to a
-  particular thread. This means that __user_perthread_libspace() returns a
-  different address depending on the thread it is called from.
-*/
-void *__user_perthread_libspace (void) {
-  osThreadId_t id;
-  uint32_t     n;
-  void        *libspace;
-
-  if (os_kernel_is_active()) {
-    libspace = NULL;
-    id = osThreadGetId();
-
-    for (n = 0U; n < (uint32_t)OS_THREAD_LIBSPACE_NUM; n++) {
-      if (os_libspace_id[n] == NULL) {
-        os_libspace_id[n] = id;
-      }
-      if (os_libspace_id[n] == id) {
-        libspace = &os_libspace[n][0];
-        break;
-      }
-    }
-  } else {
-    libspace = &os_libspace[OS_THREAD_LIBSPACE_NUM][0];
-  }
-
-  assert (libspace != NULL);
-
-  return libspace;
-}
-
 /* Define retarget mutex structure to hold mutex identifier */
 struct rt_mutex_s {
   osMutexId_t id;
@@ -130,7 +70,7 @@ struct rt_mutex_s {
 __USED int _mutex_initialize(rt_mutex_t *mutex) {
   int result = 0;
 
-  if (os_kernel_is_init()) {
+  if (os_kernel_is_initialized()) {
     mutex->id = osMutexNew(NULL);
 
     if (mutex->id != NULL) {
@@ -158,5 +98,4 @@ __USED void _mutex_release(rt_mutex_t *mutex) {
 __USED void _mutex_free(rt_mutex_t *mutex) {
   (void)osMutexDelete(mutex->id);
 }
-#endif
-#endif
+#endif /* !defined(__MICROLIB) */
