@@ -11,6 +11,7 @@
     <release version="0.0.0">
       Active Development ...
       Modify RTE component defines from RTE_Compiler_* to RTE_CMSIS_Compiler_*
+      OS Interface, Arm Compiler: Remove C library thread space implementation
     </release>
   </releases>
 
@@ -624,7 +625,7 @@
         <file category="source" name="template/os_interface/gcc/retarget_syscalls.c" attr="template" select="OS Interface SysCalls Custom Template"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Capiversion="1.0.0" Cversion="1.0.0" condition="ARMCC CortexDevice CMSIS-RTOS2">
+    <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Capiversion="1.0.0" Cversion="1.1.0" condition="ARMCC CortexDevice CMSIS-RTOS2">
       <description>C library OS interface implementation using CMSIS-RTOS2</description>
       <RTE_Components_h>
         #define RTE_CMSIS_Compiler_OS_Interface       /* Compiler OS Interface */
