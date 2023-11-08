@@ -3,7 +3,7 @@
   <vendor>ARM</vendor>
   <name>CMSIS-Compiler</name>
   <description>CMSIS Compiler extensions for Arm Compiler, and GCC</description>
-  <url>https://www.keil.com/pack/</url>
+  <url>https://www.keil.arm.com/packs/cmsis-compiler-arm/</url>
   <license>LICENSE</license>
   <repository type="git">https://github.com/ARM-software/CMSIS-Compiler.git</repository>
 

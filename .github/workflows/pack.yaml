@@ -1,13 +1,15 @@
 name: Build documentation and pack
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
   pull_request:
+  push:
     branches: [ main ]
   release:
     types: [published]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   pack:
     if: |
@@ -16,7 +18,7 @@ jobs:
     name: Generate pack
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -27,10 +29,10 @@ jobs:
 
       - uses: Open-CMSIS-Pack/gen-pack-action@main
         with:
-          doxygen-version: 1.9.2
-          packchk-version: 1.3.95
-          gen-doc-script: ./doxygen/gen_doc.sh
-          check-links-script: ./doxygen/check_links.sh
+          doxygen-version: 1.9.6
+          packchk-version: 1.4.1
+          gen-doc-script: ./documentation/doxygen/gen_doc.sh
+          check-links-script: ./documentation/doxygen/check_links.sh
           doc-path: ./documentation/html
           gen-pack-script: ./gen_pack.sh --no-preprocess
           gen-pack-output: ./output

@@ -1,26 +1,34 @@
-#!/bin/bash
-# Version: 2.1
-# Date: 2022-12-15
+#!/usr/bin/env bash
+# Version: 2.3
+# Date: 2023-06-06
 # This bash script generates CMSIS-View documentation
 #
 # Pre-requisites:
 # - bash shell (for Windows: install git for Windows)
-# - doxygen 1.9.2
+# - doxygen 1.9.6
 
 set -o pipefail
 
 # Set version of gen pack library
-REQUIRED_GEN_PACK_LIB="0.8.4"
+# For available versions see https://github.com/Open-CMSIS-Pack/gen-pack/tags.
+# Use the tag name without the prefix "v", e.g., 0.7.0
+REQUIRED_GEN_PACK_LIB="0.8.7"
 
 DIRNAME=$(dirname $(readlink -f $0))
-REQ_DXY_VERSION="1.9.2"
-PACK_CHANGELOG_MODE="tag"
+REQ_DXY_VERSION="1.9.6"
 
 ############ DO NOT EDIT BELOW ###########
 
 function install_lib() {
   local URL="https://github.com/Open-CMSIS-Pack/gen-pack/archive/refs/tags/v$1.tar.gz"
-  echo "Downloading gen-pack lib to '$2'"
+  local STATUS=$(curl -sLI "${URL}" | grep "^HTTP" | tail -n 1 | cut -d' ' -f2 || echo "$((600+$?))")
+  if [[ $STATUS -ge 400 ]]; then
+    echo "Wrong/unavailable gen-pack lib version '$1'!" >&2
+    echo "Check REQUIRED_GEN_PACK_LIB variable."  >&2
+    echo "For available versions see https://github.com/Open-CMSIS-Pack/gen-pack/tags." >&2
+    exit 1
+  fi
+  echo "Downloading gen-pack lib version '$1' to '$2' ..."
   mkdir -p "$2"
   curl -L "${URL}" -s | tar -xzf - --strip-components 1 -C "$2" || exit 1
 }
@@ -60,27 +68,29 @@ pushd "${DIRNAME}" > /dev/null
 
 echo "Generating documentation ..."
 
-sed -e "s/{projectNumber}/${VERSION}/" RetargetIO.dxy.in > RetargetIO.dxy
+sed -e "s/{projectNumber}/${VERSION}/" compiler.dxy.in > compiler.dxy
 
-git_changelog -f html -p "v" > src/history.txt
+#git_changelog -f html -p "v" > src/history.txt
 
-echo "\"${UTILITY_DOXYGEN}\" RetargetIO.dxy"
-"${UTILITY_DOXYGEN}" RetargetIO.dxy
+echo "\"${UTILITY_DOXYGEN}\" compiler.dxy"
+"${UTILITY_DOXYGEN}" compiler.dxy
 
 if [[ $2 != 0 ]]; then
-  mkdir -p "${DIRNAME}/../documentation/html/search/"
-  cp -f "${DIRNAME}/templates/search.css" "${DIRNAME}/../documentation/html/search/"
+  mkdir -p "${DIRNAME}/../html/search/"
+  cp -f "${DIRNAME}/style_template/search.css" "${DIRNAME}/../html/search/"
+  cp -f "${DIRNAME}/style_template/navtree.js" "${DIRNAME}/../html/"
+  cp -f "${DIRNAME}/style_template/resize.js" "${DIRNAME}/../html/"
 fi
 
-projectName=$(grep -E "PROJECT_NAME\s+=" RetargetIO.dxy | sed -r -e 's/[^"]*"([^"]+)".*/\1/')
+projectName=$(grep -E "PROJECT_NAME\s+=" compiler.dxy | sed -r -e 's/[^"]*"([^"]+)".*/\1/')
 datetime=$(date -u +'%a %b %e %Y %H:%M:%S')
 year=$(date -u +'%Y')
-sed -e "s/{datetime}/${datetime}/" "${DIRNAME}/templates/footer.js.in" \
+sed -e "s/{datetime}/${datetime}/" "${DIRNAME}/style_template/footer.js.in" \
   | sed -e "s/{year}/${year}/" \
   | sed -e "s/{projectName}/${projectName//\//\\\/}/" \
   | sed -e "s/{projectNumber}/${VERSION}/" \
   | sed -e "s/{projectNumberFull}/${VERSION_FULL}/" \
-  > "${DIRNAME}/../documentation/html/footer.js"
+  > "${DIRNAME}/../html/footer.js"
 
 popd  > /dev/null
 
