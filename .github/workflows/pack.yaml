@@ -3,20 +3,21 @@ on:
   workflow_dispatch:
   pull_request:
   push:
-    branches: [ main ]
+    branches: [main]
   release:
     types: [published]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   pack:
     if: |
       github.event_name != 'release' ||
       (github.event_name == 'release' && startsWith(github.ref, 'refs/tags/v'))
     name: Generate pack
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
         with:

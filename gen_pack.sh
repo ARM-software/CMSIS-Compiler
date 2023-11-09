@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Version: 2.7
-# Date: 2023-09-22
+# Date: 2023-11-09
 # This bash script generates a CMSIS Software Pack: CMSIS-Compiler
 #
 
@@ -27,7 +27,6 @@ DEFAULT_ARGS=(-c "v")
 # Specify directory names to be added to pack base directory
 # An empty list defaults to all folders next to this script.
 # Default: empty (all folders)
-#
 PACK_DIRS="
   documentation
   example
@@ -47,8 +46,6 @@ PACK_BASE_FILES="
 # Default: empty
 #
 PACK_DELETE_FILES="
-  .gitignore
-  gen_pack.sh
   documentation/doxygen
   documentation/README.md
 "
