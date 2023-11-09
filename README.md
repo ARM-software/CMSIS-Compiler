@@ -5,7 +5,7 @@
 The software component **CMSIS-Compiler** allows you to retarget standard I/O streams and
 file operations to specific platform and enable thread safe operations using RTOS interface.
 
-The [CMSIS-Compiler documentation](https://arm-software.github.io/CMSIS-Compiler) explains it in details.
+[CMSIS-Compiler documentation](https://arm-software.github.io/CMSIS-Compiler) explains available implemented functionality and APIs.
 
 ## Repository top level structure
 
@@ -35,7 +35,7 @@ Prerequisites for this script to succeed are:
 
 - Doxygen 1.9.6
 
-Also see [Documentation README](./documentation/README.md)
+Also see [Documentation README](./documentation/README.md).
 
 ### CMSIS-Pack Bundle
 
