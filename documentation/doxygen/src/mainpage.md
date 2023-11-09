@@ -2,7 +2,7 @@
 
 **CMSIS-Compiler** provides software components that simplify retargeting of standard C run-time library functions.
 
-Application code frequently uses standard C library functions, such as `fopen`, `fwrite`, `printf()`, `scanf()` and others to perform input/output operations. These functions may as well be used is a multithreaded environment.
+Application code frequently uses standard C library functions, such as `fopen`, `fwrite`, `printf()`, `scanf()` and others to perform input/output operations. These functions may as well be used in a multithreaded environment.
 
 The structure of these functions in the standard C run-time library together with the retarget interfaces is:
 
@@ -19,6 +19,10 @@ Multithreading support is available for applications that run on top of an RTOS 
 The pages \ref rt_io and \ref rt_os explain the details about how retargeting is done using the provided components.
 
 Using CMSIS-Compiler developers can retarget standard I/O streams and file operations to specific platform and enable thread safe operations using RTOS interface.
+
+> **Note**
+> - CMSIS-Compiler replaces and extends retargeting functionality previously provided as part of *Keil::ARM_Compiler* pack.
+> - See [Migrating projects from CMSIS v5 to CMSIS v6](https://learn.arm.com/learning-paths/microcontrollers/project-migration-cmsis-v6) for a guidance on updating existing projects to CMSIS-Compiler.
 
 ## Supported Toolchains {#toolchains}
 
