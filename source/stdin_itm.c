@@ -16,24 +16,22 @@
  * limitations under the License.
  */
 
-#ifndef RETARGET_STDERR_H__
-#define RETARGET_STDERR_H__
+#include <stdint.h>
+#include "retarget_stdin.h"
 
-#ifdef  __cplusplus
-extern "C"
-{
-#endif
+#include "RTE_Components.h"
+#include CMSIS_device_header
 
 /**
-  Put a character to the stderr
+  Get a character from the stdio
 
-  \param[in]   ch  Character to output
-  \return          The character written, or -1 on write error.
+  \return     The next character from the input, or -1 on read error.
 */
-int stderr_putchar (int ch);
+int stdin_getchar (void) {
+  int32_t ch;
 
-#ifdef  __cplusplus
+  do {
+    ch = ITM_ReceiveChar();
+  } while (ch == -1);
+  return (ch);
 }
-#endif
-
-#endif /* RETARGET_STDERR_H__ */

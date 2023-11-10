@@ -16,13 +16,11 @@
  * limitations under the License.
  */
 
-#ifndef RETARGET_STDERR_H__
-#define RETARGET_STDERR_H__
+#include <stdint.h>
+#include "retarget_stderr.h"
 
-#ifdef  __cplusplus
-extern "C"
-{
-#endif
+#include "RTE_Components.h"
+#include CMSIS_device_header
 
 /**
   Put a character to the stderr
@@ -30,10 +28,6 @@ extern "C"
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */
-int stderr_putchar (int ch);
-
-#ifdef  __cplusplus
+int stderr_putchar (int ch) {
+  return ((int)ITM_SendChar((uint32_t)ch));
 }
-#endif
-
-#endif /* RETARGET_STDERR_H__ */

@@ -16,12 +16,13 @@
  * limitations under the License.
  */
 
-/**
-  Initialize stdout
+#ifndef RETARGET_STDOUT_H__
+#define RETARGET_STDOUT_H__
 
-  \return          0 on success, or -1 on error.
-*/
-int stdout_init (void);
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
 
 /**
   Put a character to the stdout
@@ -30,3 +31,9 @@ int stdout_init (void);
   \return          The character written, or -1 on write error.
 */
 int stdout_putchar (int ch);
+
+#ifdef  __cplusplus
+}
+#endif
+
+#endif /* RETARGET_STDOUT_H__ */

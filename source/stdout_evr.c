@@ -16,24 +16,26 @@
  * limitations under the License.
  */
 
-#ifndef RETARGET_STDERR_H__
-#define RETARGET_STDERR_H__
-
-#ifdef  __cplusplus
-extern "C"
-{
-#endif
+#include "retarget_stdout.h"
+#include "EventRecorder.h"
 
 /**
-  Put a character to the stderr
+  Put a character to the stdout
 
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */
-int stderr_putchar (int ch);
+int stdout_putchar (int ch) {
+  static uint32_t index = 0U;
+  static uint8_t  buffer[8];
 
-#ifdef  __cplusplus
+  if (index >= 8U) {
+    return (-1);
+  }
+  buffer[index++] = (uint8_t)ch;
+  if ((index == 8U) || (ch == '\n')) {
+    EventRecordData(EventID(EventLevelOp, 0xFE, 0x00), buffer, index);
+    index = 0U;
+  }
+  return (ch);
 }
-#endif
-
-#endif /* RETARGET_STDERR_H__ */

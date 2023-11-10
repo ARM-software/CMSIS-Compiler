@@ -16,12 +16,13 @@
  * limitations under the License.
  */
 
-/**
-  Initialize tty
+#ifndef RETARGET_TTY_H__
+#define RETARGET_TTY_H__
 
-  \return          0 on success, or -1 on error.
-*/
-int tty_init (void);
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
 
 /**
   Put a character to the teletypewritter
@@ -29,3 +30,9 @@ int tty_init (void);
   \param[in]   ch  Character to output
 */
 void ttywrch (int ch);
+
+#ifdef  __cplusplus
+}
+#endif
+
+#endif /* RETARGET_TTY_H__ */
