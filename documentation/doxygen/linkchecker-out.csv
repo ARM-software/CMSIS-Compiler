@@ -1,6 +1,0 @@
-# created by LinkChecker at 2023-11-10 08:59:14+002
-# Read the documentation at https://linkchecker.github.io/linkchecker/
-# Write comments and bugs to https://github.com/linkchecker/linkchecker/issues
-urlname;parentname;base;result;warningstring;infostring;valid;url;line;column;name;dltime;size;checktime;cached;level;modified
-https://learn.arm.com/learning-paths/microcontrollers/project-migration-cmsis-v6;file:///C|/misc/SVN/CMSIS_6_public/CMSIS-Compiler_fork_doc_update/CMSIS-Compiler_fork/documentation/html/index.html;;200 OK;Redirected to `https://learn.arm.com/404.html' status: 302 Moved Temporarily.;;True;https://learn.arm.com/404.html;146;9;Migrating projects from CMSIS v5 to CMSIS v6;-1;2043;1.8697950839996338;0;1;
-# Stopped checking at 2023-11-10 08:59:20+002 (6 seconds)
