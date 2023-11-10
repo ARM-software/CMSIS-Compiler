@@ -11,6 +11,7 @@ example/RTE/_**/*
 *.cbuild.yml
 *.cprj
 .clangd
+linkchecker-out.csv
 
 # Output of the go coverage tool
 *.out
