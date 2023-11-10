@@ -13,9 +13,6 @@ concurrency:
 
 jobs:
   pack:
-    if: |
-      github.event_name != 'release' ||
-      (github.event_name == 'release' && startsWith(github.ref, 'refs/tags/v'))
     name: Generate pack
     runs-on: ubuntu-22.04
     steps:
@@ -33,7 +30,6 @@ jobs:
           doxygen-version: 1.9.6
           packchk-version: 1.4.1
           gen-doc-script: ./documentation/doxygen/gen_doc.sh
-          check-links-script: ./documentation/doxygen/check_links.sh
           doc-path: ./documentation/html
           gen-pack-script: ./gen_pack.sh --no-preprocess
           gen-pack-output: ./output
