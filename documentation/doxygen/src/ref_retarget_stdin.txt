@@ -1,0 +1,12 @@
+/**
+\defgroup stdin_api STDIN Interface
+@{
+*/
+
+/**
+  \fn int stdin_getchar (void)
+*/
+
+/**
+@}
+*/

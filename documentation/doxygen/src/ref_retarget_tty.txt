@@ -1,0 +1,12 @@
+/**
+\defgroup tty_api TTY Interface
+@{
+*/
+
+/**
+  \fn void ttywrch (int ch)
+*/
+
+/**
+@}
+*/
