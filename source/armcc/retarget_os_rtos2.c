@@ -34,15 +34,6 @@ static uint32_t os_kernel_is_initialized (void) {
   }
 }
 
-/* Check if the kernel has been started */
-static uint32_t os_kernel_is_active (void) {
-  if (osKernelGetState() > osKernelReady) {
-    return 1U;
-  } else {
-    return 0U;
-  }
-}
-
 /* Check if the kernel is running */
 static uint32_t os_kernel_is_running (void) {
   if (osKernelGetState() == osKernelRunning) {
