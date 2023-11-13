@@ -67,13 +67,11 @@
       <require Tcompiler="GCC"/>
       <require condition="CortexDevice"/>
     </condition>
-    <!--
     <condition id="CLANG CortexDevice">
       <description>Clang and Cortex device</description>
       <require Tcompiler="CLANG"/>
       <require condition="CortexDevice"/>
     </condition>
-    -->
 
     <condition id="IO">
       <description>Deny selection of Compiler class when using CMSIS-Compiler</description>
@@ -81,9 +79,9 @@
     </condition>
 
     <condition id="CORE">
-      <description>Condition for CMSIS-Compiler CORE component</description>
-      <require condition="CortexDevice"/>
+      <description>CMSIS-Compiler CORE component</description>
       <require condition="IO"/>
+      <require Cclass="CMSIS-Compiler" Cgroup="CORE"/>
     </condition>
 
     <condition id="CORE EVR">
@@ -192,19 +190,19 @@
 
   <components>
     <!-- Core -->
-    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.0.0" condition="ARMCC CORE">
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.0.0" condition="ARMCC CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/armcc/retarget_io.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.0.0" condition="GCC CORE">
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.0.0" condition="GCC CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/gcc/retarget_syscalls.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.0.0" condition="CLANG CORE">
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.0.0" condition="CLANG CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/clang/retarget_syscalls.c"/>
