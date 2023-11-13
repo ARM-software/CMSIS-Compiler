@@ -74,7 +74,6 @@ extern "C"
 void *__user_perthread_libspace (void);
 
 /**
-  \typedef rt_mutex_t
 
   \brief The rt_mutex_s is an incomplete type, an implementation must define it.
 */

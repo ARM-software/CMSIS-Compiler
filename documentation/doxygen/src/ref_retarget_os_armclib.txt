@@ -1,0 +1,34 @@
+/**
+\defgroup retarget_os_armclib Arm C Library
+\ingroup os_interface_api
+@{
+*/
+
+/**
+\fn void *__user_perthread_libspace (void)
+*/
+
+/**
+\struct rt_mutex_t
+\brief The rt_mutex_t is an incomplete type, an implementation must define it
+*/
+
+/**
+\fn int _mutex_initialize(rt_mutex_t *mutex)
+*/
+
+/**
+\fn void _mutex_acquire(rt_mutex_t *mutex)
+*/
+
+/**
+\fn void _mutex_release(rt_mutex_t *mutex)
+*/
+
+/**
+\fn void _mutex_free(rt_mutex_t *mutex)
+*/
+
+/**
+@}
+*/

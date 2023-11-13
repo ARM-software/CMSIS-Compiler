@@ -1,9 +1,7 @@
 documentation/html
-doxygen/RetargetIO.dxy
-doxygen/src/history.txt
+documentation/doxygen/compiler.dxy
 output
 build
-*.bak
 
 example/out
 example/tmp
@@ -13,3 +11,11 @@ example/RTE/_**/*
 *.cbuild.yml
 *.cprj
 .clangd
+linkchecker-out.csv
+
+# Output of the go coverage tool
+*.out
+
+*.bak
+*.syso
+*.log
