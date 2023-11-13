@@ -4,9 +4,8 @@ var indexSectionsWithContent =
   1: "r",
   2: "_fr",
   3: "abcdehmrsy",
-  4: "r",
-  5: "adfglors",
-  6: "acfgilmorst"
+  4: "adfglors",
+  5: "filmorst"
 };
 
 var indexSectionNames =
@@ -15,9 +14,8 @@ var indexSectionNames =
   1: "classes",
   2: "functions",
   3: "variables",
-  4: "typedefs",
-  5: "groups",
-  6: "pages"
+  4: "groups",
+  5: "pages"
 };
 
 var indexSectionLabels =
@@ -26,8 +24,7 @@ var indexSectionLabels =
   1: "Data Structures",
   2: "Functions",
   3: "Variables",
-  4: "Typedefs",
-  5: "Modules",
-  6: "Pages"
+  4: "Modules",
+  5: "Pages"
 };
 

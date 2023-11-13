@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['os_20interface_0',['OS Interface',['../rt_template_os_interface.html',1,'rt_templates']]],
-  ['overview_1',['Overview',['../rt_overview.html',1,'']]]
+  ['templates_0',['Templates',['../rt_templates.html',1,'']]],
+  ['tty_20user_20template_1',['TTY User Template',['../tty_user_c.html',1,'rt_template_io']]]
 ];

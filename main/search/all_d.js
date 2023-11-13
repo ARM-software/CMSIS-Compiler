@@ -1,7 +1,7 @@
 var searchData=
 [
   ['return_20codes_0',['Return Codes',['../group__fs__interface__return__codes.html',1,'']]],
-  ['revision_20history_1',['Revision History',['../rev_hist.html',1,'index']]],
+  ['revision_20history_1',['Revision History',['../rev_hist.html',1,'']]],
   ['rsvd_2',['rsvd',['../group__fs__interface__api.html#a12144a8b7d28e438d97bd2606d534990',1,'rt_fs_time_t']]],
   ['rt_5fattr_5fdir_3',['RT_ATTR_DIR',['../group__fs__interface__attributes.html#gac67f3cc11607cd8eb5ff5aa7b19f1ddd',1,'retarget_fs.h']]],
   ['rt_5fattr_5ffile_4',['RT_ATTR_FILE',['../group__fs__interface__attributes.html#gad997c3d8c71e6737146d7be3d72e1957',1,'retarget_fs.h']]],
@@ -34,7 +34,7 @@ var searchData=
   ['rt_5ffs_5fstat_5ft_31',['rt_fs_stat_t',['../group__fs__interface__api.html#structrt__fs__stat__t',1,'']]],
   ['rt_5ffs_5ftime_5ft_32',['rt_fs_time_t',['../group__fs__interface__api.html#structrt__fs__time__t',1,'']]],
   ['rt_5ffs_5fwrite_33',['rt_fs_write',['../group__fs__interface__api.html#ga3472b0d88210dea8cd54b152e59f272b',1,'retarget_fs.h']]],
-  ['rt_5fmutex_5ft_34',['rt_mutex_t',['../group__retarget__os__armclib.html#ga16da63f5ec88801bdd1d691f57473246',1,'retarget_os.h']]],
+  ['rt_5fmutex_5ft_34',['rt_mutex_t',['../group__retarget__os__armclib.html#structrt__mutex__t',1,'']]],
   ['rt_5fopen_5fappend_35',['RT_OPEN_APPEND',['../group__fs__interface__open__modes.html#ga35a853d66646da7efee0154be054484b',1,'retarget_fs.h']]],
   ['rt_5fopen_5fcreate_36',['RT_OPEN_CREATE',['../group__fs__interface__open__modes.html#ga7c37d97e44aa53a10ae60cca15944e40',1,'retarget_fs.h']]],
   ['rt_5fopen_5frdonly_37',['RT_OPEN_RDONLY',['../group__fs__interface__open__modes.html#ga8ba244d1c290b8dfef4a95a1a2953bd8',1,'retarget_fs.h']]],
