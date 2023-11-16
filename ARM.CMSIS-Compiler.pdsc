@@ -72,6 +72,11 @@
       <require Tcompiler="CLANG"/>
       <require condition="CortexDevice"/>
     </condition>
+    <condition id="IAR CortexDevice">
+      <description>ICC and Cortex device</description>
+      <require Tcompiler="IAR"/>
+      <require condition="CortexDevice"/>
+    </condition>
 
     <condition id="IO">
       <description>Deny selection of Compiler class when using CMSIS-Compiler</description>
@@ -108,6 +113,11 @@
     <condition id="CLANG CORE">
       <description>Clang and CORE component</description>
       <require Tcompiler="CLANG"/>
+      <require condition="CORE"/>
+    </condition>
+    <condition id="IAR CORE">
+      <description>IAR and CORE component</description>
+      <require Tcompiler="IAR"/>
       <require condition="CORE"/>
     </condition>
 
@@ -206,6 +216,12 @@
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/clang/retarget_syscalls.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.0.0" condition="IAR CortexDevice">
+      <description>Standard C Library Retarget Core</description>
+      <files>
+        <file category="sourceC" name="source/iar/retarget_io.c"/>
       </files>
     </component>
 
