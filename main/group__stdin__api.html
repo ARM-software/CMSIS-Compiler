@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-Compiler Support: TTY User Template</title>
+<title>CMSIS-Compiler Support: STDIN Interface</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,7 +95,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('tty_user_c.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('group__stdin__api.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -120,41 +120,43 @@ $(document).ready(function(){initNavTree('tty_user_c.html',''); initResizable();
 </div>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">TTY User Template </div></div>
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">STDIN Interface</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line"><span class="comment">/*-----------------------------------------------------------------------------</span></div>
-<div class="line"><span class="comment"> * Name:    tty_user.c</span></div>
-<div class="line"><span class="comment"> * Purpose: TTY User Template</span></div>
-<div class="line"><span class="comment"> * Rev.:    1.0.0</span></div>
-<div class="line"><span class="comment"> *-----------------------------------------------------------------------------*/</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/*</span></div>
-<div class="line"><span class="comment"> * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.</span></div>
-<div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * SPDX-License-Identifier: Apache-2.0</span></div>
-<div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * Licensed under the Apache License, Version 2.0 (the License); you may</span></div>
-<div class="line"><span class="comment"> * not use this file except in compliance with the License.</span></div>
-<div class="line"><span class="comment"> * You may obtain a copy of the License at</span></div>
-<div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * www.apache.org/licenses/LICENSE-2.0</span></div>
-<div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * Unless required by applicable law or agreed to in writing, software</span></div>
-<div class="line"><span class="comment"> * distributed under the License is distributed on an AS IS BASIS, WITHOUT</span></div>
-<div class="line"><span class="comment"> * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
-<div class="line"><span class="comment"> * See the License for the specific language governing permissions and</span></div>
-<div class="line"><span class="comment"> * limitations under the License.</span></div>
-<div class="line"><span class="comment"> */</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &quot;retarget_tty.h&quot;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> ttywrch (<span class="keywordtype">int</span> ch) {</div>
-<div class="line">  <span class="comment">// ...</span></div>
-<div class="line">}</div>
-</div><!-- fragment --> </div></div><!-- contents -->
-</div><!-- PageDoc -->
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga6450a7c2deed908ca31a165923f2eb2b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stdin__api.html#ga6450a7c2deed908ca31a165923f2eb2b">stdin_getchar</a> (void)</td></tr>
+<tr class="memdesc:ga6450a7c2deed908ca31a165923f2eb2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a character from the stdin.  <br /></td></tr>
+<tr class="separator:ga6450a7c2deed908ca31a165923f2eb2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga6450a7c2deed908ca31a165923f2eb2b" name="ga6450a7c2deed908ca31a165923f2eb2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6450a7c2deed908ca31a165923f2eb2b">&#9670;&#160;</a></span>stdin_getchar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int stdin_getchar </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a character from the stdin. </p>
+<dl class="section return"><dt>Returns</dt><dd>The next character from the input, or -1 on read error. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

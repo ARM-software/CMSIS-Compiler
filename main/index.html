@@ -131,11 +131,13 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <img src="overview.png" alt=""/>
 <div class="caption">
 Software Structure Overview</div></div>
-    <p>Standard C library functions are platform independent and can be easily ported, while the low-level interfaces needs to be tailored to the chosen platform. Generally low-level I/O functions serve to interact with the file system and a serial interface, i.e. terminal.</p>
-<p>Multithreading support is available for applications that run on top of an RTOS kernel. CMSIS-Compiler enables platform specific retargeting by providing software components that break down into the following interfaces:</p>
+    <p>Standard C library functions are platform independent and can be easily ported, while the low-level interfaces needs to be tailored to the chosen platform. Generally low-level I/O functions serve to interact with the file system and a serial interface, i.e. terminal. Multithreading support is available for applications that run on top of an RTOS kernel.</p>
+<p>CMSIS-Compiler enables platform specific retargeting by providing software components that break down into the following interfaces:</p>
 <ul>
 <li>File interface that enables reading and writing files</li>
-<li>I/O interface to enable standard I/O stream retargeting (stderr, stdin, stdout)</li>
+<li>STDIN interface that enables standard input stream redirection</li>
+<li>STDOUT interface that enables standard output stream redirection</li>
+<li>STDERR interface that enables standard error stream redirection</li>
 <li>OS interface that enables multithread safety using an arbitrary RTOS</li>
 </ul>
 <p>The pages <a class="el" href="rt_io.html">Low-Level I/O Retarget</a> and <a class="el" href="rt_os.html">Multithreading Support Retarget</a> explain the details about how retargeting is done using the provided components.</p>

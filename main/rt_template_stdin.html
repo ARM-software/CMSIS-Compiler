@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-Compiler Support: STDIN via USART</title>
+<title>CMSIS-Compiler Support: STDIN</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,7 +95,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('stdin_USART_c.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('rt_template_stdin.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -121,17 +121,15 @@ $(document).ready(function(){initNavTree('stdin_USART_c.html',''); initResizable
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">STDIN via USART </div></div>
+  <div class="headertitle"><div class="title">STDIN </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><blockquote class="doxtable">
-<p>&zwj;<b>Note</b></p><ul>
-<li>To have the full flexibility for retargeting different channels to different target hardware, each USART user code template contains a function to initialize the USART (here <code>stdin_init</code>). When using the same hardware for multiple channels, the initialization functions need to be merged in one single function. Call this function during the initialization of the device's peripherals. </li>
-</ul>
-</blockquote>
+<div class="textblock"><p><a class="anchor" id="md_src_templates_stdin"></a> <b>STDIN</b> component provides <b>Custom</b> subcomponent that can be used to implement its functionality using the code template below</p>
+<h1><a class="anchor" id="stdin_user_c"></a>
+STDIN User Template</h1>
 <div class="fragment"><div class="line"><span class="comment">/*-----------------------------------------------------------------------------</span></div>
-<div class="line"><span class="comment"> * Name:    stdin_USART.c</span></div>
-<div class="line"><span class="comment"> * Purpose: STDIN USART Template</span></div>
+<div class="line"><span class="comment"> * Name:    stdin_user.c</span></div>
+<div class="line"><span class="comment"> * Purpose: STDIN User Template</span></div>
 <div class="line"><span class="comment"> * Rev.:    1.0.0</span></div>
 <div class="line"><span class="comment"> *-----------------------------------------------------------------------------*/</span></div>
 <div class="line"> </div>
@@ -154,61 +152,10 @@ $(document).ready(function(){initNavTree('stdin_USART_c.html',''); initResizable
 <div class="line"><span class="comment"> */</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;retarget_stdin.h&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;Driver_USART.h&quot;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">//-------- &lt;&lt;&lt; Use Configuration Wizard in Context Menu &gt;&gt;&gt; --------------------</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// &lt;h&gt;STDIN USART Interface</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">//   &lt;o&gt;Connect to hardware via Driver_USART# &lt;0-255&gt;</span></div>
-<div class="line"><span class="comment">//   &lt;i&gt;Select driver control block for USART interface</span></div>
-<div class="line"><span class="preprocessor">#define USART_DRV_NUM           0</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">//   &lt;o&gt;Baudrate</span></div>
-<div class="line"><span class="preprocessor">#define USART_BAUDRATE          115200</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// &lt;/h&gt;</span></div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#define _USART_Driver_(n)  Driver_USART##n</span></div>
-<div class="line"><span class="preprocessor">#define  USART_Driver_(n) _USART_Driver_(n)</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">extern</span> ARM_DRIVER_USART  USART_Driver_(USART_DRV_NUM);</div>
-<div class="line"><span class="preprocessor">#define ptrUSART       (&amp;USART_Driver_(USART_DRV_NUM))</span></div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> stdin_init (<span class="keywordtype">void</span>) {</div>
-<div class="line">  int32_t status;</div>
-<div class="line"> </div>
-<div class="line">  status = ptrUSART-&gt;Initialize(NULL);</div>
-<div class="line">  <span class="keywordflow">if</span> (status != ARM_DRIVER_OK) <span class="keywordflow">return</span> (-1);</div>
-<div class="line"> </div>
-<div class="line">  status = ptrUSART-&gt;PowerControl(ARM_POWER_FULL);</div>
-<div class="line">  <span class="keywordflow">if</span> (status != ARM_DRIVER_OK) <span class="keywordflow">return</span> (-1);</div>
-<div class="line"> </div>
-<div class="line">  status = ptrUSART-&gt;Control(ARM_USART_MODE_ASYNCHRONOUS |</div>
-<div class="line">                             ARM_USART_DATA_BITS_8       |</div>
-<div class="line">                             ARM_USART_PARITY_NONE       |</div>
-<div class="line">                             ARM_USART_STOP_BITS_1       |</div>
-<div class="line">                             ARM_USART_FLOW_CONTROL_NONE,</div>
-<div class="line">                             USART_BAUDRATE);</div>
-<div class="line">  <span class="keywordflow">if</span> (status != ARM_DRIVER_OK) <span class="keywordflow">return</span> (-1);</div>
-<div class="line"> </div>
-<div class="line">  status = ptrUSART-&gt;Control(ARM_USART_CONTROL_RX, 1);</div>
-<div class="line">  <span class="keywordflow">if</span> (status != ARM_DRIVER_OK) <span class="keywordflow">return</span> (-1);</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">return</span> (0);</div>
-<div class="line">}</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> stdin_getchar (<span class="keywordtype">void</span>) {</div>
-<div class="line">  uint8_t buf[1];</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> (ptrUSART-&gt;Receive(buf, 1) != ARM_DRIVER_OK) {</div>
-<div class="line">    <span class="keywordflow">return</span> (-1);</div>
-<div class="line">  }</div>
-<div class="line">  <span class="keywordflow">while</span> (ptrUSART-&gt;GetRxCount() != 1);</div>
-<div class="line">  <span class="keywordflow">return</span> (buf[0]);</div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="group__stdin__api.html#ga6450a7c2deed908ca31a165923f2eb2b" title="Get a character from the stdin.">stdin_getchar</a> (<span class="keywordtype">void</span>) {</div>
+<div class="line">  <span class="comment">// ...</span></div>
+<div class="line">  <span class="keywordflow">return</span> (-1);</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->

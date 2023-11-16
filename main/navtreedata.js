@@ -28,15 +28,11 @@ var NAVTREE =
     [ "Overview", "index.html", "index" ],
     [ "Revision History", "rev_hist.html", null ],
     [ "Low-Level I/O Retarget", "rt_io.html", [
-      [ "I/O Components", "rt_io.html#rt_io_components", [
-        [ "I/O Retarget Variants", "rt_io.html#rt_io_variants", [
-          [ "I/O:File Variants", "rt_io.html#rt_io_file_variants", null ],
-          [ "I/O:STDERR/STDIN/STDOUT Variants", "rt_io.html#rt_io_std_variants", null ]
+      [ "Standard Stream Components", "rt_io.html#rt_io_components", [
+        [ "Standard Stream Subcomponents", "rt_io.html#rt_io_subcomponents", [
+          [ "STDERR/STDIN/STDOUT Subcomponents", "rt_io.html#rt_io_std_subcomponents", null ]
         ] ],
-        [ "I/O Retarget Variant \"User\"", "rt_io.html#variant_User", [
-          [ "Input/Output via USART", "rt_io.html#uct_usart", null ],
-          [ "Input/Output via Template", "rt_io.html#uct_template", null ]
-        ] ]
+        [ "\"Custom\" Subcomponent", "rt_io.html#custom_subcomponent", null ]
       ] ],
       [ "File Interface Components", "rt_io.html#rt_file_interface", null ]
     ] ],
