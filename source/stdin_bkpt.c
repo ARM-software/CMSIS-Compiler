@@ -16,24 +16,17 @@
  * limitations under the License.
  */
 
-#ifndef RETARGET_STDERR_H__
-#define RETARGET_STDERR_H__
-
-#ifdef  __cplusplus
-extern "C"
-{
-#endif
+#include <stdint.h>
+#include "retarget_stdin.h"
 
 /**
-  Put a character to the stderr
+  Get a character from the stdio
 
-  \param[in]   ch  Character to output
-  \return          The character written, or -1 on write error.
+  \return     The next character from the input, or -1 on read error.
 */
-int stderr_putchar (int ch);
+int stdin_getchar (void) {
+  int32_t ch = -1;
 
-#ifdef  __cplusplus
+  __asm("BKPT 0");
+  return (ch);
 }
-#endif
-
-#endif /* RETARGET_STDERR_H__ */

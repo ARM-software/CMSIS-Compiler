@@ -1,0 +1,12 @@
+/**
+\defgroup stderr_api STDERR Interface
+@{
+*/
+
+/**
+  \fn int stderr_putchar (int ch)
+*/
+
+/**
+@}
+*/

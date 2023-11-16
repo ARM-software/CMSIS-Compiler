@@ -16,24 +16,15 @@
  * limitations under the License.
  */
 
-#ifndef RETARGET_STDERR_H__
-#define RETARGET_STDERR_H__
-
-#ifdef  __cplusplus
-extern "C"
-{
-#endif
+#include "retarget_stdout.h"
 
 /**
-  Put a character to the stderr
+  Put a character to the stdout
 
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */
-int stderr_putchar (int ch);
-
-#ifdef  __cplusplus
+int stdout_putchar (int ch) {
+  __asm("BKPT 0");
+  return (ch);
 }
-#endif
-
-#endif /* RETARGET_STDERR_H__ */

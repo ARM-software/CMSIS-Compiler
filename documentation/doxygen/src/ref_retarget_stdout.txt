@@ -1,0 +1,12 @@
+/**
+\defgroup stdout_api STDOUT Interface
+@{
+*/
+
+/**
+  \fn int stdout_putchar (int ch)
+*/
+
+/**
+@}
+*/

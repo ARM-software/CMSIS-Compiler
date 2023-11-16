@@ -1,9 +1,3 @@
-/*-----------------------------------------------------------------------------
- * Name:    retarget_io.c
- * Purpose: Retarget I/O
- * Rev.:    1.0.1
- *-----------------------------------------------------------------------------*/
-
 /*
  * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.
  *
@@ -31,15 +25,26 @@
 
 #include "RTE_Components.h"
 
-#if defined(RTE_CMSIS_Compiler_IO_File) && defined(RTE_CMSIS_Compiler_IO_File_Interface)
+#if defined(RTE_CMSIS_Compiler_File_Interface)
 #include <errno.h>
 #include "retarget_fs.h"
 #endif
 
-#ifdef RTE_CMSIS_Compiler_IO_STDOUT_EVR
-#include "EventRecorder.h"
+#ifdef RTE_CMSIS_Compiler_STDERR
+#include "retarget_stderr.h"
 #endif
 
+#ifdef RTE_CMSIS_Compiler_STDIN
+#include "retarget_stdin.h"
+#endif
+
+#ifdef RTE_CMSIS_Compiler_STDOUT
+#include "retarget_stdout.h"
+#endif
+
+#ifdef RTE_CMSIS_Compiler_TTY
+#include "retarget_tty.h"
+#endif
 
 #ifndef STDIN_ECHO
 #define STDIN_ECHO      0       /* STDIN: echo to STDOUT */
@@ -51,158 +56,23 @@
 #define STDERR_CR_LF    0       /* STDERR: add CR for LF */
 #endif
 
+#if (defined(RTE_CMSIS_Compiler_TTY_ITM)    || \
+     defined(RTE_CMSIS_Compiler_STDIN_ITM)  || \
+     defined(RTE_CMSIS_Compiler_STDOUT_ITM) || \
+     defined(RTE_CMSIS_Compiler_STDERR_ITM))
 
-#if (defined(RTE_CMSIS_Compiler_IO_TTY_ITM)    || \
-     defined(RTE_CMSIS_Compiler_IO_STDIN_ITM)  || \
-     defined(RTE_CMSIS_Compiler_IO_STDOUT_ITM) || \
-     defined(RTE_CMSIS_Compiler_IO_STDERR_ITM))
-
-/* ITM registers */
-#define ITM_PORT0_U8          (*((volatile uint8_t  *)0xE0000000))
-#define ITM_PORT0_U32         (*((volatile uint32_t *)0xE0000000))
-#define ITM_TER               (*((volatile uint32_t *)0xE0000E00))
-#define ITM_TCR               (*((volatile uint32_t *)0xE0000E80))
-
-#define ITM_TCR_ITMENA_Msk    (1UL << 0)
+#ifndef CMSIS_Compiler_CORE_ITM_BUFFER_DISABLE
 
 /*!< Value identifying \ref ITM_RxBuffer is ready for next character. */
-#define ITM_RXBUFFER_EMPTY    0x5AA55AA5
+#define ITM_RXBUFFER_EMPTY  ((int32_t)0x5AA55AA5U)
 
-/*!< Variable to receive characters. */
+/*!< Variable to receive ITM characters. */
 extern
 volatile int32_t ITM_RxBuffer;
 volatile int32_t ITM_RxBuffer = ITM_RXBUFFER_EMPTY;
+#endif /* CMSIS_Compiler_CORE_ITM_BUFFER_DISABLE */
 
-/** \brief  ITM Send Character
-
-    The function transmits a character via the ITM channel 0, and
-    \li Just returns when no debugger is connected that has booked the output.
-    \li Is blocking when a debugger is connected, but the previous character
-        sent has not been transmitted.
-
-    \param [in]     ch  Character to transmit.
-
-    \returns            Character to transmit.
- */
-int32_t ITM_SendChar (int32_t ch);
-int32_t ITM_SendChar (int32_t ch) {
-  if ((ITM_TCR & ITM_TCR_ITMENA_Msk) && /* ITM enabled */
-      (ITM_TER & (1UL << 0)        )) { /* ITM Port #0 enabled */
-    while (ITM_PORT0_U32 == 0);
-    ITM_PORT0_U8 = (uint8_t)ch;
-  }
-  return (ch);
-}
-
-/** \brief  ITM Receive Character
-
-    The function inputs a character via the external variable \ref ITM_RxBuffer.
-    This variable is monitored and altered by the debugger to provide input.
-
-    \return             Received character.
-    \return         -1  No character pending.
- */
-int32_t ITM_ReceiveChar (void);
-int32_t ITM_ReceiveChar (void) {
-  int32_t ch = -1;                      /* no character available */
-
-  if (ITM_RxBuffer != ITM_RXBUFFER_EMPTY) {
-    ch = ITM_RxBuffer;
-    ITM_RxBuffer = ITM_RXBUFFER_EMPTY;  /* ready for next character */
-  }
-
-  return (ch);
-}
-
-#endif  /* RTE_CMSIS_Compiler_IO_STDxxx_ITM */
-
-
-/**
-  Get a character from the stdio
-
-  \return     The next character from the input, or -1 on read error.
-*/
-#if   defined(RTE_CMSIS_Compiler_IO_STDIN)
-#if   defined(RTE_CMSIS_Compiler_IO_STDIN_User)
-extern int stdin_getchar (void);
-#elif defined(RTE_CMSIS_Compiler_IO_STDIN_ITM)
-static int stdin_getchar (void) {
-  int32_t ch;
-
-  do {
-    ch = ITM_ReceiveChar();
-  } while (ch == -1);
-  return (ch);
-}
-#elif defined(RTE_CMSIS_Compiler_IO_STDIN_BKPT)
-static int stdin_getchar (void) {
-  int32_t ch = -1;
-
-  __asm("BKPT 0");
-  return (ch);
-}
-#endif
-#endif
-
-
-/**
-  Put a character to the stdout
-
-  \param[in]   ch  Character to output
-  \return          The character written, or -1 on write error.
-*/
-#if   defined(RTE_CMSIS_Compiler_IO_STDOUT)
-#if   defined(RTE_CMSIS_Compiler_IO_STDOUT_User)
-extern int stdout_putchar (int ch);
-#elif defined(RTE_CMSIS_Compiler_IO_STDOUT_ITM)
-static int stdout_putchar (int ch) {
-  return (ITM_SendChar(ch));
-}
-#elif defined(RTE_CMSIS_Compiler_IO_STDOUT_EVR)
-static int stdout_putchar (int ch) {
-  static uint32_t index = 0U;
-  static uint8_t  buffer[8];
-
-  if (index >= 8U) {
-    return (-1);
-  }
-  buffer[index++] = (uint8_t)ch;
-  if ((index == 8U) || (ch == '\n')) {
-    EventRecordData(EventID(EventLevelOp, 0xFE, 0x00), buffer, index);
-    index = 0U;
-  }
-  return (ch);
-}
-#elif defined(RTE_CMSIS_Compiler_IO_STDOUT_BKPT)
-static int stdout_putchar (int ch) {
-  __asm("BKPT 0");
-  return (ch);
-}
-#endif
-#endif
-
-
-/**
-  Put a character to the stderr
-
-  \param[in]   ch  Character to output
-  \return          The character written, or -1 on write error.
-*/
-#if   defined(RTE_CMSIS_Compiler_IO_STDERR)
-#if   defined(RTE_CMSIS_Compiler_IO_STDERR_User)
-extern int stderr_putchar (int ch);
-#elif defined(RTE_CMSIS_Compiler_IO_STDERR_ITM)
-static int stderr_putchar (int ch) {
-  return (ITM_SendChar(ch));
-}
-#elif defined(RTE_CMSIS_Compiler_IO_STDERR_BKPT)
-static int stderr_putchar (int ch) {
-  __asm("BKPT 0");
-  return (ch);
-}
-#endif
-#endif
-
+#endif  /* RTE_CMSIS_Compiler_x_ITM */
 
 #ifdef __MICROLIB
 
@@ -365,10 +235,10 @@ void abort(void) {
 #else  /* __MICROLIB */
 
 
-#if (defined(RTE_CMSIS_Compiler_IO_STDIN)  || \
-     defined(RTE_CMSIS_Compiler_IO_STDOUT) || \
-     defined(RTE_CMSIS_Compiler_IO_STDERR) || \
-     defined(RTE_CMSIS_Compiler_IO_File))
+#if (defined(RTE_CMSIS_Compiler_STDIN)  || \
+     defined(RTE_CMSIS_Compiler_STDOUT) || \
+     defined(RTE_CMSIS_Compiler_STDERR) || \
+     defined(RTE_CMSIS_Compiler_File_Interface))
 #define RETARGET_SYS
 
 /* IO device file handles. */
@@ -403,7 +273,7 @@ const char __stderr_name[] = ":STDERR";
 #ifdef RETARGET_SYS
 __attribute__((weak))
 FILEHANDLE _sys_open (const char *name, int openmode) {
-#if (defined(RTE_CMSIS_Compiler_IO_File) && defined(RTE_CMSIS_Compiler_IO_File_Interface))
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   int32_t mode;
   int32_t flag;
   int32_t rval;
@@ -428,8 +298,7 @@ FILEHANDLE _sys_open (const char *name, int openmode) {
     return (-1);
   }
 
-#if defined(RTE_CMSIS_Compiler_IO_File)
-#if defined(RTE_CMSIS_Compiler_IO_File_Interface)
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   /* Set the open mode flags */
   if ((openmode & (OPEN_R | OPEN_W | OPEN_A)) == OPEN_W) {
     mode = RT_OPEN_WRONLY;
@@ -455,10 +324,6 @@ FILEHANDLE _sys_open (const char *name, int openmode) {
     rval = -1;
   }
   return (rval);
-#elif defined(RTE_CMSIS_Compiler_IO_File_BKPT)
-  __asm("BKPT 0");
-  return (-1);
-#endif
 #else
   return (-1);
 #endif
@@ -480,7 +345,7 @@ FILEHANDLE _sys_open (const char *name, int openmode) {
 #ifdef RETARGET_SYS
 __attribute__((weak))
 int _sys_close (FILEHANDLE fh) {
-#if (defined(RTE_CMSIS_Compiler_IO_File) && defined(RTE_CMSIS_Compiler_IO_File_Interface))
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   int32_t rval;
 #endif
 
@@ -493,17 +358,12 @@ int _sys_close (FILEHANDLE fh) {
       return (0);
   }
 
-#if defined(RTE_CMSIS_Compiler_IO_File)
-#if defined(RTE_CMSIS_Compiler_IO_File_Interface)
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   rval = rt_fs_close(fh);
   if (rval < 0) {
     errno = rval;
   }
   return (rval);
-#elif defined(RTE_CMSIS_Compiler_IO_File_BKPT)
-  __asm("BKPT 0");
-  return (-1);
-#endif
 #else
   return (-1);
 #endif
@@ -532,10 +392,10 @@ int _sys_close (FILEHANDLE fh) {
 #ifdef RETARGET_SYS
 __attribute__((weak))
 int _sys_write (FILEHANDLE fh, const uint8_t *buf, uint32_t len, int mode) {
-#if (defined(RTE_CMSIS_Compiler_IO_STDOUT) || defined(RTE_CMSIS_Compiler_IO_STDERR))
+#if (defined(RTE_CMSIS_Compiler_STDOUT) || defined(RTE_CMSIS_Compiler_STDERR))
   int ch;
 #endif
-#if (defined(RTE_CMSIS_Compiler_IO_File) && defined(RTE_CMSIS_Compiler_IO_File_Interface))
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   int32_t rval;
 #else
   (void)buf;
@@ -547,7 +407,7 @@ int _sys_write (FILEHANDLE fh, const uint8_t *buf, uint32_t len, int mode) {
     case FH_STDIN:
       return (-1);
     case FH_STDOUT:
-#ifdef RTE_CMSIS_Compiler_IO_STDOUT
+#ifdef RTE_CMSIS_Compiler_STDOUT
       for (; len; len--) {
         ch = *buf++;
 #if (STDOUT_CR_LF != 0)
@@ -558,7 +418,7 @@ int _sys_write (FILEHANDLE fh, const uint8_t *buf, uint32_t len, int mode) {
 #endif
       return (0);
     case FH_STDERR:
-#ifdef RTE_CMSIS_Compiler_IO_STDERR
+#ifdef RTE_CMSIS_Compiler_STDERR
       for (; len; len--) {
         ch = *buf++;
 #if (STDERR_CR_LF != 0)
@@ -570,8 +430,7 @@ int _sys_write (FILEHANDLE fh, const uint8_t *buf, uint32_t len, int mode) {
       return (0);
   }
 
-#if defined(RTE_CMSIS_Compiler_IO_File)
-#if defined(RTE_CMSIS_Compiler_IO_File_Interface)
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   rval = rt_fs_write(fh, buf, len);
   if (rval < 0) {
     errno = rval;
@@ -579,10 +438,6 @@ int _sys_write (FILEHANDLE fh, const uint8_t *buf, uint32_t len, int mode) {
     rval = (int32_t)len - rval;
   }
   return (rval);
-#elif defined(RTE_CMSIS_Compiler_IO_File_BKPT)
-  __asm("BKPT 0");
-  return (-1);
-#endif
 #else
   return (-1);
 #endif
@@ -620,10 +475,10 @@ int _sys_write (FILEHANDLE fh, const uint8_t *buf, uint32_t len, int mode) {
 #ifdef RETARGET_SYS
 __attribute__((weak))
 int _sys_read (FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode) {
-#ifdef RTE_CMSIS_Compiler_IO_STDIN
+#ifdef RTE_CMSIS_Compiler_STDIN
   int ch;
 #endif
-#if (defined(RTE_CMSIS_Compiler_IO_File) && defined(RTE_CMSIS_Compiler_IO_File_Interface))
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   int32_t rval;
 #else
   (void)buf;
@@ -633,7 +488,7 @@ int _sys_read (FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode) {
 
   switch (fh) {
     case FH_STDIN:
-#ifdef RTE_CMSIS_Compiler_IO_STDIN
+#ifdef RTE_CMSIS_Compiler_STDIN
       ch = stdin_getchar();
       if (ch < 0) {
         return ((int)(len | 0x80000000U));
@@ -653,8 +508,7 @@ int _sys_read (FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode) {
       return (-1);
   }
 
-#if defined(RTE_CMSIS_Compiler_IO_File)
-#if defined(RTE_CMSIS_Compiler_IO_File_Interface)
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   rval = rt_fs_read(fh, buf, len);
   if (rval < 0) {
     errno = rval;
@@ -664,10 +518,6 @@ int _sys_read (FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode) {
     rval = (int32_t)len - rval;
   }
   return (rval);
-#elif defined(RTE_CMSIS_Compiler_IO_File_BKPT)
-  __asm("BKPT 0");
-  return (-1);
-#endif
 #else
   return (-1);
 #endif
@@ -687,25 +537,11 @@ int _sys_read (FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode) {
 
   \param[in] ch character to write
 */
-#if   defined(RTE_CMSIS_Compiler_IO_TTY)
-#if   defined(RTE_CMSIS_Compiler_IO_TTY_User)
-extern void ttywrch (int ch);
+#if defined(RTE_CMSIS_Compiler_TTY)
 __attribute__((weak))
 void _ttywrch (int ch) {
   ttywrch(ch);
 }
-#elif defined(RTE_CMSIS_Compiler_IO_TTY_ITM)
-__attribute__((weak))
-void _ttywrch (int ch) {
-  ITM_SendChar(ch);
-}
-#elif defined(RTE_CMSIS_Compiler_IO_TTY_BKPT)
-__attribute__((weak))
-void _ttywrch (int ch) {
-  (void)ch;
-  __asm("BKPT 0");
-}
-#endif
 #endif
 
 
@@ -759,7 +595,7 @@ int _sys_istty (FILEHANDLE fh) {
 #ifdef RETARGET_SYS
 __attribute__((weak))
 int _sys_seek (FILEHANDLE fh, long pos) {
-#if (defined(RTE_CMSIS_Compiler_IO_File) && defined(RTE_CMSIS_Compiler_IO_File_Interface))
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   int64_t rval;
 #else
   (void)pos;
@@ -774,17 +610,12 @@ int _sys_seek (FILEHANDLE fh, long pos) {
       return (-1);
   }
 
-#if defined(RTE_CMSIS_Compiler_IO_File)
-#if defined(RTE_CMSIS_Compiler_IO_File_Interface)
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   rval = rt_fs_seek(fh, (int64_t)pos, RT_SEEK_SET);
   if (rval < 0) {
     errno = (int)rval;
   }
   return ((int)rval);
-#elif defined(RTE_CMSIS_Compiler_IO_File_BKPT)
-  __asm("BKPT 0");
-  return (-1);
-#endif
 #else
   return (-1);
 #endif
@@ -810,7 +641,7 @@ int _sys_seek (FILEHANDLE fh, long pos) {
 #ifdef RETARGET_SYS
 __attribute__((weak))
 long _sys_flen (FILEHANDLE fh) {
-#if (defined(RTE_CMSIS_Compiler_IO_File) && defined(RTE_CMSIS_Compiler_IO_File_Interface))
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   int64_t rval;
 #endif
 
@@ -823,8 +654,7 @@ long _sys_flen (FILEHANDLE fh) {
       return (0);
   }
 
-#if defined(RTE_CMSIS_Compiler_IO_File)
-#if defined(RTE_CMSIS_Compiler_IO_File_Interface)
+#if defined(RTE_CMSIS_Compiler_File_Interface)
   rval = rt_fs_size(fh);
   if (rval < 0) {
     errno = (int)rval;
@@ -835,10 +665,6 @@ long _sys_flen (FILEHANDLE fh) {
     }
   }
   return ((long)rval);
-#elif defined(RTE_CMSIS_Compiler_IO_File_BKPT)
-  __asm("BKPT 0");
-  return (-1);
-#endif
 #else
   return (-1);
 #endif

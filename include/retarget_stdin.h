@@ -16,16 +16,23 @@
  * limitations under the License.
  */
 
-/**
-  Initialize stdin
+#ifndef RETARGET_STDIN_H__
+#define RETARGET_STDIN_H__
 
-  \return          0 on success, or -1 on error.
-*/
-int stdin_init (void);
+#ifdef  __cplusplus
+extern "C"
+{
+#endif
 
 /**
-  Get a character from the stdio
+  Get a character from the stdin
 
   \return     The next character from the input, or -1 on read error.
 */
 int stdin_getchar (void);
+
+#ifdef  __cplusplus
+}
+#endif
+
+#endif /* RETARGET_STDIN_H__ */

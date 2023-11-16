@@ -8,12 +8,14 @@ The structure of these functions in the standard C run-time library together wit
 
 ![Software Structure Overview](./images/overview.png)
 
-Standard C library functions are platform independent and can be easily ported, while the low-level interfaces needs to be tailored to the chosen platform. Generally low-level I/O functions serve to interact with the file system and a serial interface, i.e. terminal.
+Standard C library functions are platform independent and can be easily ported, while the low-level interfaces needs to be tailored to the chosen platform. Generally low-level I/O functions serve to interact with the file system and a serial interface, i.e. terminal. Multithreading support is available for applications that run on top of an RTOS kernel.
 
-Multithreading support is available for applications that run on top of an RTOS kernel. CMSIS-Compiler enables platform specific retargeting by providing software components that break down into the following interfaces:
+CMSIS-Compiler enables platform specific retargeting by providing software components that break down into the following interfaces:
 
  - File interface that enables reading and writing files
- - I/O interface to enable standard I/O stream retargeting (stderr, stdin, stdout)
+ - STDIN interface that enables standard input stream redirection
+ - STDOUT interface that enables standard output stream redirection
+ - STDERR interface that enables standard error stream redirection
  - OS interface that enables multithread safety using an arbitrary RTOS
 
 The pages \ref rt_io and \ref rt_os explain the details about how retargeting is done using the provided components.
