@@ -16,6 +16,7 @@ project:
   components:
     - component: CMSIS:CORE
     - component: CMSIS Driver:USART
-    - component: CMSIS-Compiler:I/O:STDOUT&User
+    - component: CMSIS-Compiler:CORE
+    - component: CMSIS-Compiler:STDOUT:Custom
     - component: Device:Startup&C Startup
     - component: Board Support&V2M-MPS2:Common
