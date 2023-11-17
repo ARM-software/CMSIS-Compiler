@@ -24,6 +24,8 @@
 
 #include "retarget_stdout.h"
 
+extern int stdout_init (void);
+
 int main (void) {
   uint32_t count;
 
