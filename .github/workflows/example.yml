@@ -90,7 +90,7 @@ jobs:
         run: |
           . /home/runner/.vcpkg/vcpkg-init
           vcpkg activate
-          ./build.py --verbose clean build run
+          ./build.py --verbose -c AC6 -c GCC -c Clang clean build run
 
       - name: Perform CodeQL Analysis
         if: ${{ !cancelled() }}
