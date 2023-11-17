@@ -32,24 +32,6 @@
 #include "retarget_stdout.h"
 #endif
 
-#if (defined(RTE_CMSIS_Compiler_STDIN_ITM)  || \
-     defined(RTE_CMSIS_Compiler_STDOUT_ITM) || \
-     defined(RTE_CMSIS_Compiler_STDERR_ITM))
-
-#ifndef CMSIS_Compiler_CORE_ITM_BUFFER_DISABLE
-
-/*!< Value identifying \ref ITM_RxBuffer is ready for next character. */
-#define ITM_RXBUFFER_EMPTY  ((int32_t)0x5AA55AA5U)
-
-/*!< Variable to receive ITM characters. */
-extern
-volatile int32_t ITM_RxBuffer;
-volatile int32_t ITM_RxBuffer = ITM_RXBUFFER_EMPTY;
-#endif /* CMSIS_Compiler_CORE_ITM_BUFFER_DISABLE */
-
-#endif  /* RTE_CMSIS_Compiler_x_ITM */
-
-
 #if defined(RTE_CMSIS_Compiler_STDIN)
 /**
   Get a character from the stdio

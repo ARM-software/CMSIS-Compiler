@@ -22,6 +22,16 @@
 #include "RTE_Components.h"
 #include CMSIS_device_header
 
+#ifndef CMSIS_Compiler_CORE_ITM_RXBUFFER_DISABLE
+/* Value identifying ITM_RxBuffer is ready for next character */
+#define ITM_RXBUFFER_EMPTY  ((int32_t)0x5AA55AA5U)
+
+/* Variable to receive ITM characters */
+extern
+volatile int32_t ITM_RxBuffer;
+volatile int32_t ITM_RxBuffer = ITM_RXBUFFER_EMPTY;
+#endif /* CMSIS_Compiler_CORE_ITM_RXBUFFER_DISABLE */
+
 /**
   Get a character from the stdio
 
