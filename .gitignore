@@ -19,3 +19,4 @@ linkchecker-out.csv
 *.bak
 *.syso
 *.log
+documentation/doxygen/src/history.txt
