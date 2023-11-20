@@ -59,7 +59,7 @@
 #ifdef __MICROLIB
 
 
-#ifdef RTE_CMSIS_Compiler_IO_STDIN
+#ifdef RTE_CMSIS_Compiler_STDIN
 static int getchar_undo =  0;
 static int getchar_ch   = -1;
 #endif
@@ -80,12 +80,12 @@ static int getchar_ch   = -1;
 */
 __attribute__((weak))
 int fputc (int c, FILE * stream) {
-#if (!defined(RTE_CMSIS_Compiler_IO_STDOUT) && !defined(RTE_CMSIS_Compiler_IO_STDERR))
+#if (!defined(RTE_CMSIS_Compiler_STDOUT) && !defined(RTE_CMSIS_Compiler_STDERR))
   (void)c;
   (void)stream;
 #endif
 
-#ifdef RTE_CMSIS_Compiler_IO_STDOUT
+#ifdef RTE_CMSIS_Compiler_STDOUT
   if (stream == &__stdout) {
 #if (STDOUT_CR_LF != 0)
     if (c == '\n') stdout_putchar('\r');
@@ -94,7 +94,7 @@ int fputc (int c, FILE * stream) {
   }
 #endif
 
-#ifdef RTE_CMSIS_Compiler_IO_STDERR
+#ifdef RTE_CMSIS_Compiler_STDERR
   if (stream == &__stderr) {
 #if (STDERR_CR_LF != 0)
     if (c == '\n') stderr_putchar('\r');
@@ -121,7 +121,7 @@ int fputc (int c, FILE * stream) {
 */
 __attribute__((weak))
 int fgetc (FILE * stream) {
-#ifdef RTE_CMSIS_Compiler_IO_STDIN
+#ifdef RTE_CMSIS_Compiler_STDIN
   int ch;
 
   if (stream == &__stdin) {
@@ -162,7 +162,7 @@ __attribute__((weak))
 int __backspace(FILE *stream);
 int __backspace(FILE *stream) {
 
-#ifdef RTE_CMSIS_Compiler_IO_STDIN
+#ifdef RTE_CMSIS_Compiler_STDIN
   if (stream == &__stdin) {
     if (getchar_ch != -1) {
       getchar_undo = 1;
