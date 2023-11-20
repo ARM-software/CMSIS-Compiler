@@ -135,7 +135,7 @@ def cbuild(solution, config):
 
 @matrix_command()
 def model_exec(config):
-    cmdline = ["FVP_MPS2_Cortex-M3", "-q", "--simlimit", 1, "-f", "vht-cm3-config.txt"]
+    cmdline = ["FVP_MPS2_Cortex-M3", "-q", "--simlimit", 1, "-f", "fvp-config.txt"]
     cmdline += ["-a", f"{output_dir(config)}/retarget.{config.compiler.image_ext}"]
     return cmdline
 
