@@ -55,7 +55,7 @@ The project is configured for execution on Arm Virtual Hardware which removes th
 ### Arm Compiler 6:
 
 ```bash
-VHT_MPS2_Cortex-M3 -f vht-cm3-config.txt out/retarget/VHT_CM3/Debug/retarget.axf
+FVP_MPS2_Cortex-M3 -f fvp-config.txt out/retarget/VHT_CM3/Debug/retarget.axf
 ```
 > **Note**
 > - For GCC, the application image file has extension `.elf`
