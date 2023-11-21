@@ -484,27 +484,17 @@ int _stat (const char *path, struct stat *buf) {
   \return    Upon successful completion, 0 is returned.
              Otherwise, the function returns -1 and sets errno to indicate the error.
 */
-#ifdef RTE_CMSIS_Compiler_IO_File
+#ifdef RTE_CMSIS_Compiler_File_Interface
 __attribute__((weak))
 int _link (const char *path1, const char *path2) {
-#if defined(RTE_CMSIS_Compiler_File_Interface)
   int32_t rval;
-#else
-  (void)path1;
-  (void)path2;
-#endif
-#if defined(RTE_CMSIS_Compiler_File_Interface)
+
   rval = rt_fs_rename(path1, path2);
   if (rval < 0) {
     errno = rval;
     rval = -1;
   }
   return (rval);
-#else
-  /* Not implemented */
-  errno = ENOSYS;
-  return (-1);
-#endif
 }
 #endif
 
@@ -517,26 +507,17 @@ int _link (const char *path1, const char *path2) {
   \return    Upon successful completion, 0 is returned.
              Otherwise, the function returns -1 and sets errno to indicate the error.
 */
-#ifdef RTE_CMSIS_Compiler_IO_File
+#ifdef RTE_CMSIS_Compiler_File_Interface
 __attribute__((weak))
 int _unlink (const char *path) {
-#if defined(RTE_CMSIS_Compiler_File_Interface)
   int32_t rval;
-#else
-  (void)path;
-#endif
-#if defined(RTE_CMSIS_Compiler_File_Interface)
+
   rval = rt_fs_remove (path);
   if (rval < 0) {
     errno = rval;
     rval = -1;
   }
   return (rval);
-#else
-  /* Not implemented */
-  errno = ENOSYS;
-  return (-1);
-#endif
 }
 #endif
 
