@@ -9,7 +9,7 @@ set -o pipefail
 # Set version of gen pack library
 # For available versions see https://github.com/Open-CMSIS-Pack/gen-pack/tags.
 # Use the tag name without the prefix "v", e.g., 0.7.0
-REQUIRED_GEN_PACK_LIB="0.9.0"
+REQUIRED_GEN_PACK_LIB="0.9.1"
 
 # Set default command line arguments
 DEFAULT_ARGS=(-c "v")
@@ -110,9 +110,9 @@ function postprocess() {
 # Set GEN_PACK_LIB_PATH to use a specific gen-pack library root
 # ... instead of bootstrap based on REQUIRED_GEN_PACK_LIB
 if [[ -f "${GEN_PACK_LIB_PATH}/gen-pack" ]]; then
-  . "${GEN_PACK_LIB}/gen-pack"
+  . "${GEN_PACK_LIB_PATH}/gen-pack"
 else
-  . <(curl -sL "https://raw.githubusercontent.com/Open-CMSIS-Pack/gen-pack/main/bootstrap")
+    . <(curl -sL "https://raw.githubusercontent.com/Open-CMSIS-Pack/gen-pack/main/bootstrap")
 fi
 
 gen_pack "${DEFAULT_ARGS[@]}" "$@"

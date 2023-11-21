@@ -13,7 +13,7 @@ set -o pipefail
 # Set version of gen pack library
 # For available versions see https://github.com/Open-CMSIS-Pack/gen-pack/tags.
 # Use the tag name without the prefix "v", e.g., 0.7.0
-REQUIRED_GEN_PACK_LIB="0.9.0"
+REQUIRED_GEN_PACK_LIB="0.9.1"
 
 DIRNAME=$(dirname "$(readlink -f "$0")")
 GENDIR=../html
@@ -82,7 +82,7 @@ year=$(date -u +'%Y')
 
 sed -e "s/{projectNumber}/${projectNumber}/" compiler.dxy.in > compiler.dxy
 
-#git_changelog -f html -p "pack/" > src/history.txt
+git_changelog -f html -p "v" > src/history.txt
 
 echo "\"${UTILITY_DOXYGEN}\" compiler.dxy"
 "${UTILITY_DOXYGEN}" compiler.dxy

@@ -918,6 +918,7 @@ WARN_LOGFILE           =
 
 INPUT                  = ./src/mainpage.md                 \
                          ./src/history.md                  \
+                         ./src/history.txt                 \
                          ./src/rt_io.md                    \
                          ./src/rt_os.md                    \
                          ../../example/README.md           \
