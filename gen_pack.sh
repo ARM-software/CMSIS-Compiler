@@ -49,6 +49,8 @@ PACK_BASE_FILES="
 PACK_DELETE_FILES="
   documentation/doxygen
   documentation/README.md
+  example/build.py
+  example/requirements.txt
 "
 
 # Specify patches to be applied
