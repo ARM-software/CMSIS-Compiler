@@ -66,7 +66,7 @@ __STATIC_INLINE int is_irq_masked (void) {
        (defined(__ARM_ARCH_8_1M_MAIN__) && (__ARM_ARCH_8_1M_MAIN__ != 0)))
   return ((__get_PRIMASK() != 0U) || (__get_BASEPRI() != 0U));
 #else
-  return (__get_PRIMASK() != 0U)
+  return (__get_PRIMASK() != 0U);
 #endif
 }
 
