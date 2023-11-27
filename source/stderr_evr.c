@@ -16,7 +16,9 @@
  * limitations under the License.
  */
 
+#include <stdint.h>
 #include "retarget_stderr.h"
+
 #include "EventRecorder.h"
 
 /**

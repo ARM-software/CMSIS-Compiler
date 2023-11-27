@@ -18,6 +18,9 @@
 
 #include "retarget_stderr.h"
 
+#include "RTE_Components.h"
+#include CMSIS_device_header
+
 /**
   Put a character to the stderr
 
@@ -25,6 +28,6 @@
   \return          The character written, or -1 on write error.
 */
 int stderr_putchar (int ch) {
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (ch);
 }

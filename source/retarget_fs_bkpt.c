@@ -22,14 +22,18 @@
  * limitations under the License.
  */
 
+#include <stdint.h>
 #include "retarget_fs.h"
+
+#include "RTE_Components.h"
+#include CMSIS_device_header
 
 /* Open a file */
 int32_t rt_fs_open (const char *path, int32_t mode) {
   (void)path;
   (void)mode;
 
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (RT_ERR);
 }
 
@@ -37,7 +41,7 @@ int32_t rt_fs_open (const char *path, int32_t mode) {
 int32_t rt_fs_close (int32_t fd) {
   (void)fd;
 
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (RT_ERR);
 }
 
@@ -47,7 +51,7 @@ int32_t rt_fs_write (int32_t fd, const void *buf, uint32_t cnt) {
   (void)buf;
   (void)cnt;
 
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (RT_ERR);
 }
 
@@ -57,7 +61,7 @@ int32_t rt_fs_read (int32_t fd, void *buf, uint32_t cnt) {
   (void)buf;
   (void)cnt;
 
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (RT_ERR);
 }
 
@@ -67,7 +71,7 @@ int64_t rt_fs_seek (int32_t fd, int64_t offset, int32_t whence) {
   (void)offset;
   (void)whence;
 
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (RT_ERR);
 }
 
@@ -75,7 +79,7 @@ int64_t rt_fs_seek (int32_t fd, int64_t offset, int32_t whence) {
 int64_t rt_fs_size (int32_t fd) {
   (void)fd;
 
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (RT_ERR);
 }
 
@@ -84,7 +88,7 @@ int32_t rt_fs_stat (int32_t fd, rt_fs_stat_t *stat) {
   (void)fd;
   (void)stat;
 
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (RT_ERR);
 }
 
@@ -92,7 +96,7 @@ int32_t rt_fs_stat (int32_t fd, rt_fs_stat_t *stat) {
 int32_t rt_fs_remove (const char *path) {
   (void)path;
 
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (RT_ERR);
 }
 
@@ -101,6 +105,6 @@ int32_t rt_fs_rename (const char *oldpath, const char *newpath) {
   (void)oldpath;
   (void)newpath;
 
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (RT_ERR);
 }
