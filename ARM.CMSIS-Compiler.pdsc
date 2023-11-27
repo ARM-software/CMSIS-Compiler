@@ -10,6 +10,7 @@
   <releases>
     <release version="0.0.0">
       Active Development ...
+      Introduce STDERR, STDIN, STDOUT APIs and components (#27)
       Modify RTE component defines from RTE_Compiler_* to RTE_CMSIS_Compiler_*
       OS Interface, Arm Compiler: Remove C library thread space implementation
     </release>
