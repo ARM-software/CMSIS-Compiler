@@ -16,7 +16,6 @@
  * limitations under the License.
  */
 
-#include <stdint.h>
 #include "retarget_tty.h"
 
 #include "RTE_Components.h"
@@ -29,5 +28,5 @@
 */
 void ttywrch (int ch) {
   (void)ch;
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
 }

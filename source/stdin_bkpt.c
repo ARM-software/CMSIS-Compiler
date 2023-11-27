@@ -19,6 +19,9 @@
 #include <stdint.h>
 #include "retarget_stdin.h"
 
+#include "RTE_Components.h"
+#include CMSIS_device_header
+
 /**
   Get a character from the stdio
 
@@ -27,6 +30,6 @@
 int stdin_getchar (void) {
   int32_t ch = -1;
 
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
   return (ch);
 }

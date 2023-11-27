@@ -467,7 +467,7 @@ int _stat (const char *path, struct stat *buf) {
   (void)path;
   (void)buf;
 #if defined(RTE_CMSIS_Compiler_File_Interface_Breakpoint)
-  __asm("BKPT 0");
+  __ASM("BKPT 0");
 #endif
   /* Not implemented */
   errno = ENOSYS;
@@ -592,7 +592,7 @@ pid_t wait (int *stat_loc) {
 __attribute__((weak))
 void *_sbrk_r (struct _reent *reent, ptrdiff_t incr) {
   extern char  __HeapLimit;
-  extern char  __HeapStart __asm("end");
+  extern char  __HeapStart __ASM("end");
   static char *heap;
          char *heap_prev;
          void *p;
