@@ -32,7 +32,7 @@ jobs:
 
       - name: Python requirements
         run: |
-          pip install -r ./CMSIS-Compiler/example/requirements.txt
+          pip install -r ./example/requirements.txt
 
       - name: Cache packs
         uses: actions/cache@v3
