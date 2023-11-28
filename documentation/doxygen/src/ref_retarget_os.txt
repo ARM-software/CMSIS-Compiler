@@ -1,6 +1,13 @@
 /**
 \defgroup os_interface_api OS Interface
 @{
+
+\brief Collection of standard C library provided APIs for integration with an arbitrary RTOS.
+
+\details
+OS Interface enables an abstraction layer for operating system related functionalities within an
+embedded system that targets a specific toolchain. The most notable is the functionality for
+handling locking mechanisms for synchronization in a multi-threaded environment.
 */
 
 /**

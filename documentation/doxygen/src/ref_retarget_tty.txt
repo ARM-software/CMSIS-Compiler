@@ -1,5 +1,7 @@
 /**
 \defgroup tty_api TTY Interface
+
+\brief Minimalistic interface for redirecting tty stream
 @{
 */
 

@@ -24,11 +24,8 @@ extern "C"
 {
 #endif
 
-/**
-  Put a character to the teletypewritter
-
-  \param[in]   ch  Character to output
-*/
+/// Put a character to the teletypewritter
+/// \param[in]   ch  Character to output
 void ttywrch (int ch);
 
 #ifdef  __cplusplus
