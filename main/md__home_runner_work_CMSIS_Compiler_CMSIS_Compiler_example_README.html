@@ -130,10 +130,12 @@ Prerequisites</h1>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Tools</h2>
 <ul>
-<li><a href="https://github.com/Open-CMSIS-Pack/devtools/releases">CMSIS-Toolbox 2.0.0</a> or higher</li>
+<li><a href="https://github.com/Open-CMSIS-Pack/devtools/releases">CMSIS-Toolbox 2.1.0</a> or higher</li>
 <li><a href="https://developer.arm.com/downloads/view/ACOMPE">Arm Compiler for Embedded</a>, or</li>
-<li><a href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">GCC Compiler for Arm bare-metal</a></li>
-<li><a href="https://developer.arm.com/Tools%20and%20Software/Arm%20Virtual%20Hardware">Arm Virtual Hardware</a> for local execution (e.g. delivered as part of Keil MDK)</li>
+<li><a href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">GCC Compiler for Arm bare-metal</a> or</li>
+<li><a href="https://github.com/ARM-software/LLVM-embedded-toolchain-for-Arm">Clang Compiler</a> or</li>
+<li><a href="https://www.iar.com/products/architectures/arm/iar-build-tools-for-arm/">IAR Build Tools for Arm</a></li>
+<li><a href="https://developer.arm.com/Tools%20and%20Software/Arm%20Virtual%20Hardware">Arm Virtual Hardware</a> for local execution</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md3"></a>
 Packs</h2>
@@ -142,7 +144,7 @@ Packs</h2>
 </ul>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Project Structure</h1>
-<p>The project is generated using the <a href="https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/Overview.md">CMSIS-Toolbox</a> and is defined in <a href="https://github.com/Open-CMSIS-Pack/devtools/blob/main/tools/projmgr/docs/Manual/YML-Input-Format.md"><code>csolution</code></a> format:</p>
+<p>The project is generated using the <a href="https://github.com/Open-CMSIS-Pack/cmsis-toolbox/blob/main/docs/build-overview.md">CMSIS-Toolbox</a> and is defined in <a href="https://github.com/Open-CMSIS-Pack/cmsis-toolbox/blob/main/docs/YML-Input-Format.md"><code>csolution</code></a> format:</p>
 <ul>
 <li><code>retarget.csolution.yml</code> lists the required packs and defines the hardware target and build-types (along with the compiler).</li>
 <li><code>retarget.cproject.yml</code> defines the source files and the software components.</li>
@@ -150,28 +152,23 @@ Project Structure</h1>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Build Project</h1>
 <p>Use the <code>cbuild</code> command to build the Debug configuration for VHT_CM3 target defined in <code>retarget.csolution.yml</code> solution file.</p>
-<div class="fragment"><div class="line">cbuild retarget.csolution.yml -p -r -v --update-rte -c retarget.Debug+VHT_CM3</div>
+<div class="fragment"><div class="line">cbuild retarget.csolution.yml -p -r --update-rte -c retarget.Debug+VHT_CM3</div>
 </div><!-- fragment --><blockquote class="doxtable">
 <p>&zwj;<b>Note</b></p><ul>
 <li>During the build process required packs may be downloaded (<code>-p</code> flag). </li>
 </ul>
 </blockquote>
-<p>By default the project is compiled using Arm Compiler as set in <code>cdefault.yml</code> file. One can build the project by specifying the toolchain, AC6 and GCC are supported.</p>
+<p>By default the project is compiled using GCC as set in <code>cdefault.yml</code> file. One can build the project by specifying the toolchain - AC6, GCC, CLANG and IAR are supported.</p>
 <h2><a class="anchor" id="autotoc_md6"></a>
 To build with Arm Compiler 6:</h2>
-<div class="fragment"><div class="line">cbuild retarget.csolution.yml -p -r -v --update-rte --toolchain AC6 -c retarget.Debug+VHT_CM3</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
-To build with GCC:</h2>
-<div class="fragment"><div class="line">cbuild retarget.csolution.yml -p -r -v --update-rte --toolchain GCC -c retarget.Debug+VHT_CM3</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
+<div class="fragment"><div class="line">cbuild retarget.csolution.yml -p -r --update-rte --toolchain AC6 -c retarget.Debug+VHT_CM3</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
 Execute Project</h1>
 <p>The project is configured for execution on Arm Virtual Hardware which removes the requirement for a physical hardware board.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
-Arm Compiler 6:</h2>
-<div class="fragment"><div class="line">FVP_MPS2_Cortex-M3 -f fvp-config.txt out/retarget/VHT_CM3/Debug/retarget.axf</div>
+<p>To execute application image on Arm Virtual Hardware use below command: </p><div class="fragment"><div class="line">FVP_MPS2_Cortex-M3 -f fvp-config.txt out/retarget/VHT_CM3/Debug/retarget.elf</div>
 </div><!-- fragment --> <blockquote class="doxtable">
 <p>&zwj;<b>Note</b></p><ul>
-<li>For GCC, the application image file has extension <code>.elf</code> </li>
+<li>For Arm Compiler 6, the application image file has extension <code>.axf</code> </li>
 </ul>
 </blockquote>
 </div></div><!-- contents -->

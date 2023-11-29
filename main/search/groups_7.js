@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['seek_20operations_0',['Seek Operations',['../group__fs__interface__seek__operations.html',1,'']]],
-  ['stderr_20interface_1',['STDERR Interface',['../group__stderr__api.html',1,'']]],
-  ['stdin_20interface_2',['STDIN Interface',['../group__stdin__api.html',1,'']]],
-  ['stdout_20interface_3',['STDOUT Interface',['../group__stdout__api.html',1,'']]],
-  ['system_20calls_4',['System Calls',['../group__gcc__clib__syscalls.html',1,'']]]
+  ['tty_20interface_0',['TTY Interface',['../group__tty__api.html',1,'']]]
 ];

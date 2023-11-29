@@ -128,6 +128,9 @@ $(document).ready(function(){initNavTree('group__fs__interface__api.html',''); i
   <div class="headertitle"><div class="title">File Interface</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>An API that enables integration of standard C library with an arbitrary file system.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="groups" name="groups"></a>
 Content</h2></td></tr>
@@ -174,6 +177,7 @@ Functions</h2></td></tr>
 <tr class="separator:gaab58c54e3d90cc303e0120e3d3e9d2d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
+<p>An API that enables integration of standard C library with an arbitrary file system. </p>
 <hr/><h2 class="groupheader">Data Structure Documentation</h2>
 <a name="structrt__fs__time__t" id="structrt__fs__time__t"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#structrt__fs__time__t">&#9670;&#160;</a></span>rt_fs_time_t</h2>
@@ -319,6 +323,14 @@ Number of allocated filesystem blocks. </td></tr>
 </div><div class="memdoc">
 
 <p>Open a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>string specifying the pathname of the file to be opened </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>integer bitmap specifying the file open mode </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a non-negative integer representing the file descriptor on success, or error code on failure</dd></dl>
 <p>This function opens a file specified by the pathname.</p>
 <p>The mode parameter is a bitmap that specifies the file open mode. The following bits are exclusive:</p><ul>
 <li>FS_OPEN_RDONLY: open file for reading only</li>
@@ -330,15 +342,7 @@ Number of allocated filesystem blocks. </td></tr>
 <li>FS_OPEN_CREATE: if set, the file is created if it does not exist</li>
 <li>FS_OPEN_TRUNCATE: if set, the size of an existing file opened for writing is truncated to zero</li>
 </ul>
-<p>The file position offset shall be set to the beginning of the file unless append mode is specified.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>string specifying the pathname of the file to be opened </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>integer bitmap specifying the file open mode </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>a non-negative integer representing the file descriptor on success, or error code on failure </dd></dl>
+<p>The file position offset shall be set to the beginning of the file unless append mode is specified. </p>
 
 </div>
 </div>
@@ -359,14 +363,14 @@ Number of allocated filesystem blocks. </td></tr>
 </div><div class="memdoc">
 
 <p>Close a file. </p>
-<p>This function closes the file associated with the file descriptor fd.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fd</td><td>file descriptor of an opened file </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>zero if the file was successfully closed, or error code on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>zero if the file was successfully closed, or error code on failure</dd></dl>
+<p>This function closes the file associated with the file descriptor fd. </p>
 
 </div>
 </div>
@@ -403,7 +407,6 @@ Number of allocated filesystem blocks. </td></tr>
 </div><div class="memdoc">
 
 <p>Write to a file. </p>
-<p>This function shall write cnt bytes from the buffer pointed to by buf to the file associated with the open file descriptor, fd.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fd</td><td>file descriptor of an opened file </td></tr>
@@ -412,7 +415,8 @@ Number of allocated filesystem blocks. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>number of bytes actually written, or error code on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>number of bytes actually written, or error code on failure</dd></dl>
+<p>This function shall write cnt bytes from the buffer pointed to by buf to the file associated with the open file descriptor, fd. </p>
 
 </div>
 </div>
@@ -449,7 +453,6 @@ Number of allocated filesystem blocks. </td></tr>
 </div><div class="memdoc">
 
 <p>Read from a file. </p>
-<p>This function reads cnt bytes from the file associated with the file descriptor fd, into the buffer pointed to by buf. The actual number of bytes read can be less than cnt.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fd</td><td>file descriptor of an opened file </td></tr>
@@ -458,7 +461,8 @@ Number of allocated filesystem blocks. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>number of bytes actually read, 0 at the EOF, or error code on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>number of bytes actually read, 0 at the EOF, or error code on failure</dd></dl>
+<p>This function reads cnt bytes from the file associated with the file descriptor fd, into the buffer pointed to by buf. The actual number of bytes read can be less than cnt. </p>
 
 </div>
 </div>
@@ -495,11 +499,6 @@ Number of allocated filesystem blocks. </td></tr>
 </div><div class="memdoc">
 
 <p>Move the file position pointer. </p>
-<p>This functions moves the file position pointer as specified with parameters offset and whence. Parameter whence can have the following possible values:</p><ul>
-<li>RT_SEEK_SET: set the file position pointer to offset bytes from the start of the file</li>
-<li>RT_SEEK_CUR: set the file position pointer to offset bytes from the current location</li>
-<li>RT_SEEK_END: set the file position pointer to offset bytes from the end of the file</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fd</td><td>file descriptor of an opened file </td></tr>
@@ -508,7 +507,12 @@ Number of allocated filesystem blocks. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>current file position from the beginning of the file, or error code on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>current file position from the beginning of the file, or error code on failure</dd></dl>
+<p>This functions moves the file position pointer as specified with parameters offset and whence. Parameter whence can have the following possible values:</p><ul>
+<li>RT_SEEK_SET: set the file position pointer to offset bytes from the start of the file</li>
+<li>RT_SEEK_CUR: set the file position pointer to offset bytes from the current location</li>
+<li>RT_SEEK_END: set the file position pointer to offset bytes from the end of the file </li>
+</ul>
 
 </div>
 </div>
@@ -529,14 +533,14 @@ Number of allocated filesystem blocks. </td></tr>
 </div><div class="memdoc">
 
 <p>Get file size. </p>
-<p>This function retrieves the size of an opened file.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fd</td><td>file descriptor of an opened file </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>file size in bytes, or error code on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>file size in bytes, or error code on failure</dd></dl>
+<p>This function retrieves the size of an opened file. </p>
 
 </div>
 </div>
@@ -567,7 +571,6 @@ Number of allocated filesystem blocks. </td></tr>
 </div><div class="memdoc">
 
 <p>Get file status information. </p>
-<p>This function retrieves status information about the file associated with the given file descriptor. The status information is stored in the <a class="el" href="group__fs__interface__api.html#structrt__fs__stat__t" title="File Status Information.">rt_fs_stat_t</a> struct pointed to by stat. The function shall return with error if fd is not a valid file descriptor or if parameter stat is NULL.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fd</td><td>file descriptor of an opened file </td></tr>
@@ -575,7 +578,8 @@ Number of allocated filesystem blocks. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>zero if the file status was successfully retrieved, or error code on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>zero if the file status was successfully retrieved, or error code on failure</dd></dl>
+<p>This function retrieves status information about the file associated with the given file descriptor. The status information is stored in the <a class="el" href="group__fs__interface__api.html#structrt__fs__stat__t" title="File Status Information.">rt_fs_stat_t</a> struct pointed to by stat. The function shall return with error if fd is not a valid file descriptor or if parameter stat is NULL. </p>
 
 </div>
 </div>
@@ -596,14 +600,14 @@ Number of allocated filesystem blocks. </td></tr>
 </div><div class="memdoc">
 
 <p>Remove a file or directory. </p>
-<p>If removing a directory, the directory must be empty.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>string specifying the pathname </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>zero if the file or directory was successfully removed, or error code on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>zero if the file or directory was successfully removed, or error code on failure</dd></dl>
+<p>If removing a directory, the directory must be empty. </p>
 
 </div>
 </div>
@@ -634,8 +638,6 @@ Number of allocated filesystem blocks. </td></tr>
 </div><div class="memdoc">
 
 <p>Rename or move a file or directory. </p>
-<p>This function changes the name of a file or directory.</p>
-<p>If the destination exists, it must match the source in type. If the destination is a directory, the directory must be empty.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">oldpath</td><td>string specifying file or directory to be renamed </td></tr>
@@ -643,7 +645,9 @@ Number of allocated filesystem blocks. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>zero if the file or directory was successfully renamed or moved, or error code on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>zero if the file or directory was successfully renamed or moved, or error code on failure</dd></dl>
+<p>This function changes the name of a file or directory.</p>
+<p>If the destination exists, it must match the source in type. If the destination is a directory, the directory must be empty. </p>
 
 </div>
 </div>

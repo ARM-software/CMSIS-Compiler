@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['locking_20routines_0',['Locking Routines',['../group__gcc__clib__locking__routines.html',1,'']]]
+  ['open_20modes_0',['Open Modes',['../group__fs__interface__open__modes.html',1,'']]],
+  ['os_20interface_1',['OS Interface',['../group__os__interface__api.html',1,'']]]
 ];

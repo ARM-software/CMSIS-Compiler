@@ -127,11 +127,14 @@ $(document).ready(function(){initNavTree('group__retarget__os__armclib.html','')
   <div class="headertitle"><div class="title">Arm C Library<div class="ingroups"><a class="el" href="group__os__interface__api.html">OS Interface</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Declarations of types and functions for integrating an RTOS with the Arm Standard C Library.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:structrt__mutex__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__retarget__os__armclib.html#structrt__mutex__t">rt_mutex_t</a></td></tr>
-<tr class="memdesc:structrt__mutex__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="group__retarget__os__armclib.html#structrt__mutex__t" title="The rt_mutex_t is an incomplete type, an implementation must define it.">rt_mutex_t</a> is an incomplete type, an implementation must define it.  <a href="group__retarget__os__armclib.html#structrt__mutex__t">More...</a><br /></td></tr>
+<tr class="memdesc:structrt__mutex__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex type definition.  <a href="group__retarget__os__armclib.html#structrt__mutex__t">More...</a><br /></td></tr>
 <tr class="separator:structrt__mutex__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -153,6 +156,7 @@ Functions</h2></td></tr>
 <tr class="separator:gadbed132cb03873020c98e2d95d68c153"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
+<p>Declarations of types and functions for integrating an RTOS with the Arm Standard C Library. </p>
 <hr/><h2 class="groupheader">Data Structure Documentation</h2>
 <a name="structrt__mutex__t" id="structrt__mutex__t"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#structrt__mutex__t">&#9670;&#160;</a></span>rt_mutex_t</h2>
@@ -165,7 +169,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock"><p>The <a class="el" href="group__retarget__os__armclib.html#structrt__mutex__t" title="The rt_mutex_t is an incomplete type, an implementation must define it.">rt_mutex_t</a> is an incomplete type, an implementation must define it. </p>
+<div class="textblock"><p>Mutex type definition. </p>
+<p>The <a class="el" href="group__retarget__os__armclib.html#structrt__mutex__t" title="Mutex type definition.">rt_mutex_t</a> is an incomplete type, an implementation must define it </p>
 </div>
 </div>
 </div>
@@ -208,14 +213,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize mutex. </p>
-<p>This function accepts a pointer to a pointer-sized word and initializes it as a valid mutex. By default, <a class="el" href="group__retarget__os__armclib.html#gab1e6cdf92dc1e41857e683d358151891" title="Initialize mutex.">_mutex_initialize()</a> returns zero for a nonthreaded application. Therefore, in a multithreaded application, <a class="el" href="group__retarget__os__armclib.html#gab1e6cdf92dc1e41857e683d358151891" title="Initialize mutex.">_mutex_initialize()</a> must return a nonzero value on success so that at runtime, the library knows that it is being used in a multithreaded environment. Ensure that <a class="el" href="group__retarget__os__armclib.html#gab1e6cdf92dc1e41857e683d358151891" title="Initialize mutex.">_mutex_initialize()</a> initializes the mutex to an unlocked state.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mutex</td><td>Pointer to mutex object</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mutex</td><td>Pointer to mutex object </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Upon successful completion, nonzero value is returned. Otherwise, the function returns 0. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>nonzero value on success, otherwise the function returns 0</dd></dl>
+<p>This function accepts a pointer to a pointer-sized word and initializes it as a valid mutex. By default, <a class="el" href="group__retarget__os__armclib.html#gab1e6cdf92dc1e41857e683d358151891" title="Initialize mutex.">_mutex_initialize()</a> returns zero for a nonthreaded application. Therefore, in a multithreaded application, <a class="el" href="group__retarget__os__armclib.html#gab1e6cdf92dc1e41857e683d358151891" title="Initialize mutex.">_mutex_initialize()</a> must return a nonzero value on success so that at runtime, the library knows that it is being used in a multithreaded environment. Ensure that <a class="el" href="group__retarget__os__armclib.html#gab1e6cdf92dc1e41857e683d358151891" title="Initialize mutex.">_mutex_initialize()</a> initializes the mutex to an unlocked state. </p>
 
 </div>
 </div>
@@ -236,13 +241,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Acquire mutex. </p>
-<p>This function causes the calling thread to obtain a lock on the supplied mutex. <a class="el" href="group__retarget__os__armclib.html#gaada1d9d5188d36b35e8ea14274010381" title="Acquire mutex.">_mutex_acquire()</a> returns immediately if the mutex has no owner. If the mutex is owned by another thread, <a class="el" href="group__retarget__os__armclib.html#gaada1d9d5188d36b35e8ea14274010381" title="Acquire mutex.">_mutex_acquire()</a> must block until it becomes available. <a class="el" href="group__retarget__os__armclib.html#gaada1d9d5188d36b35e8ea14274010381" title="Acquire mutex.">_mutex_acquire()</a> is not called by the thread that already owns the mutex.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mutex</td><td>Pointer to mutex object </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mutex</td><td>Pointer to mutex object</td></tr>
   </table>
   </dd>
 </dl>
+<p>This function causes the calling thread to obtain a lock on the supplied mutex. <a class="el" href="group__retarget__os__armclib.html#gaada1d9d5188d36b35e8ea14274010381" title="Acquire mutex.">_mutex_acquire()</a> returns immediately if the mutex has no owner. If the mutex is owned by another thread, <a class="el" href="group__retarget__os__armclib.html#gaada1d9d5188d36b35e8ea14274010381" title="Acquire mutex.">_mutex_acquire()</a> must block until it becomes available. <a class="el" href="group__retarget__os__armclib.html#gaada1d9d5188d36b35e8ea14274010381" title="Acquire mutex.">_mutex_acquire()</a> is not called by the thread that already owns the mutex. </p>
 
 </div>
 </div>
@@ -263,13 +268,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Release mutex. </p>
-<p>This function causes the calling thread to release the lock on a mutex acquired by <a class="el" href="group__retarget__os__armclib.html#gaada1d9d5188d36b35e8ea14274010381" title="Acquire mutex.">_mutex_acquire()</a>. The mutex remains in existence, and can be re-locked by a subsequent call to mutex_acquire(). <a class="el" href="group__retarget__os__armclib.html#ga5b9b4175427a95bd5f812a736618e63c" title="Release mutex.">_mutex_release()</a> assumes that the mutex is owned by the calling thread.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mutex</td><td>Pointer to mutex object </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mutex</td><td>Pointer to mutex object</td></tr>
   </table>
   </dd>
 </dl>
+<p>This function causes the calling thread to release the lock on a mutex acquired by <a class="el" href="group__retarget__os__armclib.html#gaada1d9d5188d36b35e8ea14274010381" title="Acquire mutex.">_mutex_acquire()</a>. The mutex remains in existence, and can be re-locked by a subsequent call to mutex_acquire(). <a class="el" href="group__retarget__os__armclib.html#ga5b9b4175427a95bd5f812a736618e63c" title="Release mutex.">_mutex_release()</a> assumes that the mutex is owned by the calling thread. </p>
 
 </div>
 </div>
@@ -290,13 +295,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Free mutex. </p>
-<p>This function causes the calling thread to free the supplied mutex. Any operating system resources associated with the mutex are freed. The mutex is destroyed and cannot be reused. <a class="el" href="group__retarget__os__armclib.html#gadbed132cb03873020c98e2d95d68c153" title="Free mutex.">_mutex_free()</a> assumes that the mutex is owned by the calling thread.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mutex</td><td>Pointer to mutex object </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mutex</td><td>Pointer to mutex object</td></tr>
   </table>
   </dd>
 </dl>
+<p>This function causes the calling thread to free the supplied mutex. Any operating system resources associated with the mutex are freed. The mutex is destroyed and cannot be reused. <a class="el" href="group__retarget__os__armclib.html#gadbed132cb03873020c98e2d95d68c153" title="Free mutex.">_mutex_free()</a> assumes that the mutex is owned by the calling thread. </p>
 
 </div>
 </div>

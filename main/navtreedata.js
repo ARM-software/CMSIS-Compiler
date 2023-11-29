@@ -46,12 +46,9 @@ var NAVTREE =
       ] ],
       [ "Project Structure", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md4", null ],
       [ "Build Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md5", [
-        [ "To build with Arm Compiler 6:", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md6", null ],
-        [ "To build with GCC:", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md7", null ]
+        [ "To build with Arm Compiler 6:", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md6", null ]
       ] ],
-      [ "Execute Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md8", [
-        [ "Arm Compiler 6:", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md9", null ]
-      ] ]
+      [ "Execute Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md7", null ]
     ] ],
     [ "Templates", "rt_templates.html", "rt_templates" ],
     [ "API Reference", "modules.html", "modules" ]

@@ -156,55 +156,55 @@ File Interface Custom</h1>
 <div class="line"><span class="comment">/* Open a file */</span></div>
 <div class="line">int32_t <a class="code hl_function" href="group__fs__interface__api.html#ga09c427a919e3c7c1bfb405e192c0849e" title="Open a file.">rt_fs_open</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, int32_t mode) {</div>
 <div class="line">  <span class="comment">// ...</span></div>
-<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="Unspecified error.">RT_ERR</a>);</div>
+<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="File Operation Return Codes.">RT_ERR</a>);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Close a file */</span></div>
 <div class="line">int32_t <a class="code hl_function" href="group__fs__interface__api.html#gace1b759b5a1f2d5154c2c23126cd842b" title="Close a file.">rt_fs_close</a> (int32_t fd) {</div>
 <div class="line">  <span class="comment">// ...</span></div>
-<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="Unspecified error.">RT_ERR</a>);</div>
+<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="File Operation Return Codes.">RT_ERR</a>);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Write to a file */</span></div>
 <div class="line">int32_t <a class="code hl_function" href="group__fs__interface__api.html#ga3472b0d88210dea8cd54b152e59f272b" title="Write to a file.">rt_fs_write</a> (int32_t fd, <span class="keyword">const</span> <span class="keywordtype">void</span> *buf, uint32_t cnt) {</div>
 <div class="line">  <span class="comment">// ...</span></div>
-<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="Unspecified error.">RT_ERR</a>);</div>
+<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="File Operation Return Codes.">RT_ERR</a>);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Read from a file */</span></div>
 <div class="line">int32_t <a class="code hl_function" href="group__fs__interface__api.html#gaf78d25103be5a1e6d0f21db8e096e5b1" title="Read from a file.">rt_fs_read</a> (int32_t fd, <span class="keywordtype">void</span> *buf, uint32_t cnt) {</div>
 <div class="line">  <span class="comment">// ...</span></div>
-<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="Unspecified error.">RT_ERR</a>);</div>
+<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="File Operation Return Codes.">RT_ERR</a>);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Move the file position pointer */</span></div>
 <div class="line">int64_t <a class="code hl_function" href="group__fs__interface__api.html#ga62500e40f183a0d94eec65b6d305ffb9" title="Move the file position pointer.">rt_fs_seek</a> (int32_t fd, int64_t offset, int32_t whence) {</div>
 <div class="line">  <span class="comment">// ...</span></div>
-<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="Unspecified error.">RT_ERR</a>);</div>
+<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="File Operation Return Codes.">RT_ERR</a>);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Get file size */</span></div>
 <div class="line">int64_t <a class="code hl_function" href="group__fs__interface__api.html#gac0ee645fb88ca96df5dff0487fa43d66" title="Get file size.">rt_fs_size</a> (int32_t fd) {</div>
 <div class="line">  <span class="comment">// ...</span></div>
-<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="Unspecified error.">RT_ERR</a>);</div>
+<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="File Operation Return Codes.">RT_ERR</a>);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Get file status information */</span></div>
 <div class="line">int32_t <a class="code hl_function" href="group__fs__interface__api.html#ga9c5f8a04fa3f74e46555c93773843153" title="Get file status information.">rt_fs_stat</a> (int32_t fd, <a class="code hl_struct" href="group__fs__interface__api.html#structrt__fs__stat__t" title="File Status Information.">rt_fs_stat_t</a> *stat) {</div>
 <div class="line">  <span class="comment">// ...</span></div>
-<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="Unspecified error.">RT_ERR</a>);</div>
+<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="File Operation Return Codes.">RT_ERR</a>);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Remove a file or directory */</span></div>
 <div class="line">int32_t <a class="code hl_function" href="group__fs__interface__api.html#ga04336f96924935da0c98cdb8a51c484f" title="Remove a file or directory.">rt_fs_remove</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *path) {</div>
 <div class="line">  <span class="comment">// ...</span></div>
-<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="Unspecified error.">RT_ERR</a>);</div>
+<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="File Operation Return Codes.">RT_ERR</a>);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* Rename or move a file or directory */</span></div>
 <div class="line">int32_t <a class="code hl_function" href="group__fs__interface__api.html#gaab58c54e3d90cc303e0120e3d3e9d2d0" title="Rename or move a file or directory.">rt_fs_rename</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *oldpath, <span class="keyword">const</span> <span class="keywordtype">char</span> *newpath) {</div>
 <div class="line">  <span class="comment">// ...</span></div>
-<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="Unspecified error.">RT_ERR</a>);</div>
+<div class="line">  <span class="keywordflow">return</span> (<a class="code hl_define" href="group__fs__interface__return__codes.html#gad40d818ba12b5b0d7789afdb993c8d64" title="File Operation Return Codes.">RT_ERR</a>);</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
