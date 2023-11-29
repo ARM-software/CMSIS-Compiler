@@ -1,5 +1,6 @@
 /**
 \defgroup stderr_api STDERR Interface
+\brief Minimalistic interface for redirecting stderr stream
 @{
 */
 

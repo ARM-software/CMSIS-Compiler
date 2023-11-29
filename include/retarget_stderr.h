@@ -24,12 +24,9 @@ extern "C"
 {
 #endif
 
-/**
-  Put a character to the stderr
-
-  \param[in]   ch  Character to output
-  \return          The character written, or -1 on write error.
-*/
+/// Put a character to the stderr
+/// \param[in]   ch  Character to output
+/// \return the character written, or -1 on write error
 int stderr_putchar (int ch);
 
 #ifdef  __cplusplus

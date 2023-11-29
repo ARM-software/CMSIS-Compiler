@@ -64,72 +64,28 @@ extern "C"
 {
 #endif
 
-/**
-  \brief Retrieve thread local storage.
-
-  This function returns a pointer to memory for storing data that is local to a
-  particular thread. This means that __user_perthread_libspace() returns a
-  different address depending on the thread it is called from.
-*/
+/// Retrieve thread local storage
 void *__user_perthread_libspace (void);
 
-/**
-
-  \brief The rt_mutex_s is an incomplete type, an implementation must define it.
-*/
+/// Mutex type definition
 struct rt_mutex_s;
 typedef struct rt_mutex_s rt_mutex_t;
 
-/**
-  \brief Initialize mutex.
-
-  This function accepts a pointer to a pointer-sized word and initializes it as
-  a valid mutex. By default, _mutex_initialize() returns zero for a nonthreaded
-  application. Therefore, in a multithreaded application, _mutex_initialize()
-  must return a nonzero value on success so that at runtime, the library knows
-  that it is being used in a multithreaded environment.
-  Ensure that _mutex_initialize() initializes the mutex to an unlocked state.
-
-  \param[in]  mutex     Pointer to mutex object
-
-  \return Upon successful completion, nonzero value is returned.
-          Otherwise, the function returns 0.
-*/
+/// Initialize mutex
+/// \param[in]  mutex     Pointer to mutex object
+/// \return nonzero value on success, otherwise the function returns 0
 int _mutex_initialize(rt_mutex_t *mutex);
 
-/**
-  \brief Acquire mutex.
-
-  This function causes the calling thread to obtain a lock on the supplied mutex.
-  _mutex_acquire() returns immediately if the mutex has no owner. If the mutex
-  is owned by another thread, _mutex_acquire() must block until it becomes available.
-  _mutex_acquire() is not called by the thread that already owns the mutex.
-
-  \param[in]  mutex     Pointer to mutex object
-*/
+/// Acquire mutex
+/// \param[in]  mutex     Pointer to mutex object
 void _mutex_acquire(rt_mutex_t *mutex);
 
-/**
-  \brief Release mutex.
-
-  This function causes the calling thread to release the lock on a mutex acquired
-  by _mutex_acquire(). The mutex remains in existence, and can be re-locked by a
-  subsequent call to mutex_acquire(). _mutex_release() assumes that the mutex is
-  owned by the calling thread.
-
-  \param[in]  mutex     Pointer to mutex object
-*/
+/// Release mutex
+/// \param[in]  mutex     Pointer to mutex object
 void _mutex_release(rt_mutex_t *mutex);
 
-/**
-  \brief Free mutex.
-
-  This function causes the calling thread to free the supplied mutex. Any operating
-  system resources associated with the mutex are freed. The mutex is destroyed and
-  cannot be reused. _mutex_free() assumes that the mutex is owned by the calling thread.
-
-  \param[in]  mutex     Pointer to mutex object
-*/
+/// Free mutex
+/// \param[in]  mutex     Pointer to mutex object
 void _mutex_free(rt_mutex_t *mutex);
 
 #ifdef  __cplusplus

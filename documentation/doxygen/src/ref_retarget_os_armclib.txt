@@ -1,32 +1,65 @@
 /**
 \defgroup retarget_os_armclib Arm C Library
 \ingroup os_interface_api
+\brief Declarations of types and functions for integrating an RTOS with the Arm Standard C Library
 @{
 */
 
 /**
-\fn void *__user_perthread_libspace (void)
+  \fn void *__user_perthread_libspace (void)
+
+  \details
+  This function returns a pointer to memory for storing data that is local to a
+  particular thread. This means that __user_perthread_libspace() returns a
+  different address depending on the thread it is called from.
 */
 
 /**
-\struct rt_mutex_t
-\brief The rt_mutex_t is an incomplete type, an implementation must define it
+  \struct rt_mutex_t
+  \brief Mutex type definition
+
+  \details The rt_mutex_t is an incomplete type, an implementation must define it
 */
 
 /**
-\fn int _mutex_initialize(rt_mutex_t *mutex)
+  \fn int _mutex_initialize(rt_mutex_t *mutex)
+
+  \details
+  This function accepts a pointer to a pointer-sized word and initializes it as
+  a valid mutex. By default, _mutex_initialize() returns zero for a nonthreaded
+  application. Therefore, in a multithreaded application, _mutex_initialize()
+  must return a nonzero value on success so that at runtime, the library knows
+  that it is being used in a multithreaded environment.
+  Ensure that _mutex_initialize() initializes the mutex to an unlocked state.
 */
 
 /**
-\fn void _mutex_acquire(rt_mutex_t *mutex)
+  \fn void _mutex_acquire(rt_mutex_t *mutex)
+
+  \details
+  This function causes the calling thread to obtain a lock on the supplied mutex.
+  _mutex_acquire() returns immediately if the mutex has no owner. If the mutex
+  is owned by another thread, _mutex_acquire() must block until it becomes available.
+  _mutex_acquire() is not called by the thread that already owns the mutex.
 */
 
 /**
-\fn void _mutex_release(rt_mutex_t *mutex)
+  \fn void _mutex_release(rt_mutex_t *mutex)
+
+  \details
+  This function causes the calling thread to release the lock on a mutex acquired
+  by _mutex_acquire(). The mutex remains in existence, and can be re-locked by a
+  subsequent call to mutex_acquire(). _mutex_release() assumes that the mutex is
+  owned by the calling thread.
 */
 
 /**
-\fn void _mutex_free(rt_mutex_t *mutex)
+  \fn void _mutex_free(rt_mutex_t *mutex)
+
+  \details
+  This function causes the calling thread to free the supplied mutex. Any operating
+  system resources associated with the mutex are freed. The mutex is destroyed and
+  cannot be reused. _mutex_free() assumes that the mutex is owned by the calling thread.
 */
 
 /**

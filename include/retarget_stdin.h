@@ -24,11 +24,8 @@ extern "C"
 {
 #endif
 
-/**
-  Get a character from the stdin
-
-  \return     The next character from the input, or -1 on read error.
-*/
+/// Get a character from the stdin
+/// \return the next character from the input, or -1 on read error
 int stdin_getchar (void);
 
 #ifdef  __cplusplus

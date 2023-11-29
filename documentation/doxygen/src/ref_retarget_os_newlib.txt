@@ -2,13 +2,10 @@
 /**
 \defgroup retarget_os_newlib GCC Newlib
 \ingroup os_interface_api
+\brief Declarations of types and functions for integrating an RTOS with the GCC Newlib
 @{
 */
 
-/**
-\defgroup gcc_clib_locking_routines Locking Routines
-@{
-*/
 void __retarget_lock_init(_LOCK_T *lock);
 
 void __retarget_lock_init_recursive(_LOCK_T *lock);
@@ -28,52 +25,6 @@ int __retarget_lock_try_acquire_recursive(_LOCK_T lock);
 void __retarget_lock_release(_LOCK_T lock);
 
 void __retarget_lock_release_recursive(_LOCK_T lock);
-/**
-@}
-*/
-
-/**
-\defgroup gcc_clib_syscalls System Calls
-@{
-*/
-int _open (const char *path, int oflag, ...);
-
-int _close (int fildes);
-
-ssize_t _write (int fildes, const void *buf, size_t nbyte);
-
-ssize_t _read (int fildes, void *buf, size_t nbyte);
-
-off_t _lseek (int fildes, off_t offset, int whence);
-
-int _isatty (int fildes);
-
-int _fstat (int fildes, struct stat *buf);
-
-int _stat (const char *path, struct stat *buf);
-
-int _link(const char *path1, const char *path2);
-
-int _unlink (const char *path);
-
-extern char **environ;
-
-int _execve(const char *path, char *const argv[], char *const envp[]);
-
-pid_t fork (void);
-
-void _exit (int status);
-
-int _kill (pid_t pid, int sig);
-
-pid_t _getpid (void);
-
-pid_t _wait (int *stat_loc);
-
-void *_sbrk (ptrdiff_t incr);
-/**
-@}
-*/
 
 /**
 @}
