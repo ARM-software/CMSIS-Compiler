@@ -2,7 +2,6 @@
 /**
 \defgroup retarget_os_newlib GCC Newlib
 \ingroup os_interface_api
-
 \brief Declarations of types and functions for integrating an RTOS with the GCC Newlib
 @{
 */

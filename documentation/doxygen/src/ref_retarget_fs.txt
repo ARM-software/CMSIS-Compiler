@@ -1,6 +1,5 @@
 /**
 \defgroup fs_interface_api File Interface
-
 \brief An API that enables integration of standard C library with an arbitrary file system
 @{
 */
