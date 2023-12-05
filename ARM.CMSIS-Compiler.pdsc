@@ -2,7 +2,7 @@
 <package schemaVersion="1.7.27" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Open-CMSIS-Pack/Open-CMSIS-Pack-Spec/v1.7.27/schema/PACK.xsd">
   <vendor>ARM</vendor>
   <name>CMSIS-Compiler</name>
-  <description>CMSIS Compiler extensions for Arm Compiler, and GCC</description>
+  <description>CMSIS Compiler extensions for Arm Compiler, GCC, Clang, and IAR Compiler</description>
   <url>https://www.keil.com/pack/</url>
   <license>LICENSE</license>
   <repository type="git">https://github.com/ARM-software/CMSIS-Compiler.git</repository>
@@ -10,9 +10,10 @@
   <releases>
     <release version="0.0.0">
       Active Development ...
-      Introduce STDERR, STDIN, STDOUT APIs and components (#27)
-      Modify RTE component defines from RTE_Compiler_* to RTE_CMSIS_Compiler_*
-      OS Interface, Arm Compiler: Remove C library thread space implementation
+      - Added initial support for LLVM/Clang and IAR Compiler
+      - Introduce STDERR, STDIN, STDOUT APIs and components (#27)
+      - Rename RTE component defines from RTE_Compiler_* to RTE_CMSIS_Compiler_*
+      - OS Interface, Arm Compiler: Remove C library thread space implementation      
     </release>
   </releases>
 
