@@ -2,7 +2,7 @@
 
 CMSIS-Compiler documentation in HTML format is published online at [https://arm-software.github.io/CMSIS-Compiler](https://arm-software.github.io/CMSIS-Compiler).
 
-The version drop-down menu allows to switch between the documentation provided with offical releases and the latest draft documentation for the main branch.
+The version drop-down menu allows to switch between the documentation provided with official releases and the latest draft documentation for the main branch.
 
 The documentation source is maintained in `/documentation/doxygen/` folder as a mixture of markdown and doxygen formats. Software source and header files, templates and examples may also contribute information that gets integrated into the final documentation.
 
