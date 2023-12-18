@@ -130,6 +130,14 @@ $(document).ready(function(){initNavTree('rev_hist.html',''); initResizable(); }
 <tr>
 <th>Version </th><th>Description  </th></tr>
 <tr>
+<td>v2.0.0 </td><td><ul>
+<li>Added initial support for LLVM/Clang and IAR Compiler</li>
+<li>Introduce STDERR, STDIN, STDOUT APIs and components Attention: This change conflicts with user implementations version 1.0.0!</li>
+<li>Rename RTE component defines from RTE_Compiler_* to RTE_CMSIS_Compiler_*</li>
+<li>OS Interface, Arm Compiler: Remove C library thread space implementation   </li>
+</ul>
+</td></tr>
+<tr>
 <td>v1.0.0 </td><td>Initial release replacing I/O Retarget from Keil.ARM-Compiler pack.   </td></tr>
 </table>
 </div></div><!-- contents -->
