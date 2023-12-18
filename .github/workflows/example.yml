@@ -80,7 +80,7 @@ jobs:
       - uses: ammaraskar/gcc-problem-matcher@master
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: cpp
           queries: security-and-quality
@@ -94,7 +94,7 @@ jobs:
 
       - name: Perform CodeQL Analysis
         if: ${{ !cancelled() }}
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
 
       - name: Deactivate Arm tool license
         if: always()
