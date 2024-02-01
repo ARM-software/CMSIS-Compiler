@@ -19,7 +19,7 @@
 #include "cmsis_os2.h"
 #include "cmsis_compiler.h"
 
-#if defined(_DLIB_THREAD_SUPPORT) && _DLIB_THREAD_SUPPORT > 0
+//#if defined(_DLIB_THREAD_SUPPORT) && _DLIB_THREAD_SUPPORT > 0
 
 /* Check if the kernel has been initialized */
 static uint32_t os_kernel_is_initialized (void) {
@@ -53,23 +53,18 @@ struct rt_mutex_s {
   osMutexId_t id;
 };
 
+#pragma language=save
+#pragma language=extended
 /* Initialize mutex */
-__USED void __iar_system_Mtxinit(__iar_Rmtx *)
+__USED void __iar_system_Mtxinit(struct rt_mutex_s *mutex)
 {
-  int result = 0;
-
   if (os_kernel_is_initialized()) {
     mutex->id = osMutexNew(NULL);
-
-    if (mutex->id != NULL) {
-      result = 1;
-    }
   }
-  return result;
 }
 
 /* Acquire mutex */
-__USED void __iar_system_Mtxlock(__iar_Rmtx *);
+__USED void __iar_system_Mtxlock(struct rt_mutex_s *mutex)
 {
   if (os_kernel_is_running() && is_thread_mode()) {
     (void)osMutexAcquire(mutex->id, osWaitForever);
@@ -77,7 +72,7 @@ __USED void __iar_system_Mtxlock(__iar_Rmtx *);
 }
 
 /* Release mutex */
-__USED void __iar_system_Mtxunlock(__iar_Rmtx *); // Unlock a system lock
+__USED void __iar_system_Mtxunlock(struct rt_mutex_s *mutex) // Unlock a system lock
 {
   if (os_kernel_is_running() && is_thread_mode()) {
     (void)osMutexRelease(mutex->id);
@@ -85,9 +80,43 @@ __USED void __iar_system_Mtxunlock(__iar_Rmtx *); // Unlock a system lock
 }
 
 /* Free mutex */
-__USED void __iar_system_Mtxdst(__iar_Rmtx *);    // Destroy a system lock
+__USED void __iar_system_Mtxdst(struct rt_mutex_s *mutex)    // Destroy a system lock
 {
   (void)osMutexDelete(mutex->id);
 }
 
-#endif //defined(_DLIB_THREAD_SUPPORT) && _DLIB_THREAD_SUPPORT > 0
+//#endif //defined(_DLIB_THREAD_SUPPORT) && _DLIB_THREAD_SUPPORT > 0
+
+/* Initialize mutex */
+__USED void __iar_file_Mtxinit(struct rt_mutex_s *mutex)
+{
+  if (os_kernel_is_initialized()) {
+    mutex->id = osMutexNew(NULL);
+  }
+}
+
+/* Acquire mutex */
+__USED void __iar_file_Mtxlock(struct rt_mutex_s *mutex)
+{
+  if (os_kernel_is_running() && is_thread_mode()) {
+    (void)osMutexAcquire(mutex->id, osWaitForever);
+  }
+}
+
+/* Release mutex */
+__USED void __iar_file_Mtxunlock(struct rt_mutex_s *mutex) // Unlock a system lock
+{
+  if (os_kernel_is_running() && is_thread_mode()) {
+    (void)osMutexRelease(mutex->id);
+  }
+}
+
+/* Free mutex */
+__USED void __iar_file_Mtxdst(struct rt_mutex_s *mutex)    // Destroy a system lock
+{
+  (void)osMutexDelete(mutex->id);
+}
+
+//#endif //defined(_DLIB_THREAD_SUPPORT) && _DLIB_THREAD_SUPPORT > 0
+
+#pragma language=restore
