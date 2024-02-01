@@ -142,6 +142,12 @@
       <require condition="CORE"/>
       <require Cclass="CMSIS" Cgroup="RTOS2"/>
     </condition>
+    <condition id="IAR CORE CMSIS-RTOS2">
+      <description>IAR and CORE component and CMSIS-RTOS2</description>
+      <require Tcompiler="IAR"/>
+      <require condition="CORE"/>
+      <require Cclass="CMSIS" Cgroup="RTOS2"/>
+    </condition>
   </conditions>
   <taxonomy>
     <description Cclass="CMSIS-Compiler" doc="documentation/html/index.html">Compiler Specific Interfaces</description>
@@ -443,6 +449,18 @@
       </RTE_Components_h>
       <files>
         <file category="sourceC" name="source/gcc/retarget_lock_rtos2.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Capiversion="1.0.0" Cversion="2.0.0" condition="IAR CORE CMSIS-RTOS2">
+      <description>C library OS interface implementation using CMSIS-RTOS2</description>
+      <RTE_Components_h>
+        #define RTE_CMSIS_Compiler_OS_Interface       /* Compiler OS Interface */
+        #define RTE_CMSIS_Compiler_OS_Interface_RTOS2 /* Compiler OS Interface: CMSIS-RTOS2 */
+        /* Features */
+        #define RTE_CMSIS_Compiler_OS_Interface_RTOS2_LOCKS     /* Implements locking routines */
+      </RTE_Components_h>
+      <files>
+        <file category="sourceC" name="source/iar/retarget_os_rtos2.c"/>
       </files>
     </component>
   </components>
