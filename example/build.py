@@ -25,7 +25,7 @@ class CompilerAxis(Enum):
         ext = {
             CompilerAxis.AC6: 'axf',
             CompilerAxis.GCC: 'elf',
-            CompilerAxis.IAR: 'elf',
+            CompilerAxis.IAR: 'out',
             CompilerAxis.CLANG: 'elf',
         }
         return ext[self]
