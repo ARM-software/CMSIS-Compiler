@@ -452,7 +452,7 @@
       <description>Simple example retargeting stdout to USART.</description>
       <board name="V2M-MPS2" vendor="ARM"/>
       <project>
-        <environment name="cmsis" load="retarget.csolution.yml"/>
+        <environment name="csolution" load="retarget.csolution.yml"/>
       </project>
       <attributes/>
     </example>
