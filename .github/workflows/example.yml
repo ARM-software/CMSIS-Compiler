@@ -45,7 +45,7 @@ jobs:
       - name: Cache vcpkg
         uses: actions/cache@v3
         with:
-          key: vcpkg-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}-${{ matrix.compiler }}
+          key: vcpkg-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
           restore-keys: |
             vcpkg-${{ runner.os }}-${{ runner.arch }}-
           path: /home/runner/.vcpkg
@@ -55,22 +55,20 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install libtinfo5
-    
+
       - name: Prepare vcpkg env
-        working-directory: ./example
+        uses: JonatanAntoni/actions/vcpkg@main
+        with:
+          config: ./example/vcpkg-configuration.json
+
+      - name: Install required packs
         run: |
-          . <(curl https://aka.ms/vcpkg-init.sh -L)
-          vcpkg x-update-registry --all
-          vcpkg activate
-          cpackget add ../ARM.CMSIS-Compiler.pdsc
+          cpackget add ARM.CMSIS-Compiler.pdsc
           curl -LO https://github.com/ARM-software/CMSIS_6/releases/download/dev%2Fv6.0.0-dev53/packlist.txt
           cpackget add -a -f packlist.txt
           
       - name: Activate Arm tool license
-        working-directory: ./example
         run: |
-          . /home/runner/.vcpkg/vcpkg-init
-          vcpkg activate
           if [[ -n "${{ env.ARM_UBL_ACTIVATION_CODE }}" ]]; then
             armlm activate --code ${{ env.ARM_UBL_ACTIVATION_CODE }}
           else
@@ -88,9 +86,11 @@ jobs:
       - name: Build and run example
         working-directory: ./example
         run: |
-          . /home/runner/.vcpkg/vcpkg-init
-          vcpkg activate
-          ./build.py --verbose -c AC6 -c GCC -c Clang clean build run
+          build_steps=(build)
+          if [[ -n "${{ env.ARM_UBL_ACTIVATION_CODE }}" ]]; then
+            build_steps+=(run)
+          fi
+          ./build.py --verbose -c AC6 -c GCC -c Clang clean ${build_steps[@]}
 
       - name: Perform CodeQL Analysis
         if: ${{ !cancelled() }}
@@ -98,10 +98,7 @@ jobs:
 
       - name: Deactivate Arm tool license
         if: always()
-        working-directory: ./example
         run: |
-          . /home/runner/.vcpkg/vcpkg-init
-          vcpkg activate
           if [[ -n "${{ env.ARM_UBL_ACTIVATION_CODE }}" ]]; then
               armlm deactivate --code ${{ env.ARM_UBL_ACTIVATION_CODE }}
           else
