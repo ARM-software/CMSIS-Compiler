@@ -288,7 +288,7 @@ FILEHANDLE _sys_open (const char *name, int openmode) {
   }
   else if ((openmode & (OPEN_R | OPEN_W | OPEN_A)) == OPEN_A) {
     mode = RT_OPEN_WRONLY;
-    flag = RT_OPEN_APPEND;
+    flag = RT_OPEN_CREATE | RT_OPEN_APPEND;
   }
   else /* if ((openmode & (OPEN_R | OPEN_W | OPEN_A)) == OPEN_R) */ {
     mode = RT_OPEN_RDONLY;
