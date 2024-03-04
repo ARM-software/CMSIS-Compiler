@@ -10,10 +10,7 @@
   <releases>
     <release version="0.0.0">
       Active Development ...
-      - Added initial support for LLVM/Clang and IAR Compiler
-      - Introduce STDERR, STDIN, STDOUT APIs and components (#27)
-      - Rename RTE component defines from RTE_Compiler_* to RTE_CMSIS_Compiler_*
-      - OS Interface, Arm Compiler: Remove C library thread space implementation      
+      - Correct File Interface component define check for GCC
     </release>
   </releases>
 

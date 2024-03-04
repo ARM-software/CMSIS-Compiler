@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2023-2024 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -25,7 +25,7 @@
 
 #include "RTE_Components.h"
 
-#if RTE_CMSIS_Compiler_File_Interface
+#ifdef RTE_CMSIS_Compiler_File_Interface
 #include "retarget_fs.h"
 #endif
 
@@ -370,6 +370,24 @@ off_t _lseek (int fildes, off_t offset, int whence) {
 }
 
 
+#if defined(RTE_CMSIS_Compiler_File_Interface)
+/* Convert time from rt_fs_time_t to struct timespec format */
+static void rt_to_stat_tim(rt_fs_time_t *rt_t, struct timespec *st_t) {
+  struct tm time_tm = {
+    .tm_sec  = rt_t->sec,
+    .tm_min  = rt_t->min,
+    .tm_hour = rt_t->hour,
+    .tm_mday = rt_t->day,
+    .tm_mon  = rt_t->mon,
+    .tm_year = rt_t->year - 1900 /* struct tm uses year since 1900 */
+  };
+  /* Conversion to seconds since Jan 1, 1970 */
+  st_t->tv_sec  = mktime(&time_tm);
+  st_t->tv_nsec = 0;
+}
+#endif
+
+
 /**
   Get file status.
 
@@ -435,22 +453,6 @@ int _fstat (int fildes, struct stat *buf) {
 #endif
 }
 
-#if defined(RTE_CMSIS_Compiler_File_Interface)
-/* Convert time from rt_fs_time_t to struct timespec format */
-void rt_to_stat_tim(rt_fs_time_t *rt_t, struct timespec *st_t) {
-  struct tm time_tm = {
-    .tm_sec  = rt_t->sec,
-    .tm_min  = rt_t->min,
-    .tm_hour = rt_t->hour,
-    .tm_mday = rt_t->day,
-    .tm_mon  = rt_t->mon,
-    .tm_year = rt_t->year - 1900 /* struct tm uses year since 1900 */
-  };
-  /* Conversion to seconds since Jan 1, 1970 */
-  st_t->tv_sec  = mktime(&time_tm);
-  st_t->tv_nsec = 0;
-}
-#endif
 
 /**
   Get file status (by name).
@@ -474,6 +476,7 @@ int _stat (const char *path, struct stat *buf) {
   return (-1);
 }
 #endif
+
 
 /**
   Link one file to another file.
