@@ -11,6 +11,7 @@
     <release version="0.0.0">
       Active Development ...
       - Correct File Interface component define check for GCC
+      - Correct _sys_open handling for OPEN_A, file is created if non-existent
     </release>
   </releases>
 
