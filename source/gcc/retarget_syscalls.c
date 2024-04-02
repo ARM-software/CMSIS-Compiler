@@ -55,6 +55,25 @@
 #define STDERR_CR_LF    0       /* STDERR: add CR for LF */
 #endif
 
+/* Forward prototypes. */
+int     _open   (const char *path, int oflag, ...);
+int     _close  (int fildes);
+ssize_t _write  (int fildes, const void *buf, size_t nbyte);
+ssize_t _read   (int fildes, void *buf, size_t nbyte);
+int     _isatty (int fildes);
+off_t   _lseek  (int fildes, off_t offset, int whence);
+int     _fstat  (int fildes, struct stat *buf);
+int     _stat   (const char *path, struct stat *buf);
+int     _link   (const char *path1, const char *path2);
+int     _unlink (const char *path);
+int     _execve (const char *path, char *const argv[], char *const envp[]);
+int     _fork   (void);
+void    _exit   (int status);
+int     _kill   (pid_t pid, int sig);
+pid_t   _getpid (void);
+pid_t   _wait    (int *stat_loc);
+void   *_sbrk_r (struct _reent *reent, ptrdiff_t incr);
+
 /**
   Open file.
 
@@ -536,7 +555,7 @@ char **environ = __env;
 
 /* Execute a file */
 __attribute__((weak))
-int _execve(const char *path, char *const argv[], char *const envp[]) {
+int _execve (const char *path, char *const argv[], char *const envp[]) {
   (void)path;
   (void)argv;
   (void)envp;
@@ -583,7 +602,7 @@ pid_t _getpid (void) {
 
 /* Wait for a child process to stop or terminate */
 __attribute__((weak))
-pid_t wait (int *stat_loc) {
+pid_t _wait (int *stat_loc) {
   (void)stat_loc;
   /* Only one process, cannot wait for other processes */
   errno = ENOSYS;

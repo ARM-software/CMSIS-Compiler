@@ -10,6 +10,7 @@
   <releases>
     <release version="0.0.0">
       Active Development ...
+      - GCC: add missing forward declarations for retargeted functions
       - Correct File Interface component define check for GCC
       - Correct _sys_open handling for OPEN_A, file is created if non-existent
     </release>
