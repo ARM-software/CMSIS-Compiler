@@ -46,13 +46,16 @@
 #endif
 
 #ifndef STDIN_ECHO
-#define STDIN_ECHO      0       /* STDIN: echo to STDOUT */
+#define STDIN_ECHO              0 /* STDIN: echo to STDOUT */
 #endif
 #ifndef STDOUT_CR_LF
-#define STDOUT_CR_LF    0       /* STDOUT: add CR for LF */
+#define STDOUT_CR_LF            0 /* STDOUT: add CR for LF */
 #endif
 #ifndef STDERR_CR_LF
-#define STDERR_CR_LF    0       /* STDERR: add CR for LF */
+#define STDERR_CR_LF            0 /* STDERR: add CR for LF */
+#endif
+#ifndef SBRK_HEAP_LIMIT_CHECK
+#define SBRK_HEAP_LIMIT_CHECK   0 /* SBRK: use __HeapLimit symbol to check for out of heap condition */
 #endif
 
 /* Forward prototypes. */
@@ -613,11 +616,12 @@ pid_t _wait (int *stat_loc) {
 /* Extend heap space by incr bytes (reentrant version) */
 __attribute__((weak))
 void *_sbrk_r (struct _reent *reent, ptrdiff_t incr) {
+  #if (SBRK_HEAP_LIMIT_CHECK != 0)
   extern char  __HeapLimit;
+  #endif
   extern char  __HeapStart __ASM("end");
   static char *heap;
          char *heap_prev;
-         void *p;
 
   if (heap == NULL) {
     /* Initialize current heap memory address */
@@ -626,18 +630,16 @@ void *_sbrk_r (struct _reent *reent, ptrdiff_t incr) {
 
   heap_prev = heap;
 
+  #if (SBRK_HEAP_LIMIT_CHECK != 0)
   if ((heap + incr) > &__HeapLimit) {
     /* Out of heap memory */
     reent->_errno = ENOMEM;
 
-    p = (void *)-1;
+    return ((void *)-1);
   }
-  else {
-    /* All good, extend heap space */
-    heap += incr;
+  #endif
 
-    p = (void *)heap_prev;
-  }
+  heap += incr;
 
-  return (p);
+  return ((void *)heap_prev);
 }
