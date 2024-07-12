@@ -19,8 +19,6 @@
 #include "cmsis_os2.h"
 #include "cmsis_compiler.h"
 
-//#if defined(_DLIB_THREAD_SUPPORT) && _DLIB_THREAD_SUPPORT > 0
-
 /* Check if the kernel has been initialized */
 static uint32_t os_kernel_is_initialized (void) {
   if (osKernelGetState() > osKernelInactive) {
@@ -116,7 +114,5 @@ __USED void __iar_file_Mtxdst(struct rt_mutex_s *mutex)    // Destroy a system l
 {
   (void)osMutexDelete(mutex->id);
 }
-
-//#endif //defined(_DLIB_THREAD_SUPPORT) && _DLIB_THREAD_SUPPORT > 0
 
 #pragma language=restore
