@@ -130,6 +130,14 @@ $(document).ready(function(){initNavTree('rev_hist.html',''); initResizable(); }
 <tr>
 <th>Version </th><th>Description  </th></tr>
 <tr>
+<td>v2.1.0 </td><td><ul>
+<li>AC6: correct _sys_open handling for OPEN_A, file is created if non-existent (#50)</li>
+<li>GCC: add missing forward declarations for retargeted functions (#51, #53)</li>
+<li>Add Cortex-M52 support</li>
+<li>GCC: Disable heap limit check in _sbrk_r implementation (#54)   </li>
+</ul>
+</td></tr>
+<tr>
 <td>v2.0.0 </td><td><ul>
 <li>Added initial support for LLVM/Clang and IAR Compiler</li>
 <li>Introduce STDERR, STDIN, STDOUT APIs and components Attention: This change conflicts with user implementations version 1.0.0!</li>
