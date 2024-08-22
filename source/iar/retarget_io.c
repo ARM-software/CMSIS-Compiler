@@ -16,11 +16,12 @@
  * limitations under the License.
  */
 
+#include <LowLevelIOInterface.h>
 #include <stdio.h>
-#include <errno.h>
 
 #include "RTE_Components.h"
 
+#define RTE_CMSIS_Compiler_File_Interface
 #ifdef RTE_CMSIS_Compiler_File_Interface
 #include "retarget_fs.h"
 #endif
@@ -132,8 +133,7 @@ int  __close(int fildes)
   int32_t rval;
   rval = rt_fs_close(fildes);
   if (rval < 0) {
-    errno = rval;
-    rval = -1;
+    rval = _LLIO_ERROR;
   }
   return (rval);
 #else
@@ -152,15 +152,14 @@ int  __open(const char *path, int oflag)
   mode |= (oflag & (_LLIO_CREAT | _LLIO_TRUNC)) >> 1;
   rval = rt_fs_open(path, mode);
   if (rval < 0) {
-    errno = rval;
-    rval = -1;
+    rval = _LLIO_ERROR;
   }
   return (rval);
 #else
   /* Not implemented */
   (void)path;
   (void)oflag;
-  return (-1);
+  return _LLIO_ERROR;
 #endif
 }
 
@@ -170,13 +169,12 @@ long __lseek(int fildes, long offset, int whence)
   int64_t rval;
   rval = rt_fs_seek(fildes, offset, whence);
   if (rval < 0) {
-    errno = (int)rval;
-    rval = -1;
+    rval = _LLIO_ERROR;
   }
   else {
     if ((sizeof(long) != sizeof(int64_t)) && ((rval >> 32) != 0)) {
       /* Returned file offset does not fit into off_t */
-      rval = -1;
+      rval = _LLIO_ERROR;
     }
   }
   return ((long)rval);
@@ -184,7 +182,7 @@ long __lseek(int fildes, long offset, int whence)
   /* Not implemented */
   (void)offset;
   (void)whence;
-  return (-1);
+  return _LLIO_ERROR;
 #endif
 }
 
