@@ -42,7 +42,7 @@
 size_t __read(int handle, unsigned char *buf, size_t bufSize)
 {
 #if defined(RTE_CMSIS_Compiler_STDIN)
-  if (handle == 0)
+  if (handle == _LLIO_STDIN)
   {
     size_t nChars = 0;
     for (size_t i = bufSize; i > 0; --i)
@@ -59,14 +59,14 @@ size_t __read(int handle, unsigned char *buf, size_t bufSize)
 #endif
 
 #if defined(RTE_CMSIS_Compiler_File_Interface)
-  sz = rt_fs_read(fildes, buf, nbyte);
+  int32_t sz = rt_fs_read(handle, buf, bufSize);
   if (sz < 0) {
     sz = -1;
   }
   return (sz);
 #else
   /* Not implemented */
-  return (-1);
+  return _LLIO_ERROR;
 #endif
 }
 
@@ -83,7 +83,7 @@ size_t __write(int handle, const unsigned char *buf, size_t bufSize)
   }
 
 #if defined(RTE_CMSIS_Compiler_STDOUT)  
-  if (handle == 1 /* stdout */) {
+  if (handle == _LLIO_STDOUT) {
     for (size_t i = bufSize; i > 0; --i)
     {
       stdout_putchar(*buf++);
@@ -93,7 +93,7 @@ size_t __write(int handle, const unsigned char *buf, size_t bufSize)
 #endif
 
 #if defined(RTE_CMSIS_Compiler_STDERR)
-  if (handle == 2 /* stderr */) {
+  if (handle == _LLIO_STDERR) {
     for (size_t i = bufSize; i > 0; --i)
     {
       stderr_putchar(*buf);
@@ -105,15 +105,14 @@ size_t __write(int handle, const unsigned char *buf, size_t bufSize)
 
 
 #if defined(RTE_CMSIS_Compiler_File_Interface)
-  sz = rt_fs_write(fildes, buf, nbyte);
+  int32_t sz = rt_fs_write(handle, buf, bufSize);
   if (sz < 0) {
     sz = -1;
   }
   return (sz);
 #else
   /* Not implemented */
-  errno = EDOM;
-  return (-1);
+  return _LLIO_ERROR;
 #endif
 }
 
@@ -123,9 +122,9 @@ size_t __write(int handle, const unsigned char *buf, size_t bufSize)
 int  __close(int fildes)
 {
   switch (fildes) {
-    case 0:
-    case 1:
-    case 2:
+    case _LLIO_STDIN:
+    case _LLIO_STDOUT:
+    case _LLIO_STDERR:
       return (0);
   }
 
@@ -139,8 +138,7 @@ int  __close(int fildes)
   return (rval);
 #else
   /* Not implemented */
-  errno = EDOM;
-  return (-1);
+  return _LLIO_ERROR;
 #endif
 }
 
@@ -148,8 +146,10 @@ int  __close(int fildes)
 int  __open(const char *path, int oflag)
 {
 #if defined(RTE_CMSIS_Compiler_File_Interface)
-  mode  = oflag & (O_RDONLY | O_WRONLY | O_RDWR | O_APPEND);
-  mode |= (oflag & (O_CREAT | O_TRUNC)) >> 1;
+  int32_t rval;
+  int32_t mode;
+  mode  = oflag & (_LLIO_RDONLY | _LLIO_WRONLY | _LLIO_RDWR | _LLIO_APPEND);
+  mode |= (oflag & (_LLIO_CREAT | _LLIO_TRUNC)) >> 1;
   rval = rt_fs_open(path, mode);
   if (rval < 0) {
     errno = rval;
@@ -160,32 +160,30 @@ int  __open(const char *path, int oflag)
   /* Not implemented */
   (void)path;
   (void)oflag;
-  errno = EDOM;
   return (-1);
 #endif
 }
 
-long          __lseek(int fildes, long offset, int whence)
+long __lseek(int fildes, long offset, int whence)
 {
 #if defined(RTE_CMSIS_Compiler_File_Interface)
+  int64_t rval;
   rval = rt_fs_seek(fildes, offset, whence);
   if (rval < 0) {
     errno = (int)rval;
     rval = -1;
   }
   else {
-    if ((sizeof(off_t) != sizeof(int64_t)) && ((rval >> 32) != 0)) {
+    if ((sizeof(long) != sizeof(int64_t)) && ((rval >> 32) != 0)) {
       /* Returned file offset does not fit into off_t */
       rval = -1;
-      errno = EOVERFLOW;
     }
   }
-  return ((off_t)rval);
+  return ((long)rval);
 #else
   /* Not implemented */
   (void)offset;
   (void)whence;
-  errno = EDOM;
   return (-1);
 #endif
 }
