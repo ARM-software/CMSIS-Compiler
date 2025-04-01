@@ -45,7 +45,7 @@ The table below explains the content of **ARM::CMSIS-Compiler** pack.
 :--------------------------------------|:------------------------------------------------------
  📂 documentation                      | Folder with this CMSIS-Compiler documenation
  📂 example                            | [I/O Retarget example project](../../example/README.md)
- 📂 include                            | Header files with [**Retargeting functions**](modules.html)
+ 📂 include                            | Header files with [**Retargeting functions**](topics.html)
  📂 source                             | Compiler-specific implementations of regargeting functions
  📂 template                           | \ref rt_templates "User Template files"
  📄 ARM.CMSIS-Compiler.pdsc            | CMSIS-Pack description file
@@ -62,7 +62,7 @@ This documentation contains the following sections:
  - \ref rt_os : explains multithreading support retargeting, list available components and describes available user code templates.
  - The [I/O Retarget example project](../../example/README.md) shows how to retarget the output to a UART on an Arm Virtual Hardware model.
  - \ref rt_templates : contains the user code template files for the different use cases.
- - [**API Reference**](modules.html) describes the API and the functions of the CMSIS-Compiler components in details.
+ - [**API Reference**](topics.html) describes the API and the functions of the CMSIS-Compiler components in details.
 
 
 
