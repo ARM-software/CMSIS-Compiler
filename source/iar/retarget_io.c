@@ -21,7 +21,6 @@
 
 #include "RTE_Components.h"
 
-#define RTE_CMSIS_Compiler_File_Interface
 #ifdef RTE_CMSIS_Compiler_File_Interface
 #include "retarget_fs.h"
 #endif
