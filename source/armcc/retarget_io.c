@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2023-2025 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -494,6 +494,7 @@ int _sys_read (FILEHANDLE fh, uint8_t *buf, uint32_t len, int mode) {
   rval = rt_fs_read(fh, buf, len);
   if (rval < 0) {
     errno = rval;
+    rval = -1;
   } else if (rval == 0) {
     rval = (int32_t)(len | 0x80000000);
   } else {
