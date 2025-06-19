@@ -129,8 +129,7 @@ def unzip(archive):
 
 @matrix_command()
 def cbuild(solution, config):
-    return ["cbuild", "--toolchain", config.compiler.toolchain, "-p", "--update-rte", \
-             "--context", f".{context(config)}", solution ]
+    return ["cbuild", solution, "--toolchain", config.compiler.toolchain, "--packs", "--context", f".{context(config)}"]
 
 
 @matrix_command()
