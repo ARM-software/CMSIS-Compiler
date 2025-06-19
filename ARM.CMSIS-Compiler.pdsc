@@ -13,11 +13,13 @@
   <repository type="git">https://github.com/ARM-software/CMSIS-Compiler.git</repository>
 
   <releases>
-    <release version="0.0.0">
+    <release version="2.2.0-dev">
       Active Development ...
-      - GCC: add missing forward declarations for retargeted functions
-      - Correct File Interface component define check for GCC
-      - Correct _sys_open handling for OPEN_A, file is created if non-existent
+      AC6:
+      - Corrected _sys_read return value when rt_fs_read returns with error (#62)
+      IAR:
+      - Added support for multithreading (#57)
+      - Added support for file redirection (#58)
     </release>
   </releases>
 
@@ -213,7 +215,7 @@
 
   <components>
     <!-- Core -->
-    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.1.0" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.1.1" condition="ARMCC CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/armcc/retarget_io.c"/>
@@ -231,7 +233,7 @@
         <file category="sourceC" name="source/clang/retarget_syscalls.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.1.0" condition="IAR CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.2.0" condition="IAR CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/iar/retarget_io.c"/>
