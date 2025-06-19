@@ -1,9 +1,12 @@
+# A project translates into one executable or library.
 project:
 
+  # List the packs used in the project.
   packs:
     - pack: ARM::CMSIS
     - pack: ARM::CMSIS-Compiler
 
+  # List of source groups and files added to a project.
   groups:
     - group: Documentation
       files:
@@ -13,10 +16,21 @@ project:
         - file: ./main.c
         - file: ./stdout_USART.c
 
+  # List components to use for your application.
+  # A software component is a re-usable unit that may be configurable.
   components:
     - component: CMSIS:CORE
-    - component: CMSIS Driver:USART
+    
     - component: CMSIS-Compiler:CORE
     - component: CMSIS-Compiler:STDOUT:Custom
+
+    - component: CMSIS Driver:USART
+
     - component: Device:Startup&C Startup
     - component: Board Support&V2M-MPS2:Common
+
+  # List executable file formats to be generated.
+  output:
+    type:
+      - elf
+      - map
