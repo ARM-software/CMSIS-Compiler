@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   example:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     env:
       ARM_UBL_ACTIVATION_CODE: ${{ secrets.ARM_UBL_ACTIVATION_CODE }}
@@ -46,26 +46,17 @@ jobs:
         working-directory: /home/runner
         run: |
           sudo apt-get update
-          sudo apt-get install libtinfo5
+          sudo apt-get install libtinfo6
 
-      - name: Prepare vcpkg env
-        uses: JonatanAntoni/actions/vcpkg@main
+      - name: Install tools
+        uses: ARM-software/cmsis-actions/vcpkg@v1
         with:
-          config: ./example/vcpkg-configuration.json
+          config: "./.ci/vcpkg-configuration.json"
 
-      - name: Install required packs
-        run: |
-          cpackget add ARM.CMSIS-Compiler.pdsc
-          curl -LO https://github.com/ARM-software/CMSIS_6/releases/download/dev%2Fv6.0.0-dev53/packlist.txt
-          cpackget add -a -f packlist.txt
-          
       - name: Activate Arm tool license
-        run: |
-          if [[ -n "${{ env.ARM_UBL_ACTIVATION_CODE }}" ]]; then
-            armlm activate --code ${{ env.ARM_UBL_ACTIVATION_CODE }}
-          else
-            armlm activate --server https://mdk-preview.keil.arm.com --product KEMDK-COM0
-          fi
+        uses: ARM-software/cmsis-actions/armlm@v1
+        with:
+          code: "${{ env.ARM_UBL_ACTIVATION_CODE }}"
 
       - uses: ammaraskar/gcc-problem-matcher@master
 
@@ -87,12 +78,3 @@ jobs:
       - name: Perform CodeQL Analysis
         if: ${{ !cancelled() }}
         uses: github/codeql-action/analyze@v3
-
-      - name: Deactivate Arm tool license
-        if: always()
-        run: |
-          if [[ -n "${{ env.ARM_UBL_ACTIVATION_CODE }}" ]]; then
-              armlm deactivate --code ${{ env.ARM_UBL_ACTIVATION_CODE }}
-          else
-              armlm deactivate --product KEMDK-COM0
-          fi
