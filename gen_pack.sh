@@ -68,7 +68,9 @@ PACKCHK_ARGS=()
 #
 PACKCHK_DEPS="
   ARM.CMSIS.pdsc
+  ARM.CMSIS-RTX.pdsc
   ARM.CMSIS-View.pdsc
+  Keil.ARM_Compiler.pdsc
   Keil.V2M-MPS2_CMx_BSP.pdsc
 "
 
