@@ -130,11 +130,11 @@ Prerequisites</h1>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Tools</h2>
 <ul>
-<li><a href="https://github.com/Open-CMSIS-Pack/devtools/releases">CMSIS-Toolbox 2.1.0</a> or higher</li>
+<li><a href="https://github.com/Open-CMSIS-Pack/devtools/releases">CMSIS-Toolbox 2.10.0</a> or higher</li>
 <li><a href="https://developer.arm.com/downloads/view/ACOMPE">Arm Compiler for Embedded</a>, or</li>
 <li><a href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">GCC Compiler for Arm bare-metal</a> or</li>
 <li><a href="https://github.com/ARM-software/LLVM-embedded-toolchain-for-Arm">Clang Compiler</a> or</li>
-<li><a href="https://www.iar.com/products/architectures/arm/iar-build-tools-for-arm/">IAR Build Tools for Arm</a></li>
+<li><a href="https://www.iar.com/embedded-development-tools">IAR Build Tools for Arm</a></li>
 <li><a href="https://developer.arm.com/Tools%20and%20Software/Arm%20Virtual%20Hardware">Arm Virtual Hardware</a> for local execution</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md3"></a>
@@ -144,33 +144,56 @@ Packs</h2>
 </ul>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Project Structure</h1>
-<p>The project is generated using the <a href="https://github.com/Open-CMSIS-Pack/cmsis-toolbox/blob/main/docs/build-overview.md">CMSIS-Toolbox</a> and is defined in <a href="https://github.com/Open-CMSIS-Pack/cmsis-toolbox/blob/main/docs/YML-Input-Format.md"><code>csolution</code></a> format:</p>
+<p>The project is generated using the <a href="https://open-cmsis-pack.github.io/cmsis-toolbox/">CMSIS-Toolbox</a> and is defined in <a href="https://open-cmsis-pack.github.io/cmsis-toolbox/YML-Input-Format/"><code>csolution</code></a> format:</p>
 <ul>
 <li><code>retarget.csolution.yml</code> lists the required packs and defines the hardware target and build-types (along with the compiler).</li>
 <li><code>retarget.cproject.yml</code> defines the source files and the software components.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md5"></a>
-Build Project</h1>
-<p>Use the <code>cbuild</code> command to build the Debug configuration for VHT_CM3 target defined in <code>retarget.csolution.yml</code> solution file.</p>
-<div class="fragment"><div class="line">cbuild retarget.csolution.yml -p -r --update-rte -c retarget.Debug+VHT_CM3</div>
-</div><!-- fragment --><blockquote class="doxtable">
-<p>&zwj;<b>Note</b></p><ul>
-<li>During the build process required packs may be downloaded (<code>-p</code> flag). </li>
+Build project in VS Code using Arm Keil Studio Pack extensions</h1>
+<blockquote class="doxtable">
+<p>&zwj;- See <a href="https://mdk-packs.github.io/vscode-cmsis-solution-docs/index.html">Arm Keil Studio for VS Code Extensions User Guide</a> for more information about using the Keil Studio extensions.</p><ul>
+<li>Search for <a href="https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack">Arm Keil Studio Pack</a> in the Visual Studio Marketplace to download the extensions. </li>
 </ul>
 </blockquote>
-<p>By default the project is compiled using GCC as set in <code>cdefault.yml</code> file. One can build the project by specifying the toolchain - AC6, GCC, CLANG and IAR are supported.</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
-To build with Arm Compiler 6:</h2>
-<div class="fragment"><div class="line">cbuild retarget.csolution.yml -p -r --update-rte --toolchain AC6 -c retarget.Debug+VHT_CM3</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
+<p>When the project is opened in VS Code with Arm Keil Studio Extensions installed one must first ensure that the build tools are configured. The <code>Arm Tools Environment Manager</code> should handle this automatically and create <code>vcpkg-configuration.json</code> with all the necessary tools listed. Right-click anywhere in the workspace and select "Configure Arm Tools Environment" to modify tools configuration. See <a href="https://marketplace.visualstudio.com/items?itemName=Arm.environment-manager">Arm Tools Environment Manager Overview</a> for available functionality.</p>
+<p>To build a project using Keil Studio extensions open <a href="https://mdk-packs.github.io/vscode-cmsis-solution-docs/userinterface.html">CMSIS view</a>, open "Manage Solution Settings" view and verify that "Active Target", "Active Projects" and "Build Type" are selected. Since there is only one option in each category they should all be automatically selected.</p>
+<p>You can execute the build by <a href="https://mdk-packs.github.io/vscode-cmsis-solution-docs/build.html">selecting "Build"</a> from the CMSIS view.</p>
+<h1><a class="anchor" id="autotoc_md6"></a>
+Build Project from the Command Line</h1>
+<p><a href="https://open-cmsis-pack.github.io/cmsis-toolbox/">CMSIS-Toolbox</a> provides <a href="https://open-cmsis-pack.github.io/cmsis-toolbox/build-tools/">cbuild</a> command-line tool that builds <code>csolution</code> projects.</p>
+<p>The <code>retarget.csolution.yml</code> solution files defines <code>Debug</code> build-type and <code>VHT_CM3</code> target-type. To build this configuration using Arm Compiler 6 toolchain execute the following command:</p>
+<div class="fragment"><div class="line">cbuild retarget.csolution.yml --toolchain AC6 --packs --context retarget.Debug+VHT_CM3</div>
+</div><!-- fragment --><blockquote class="doxtable">
+<p>&zwj;<b>Note</b></p>
+<ul>
+<li>During the build process required packs may be downloaded (<code>--pack</code> flag). </li>
+</ul>
+</blockquote>
+<p>By default the project does not specify the toolchain and one can build the project by specifying the AC6, GCC, CLANG or IAR toolchain.</p>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Execute Project</h1>
 <p>The project is configured for execution on Arm Virtual Hardware which removes the requirement for a physical hardware board.</p>
-<p>To execute application image on Arm Virtual Hardware use below command: </p><div class="fragment"><div class="line">FVP_MPS2_Cortex-M3 -f fvp-config.txt out/retarget/VHT_CM3/Debug/retarget.elf</div>
+<p>To execute application image on Arm Virtual Hardware use below command: </p><div class="fragment"><div class="line">FVP_MPS2_Cortex-M3 -f fvp-config.txt out/retarget/VHT_CM3/Debug/retarget.axf</div>
 </div><!-- fragment --> <blockquote class="doxtable">
 <p>&zwj;<b>Note</b></p><ul>
-<li>For Arm Compiler 6, the application image file has extension <code>.axf</code> </li>
+<li>For GCC and CLANG, the application image file has extension <code>.elf</code> and extension <code>.out</code> for IAR. </li>
 </ul>
 </blockquote>
+<p>This command will execute the simulation model and in the default terminal window you should see the following output: </p><div class="fragment"><div class="line">Starting ...</div>
+<div class="line">Hello World 1</div>
+<div class="line">Hello World 2</div>
+<div class="line">Hello World 3</div>
+<div class="line">Hello World 4</div>
+<div class="line">Hello World 5</div>
+<div class="line">Hello World 6</div>
+<div class="line">Hello World 7</div>
+<div class="line">Hello World 8</div>
+<div class="line">Hello World 9</div>
+<div class="line">Hello World 10</div>
+<div class="line"> </div>
+<div class="line">Finished</div>
+</div><!-- fragment --><p> The simulation model will automatically terminate after the above output. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

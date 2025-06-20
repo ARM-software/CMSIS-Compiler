@@ -45,9 +45,8 @@ var NAVTREE =
         [ "Packs", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md3", null ]
       ] ],
       [ "Project Structure", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md4", null ],
-      [ "Build Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md5", [
-        [ "To build with Arm Compiler 6:", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md6", null ]
-      ] ],
+      [ "Build project in VS Code using Arm Keil Studio Pack extensions", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md5", null ],
+      [ "Build Project from the Command Line", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md6", null ],
       [ "Execute Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md7", null ]
     ] ],
     [ "Templates", "rt_templates.html", "rt_templates" ],
