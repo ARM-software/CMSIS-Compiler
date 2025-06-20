@@ -9,7 +9,7 @@ set -o pipefail
 # Set version of gen pack library
 # For available versions see https://github.com/Open-CMSIS-Pack/gen-pack/tags.
 # Use the tag name without the prefix "v", e.g., 0.7.0
-REQUIRED_GEN_PACK_LIB="0.11.1"
+REQUIRED_GEN_PACK_LIB="0.11.3"
 
 # Set default command line arguments
 DEFAULT_ARGS=(-c "v")
@@ -68,7 +68,9 @@ PACKCHK_ARGS=()
 #
 PACKCHK_DEPS="
   ARM.CMSIS.pdsc
+  ARM.CMSIS-RTX.pdsc
   ARM.CMSIS-View.pdsc
+  Keil.ARM_Compiler.pdsc
   Keil.V2M-MPS2_CMx_BSP.pdsc
 "
 
