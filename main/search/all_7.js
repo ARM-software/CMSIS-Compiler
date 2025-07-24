@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hour_0',['hour',['../group__fs__interface__api.html#ae5af4ff48939d13d480f87e56a9385d6',1,'rt_fs_time_t']]]
+  ['gcc_20newlib_0',['GCC Newlib',['../group__retarget__os__newlib.html',1,'GCC Newlib'],['../rt_template_os_interface.html#retarget_os_gcc',1,'GCC Newlib']]]
 ];

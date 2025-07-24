@@ -1,4 +1,9 @@
 var searchData=
 [
-  ['low_2dlevel_20i_2fo_20retarget_0',['Low-Level I/O Retarget',['../rt_io.html',1,'']]]
+  ['i_20o_20retarget_0',['Low-Level I/O Retarget',['../rt_io.html',1,'']]],
+  ['i_20o_20retarget_20example_20project_1',['I/O Retarget example project',['../rt_example.html',1,'']]],
+  ['in_20vs_20code_2',['Build project in VS Code',['../rt_example.html#autotoc_md4',1,'']]],
+  ['interface_3',['Interface',['../group__fs__interface__api.html',1,'File Interface'],['../rt_template_file_interface.html',1,'File Interface'],['../group__os__interface__api.html',1,'OS Interface'],['../rt_template_os_interface.html',1,'OS Interface'],['../rt_os.html#rt_os_components',1,'OS Interface'],['../group__stderr__api.html',1,'STDERR Interface'],['../group__stdin__api.html',1,'STDIN Interface'],['../group__stdout__api.html',1,'STDOUT Interface'],['../group__tty__api.html',1,'TTY Interface']]],
+  ['interface_20components_4',['File Interface Components',['../rt_io.html#rt_file_interface',1,'']]],
+  ['interface_20custom_5',['File Interface Custom',['../rt_template_file_interface.html#retarget_fs_c',1,'']]]
 ];

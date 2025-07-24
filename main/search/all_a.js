@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['min_0',['min',['../group__fs__interface__api.html#ac9b481208b43f7c37ed25e446bdec692',1,'rt_fs_time_t']]],
-  ['modify_1',['modify',['../group__fs__interface__api.html#af8a9b0b0b34601ec9f8fa1a00b2b2982',1,'rt_fs_stat_t']]],
-  ['mon_2',['mon',['../group__fs__interface__api.html#ac994d1b867aab54062cdd1ee94510030',1,'rt_fs_time_t']]],
-  ['multithreading_20support_20retarget_3',['Multithreading Support Retarget',['../rt_os.html',1,'']]]
+  ['level_20i_20o_20retarget_0',['Low-Level I/O Retarget',['../rt_io.html',1,'']]],
+  ['library_1',['Arm C Library',['../group__retarget__os__armclib.html',1,'']]],
+  ['license_2',['License',['../index.html#doc_license',1,'']]],
+  ['line_3',['Build Project from the Command Line',['../rt_example.html#autotoc_md5',1,'']]],
+  ['low_20level_20i_20o_20retarget_4',['Low-Level I/O Retarget',['../rt_io.html',1,'']]]
 ];

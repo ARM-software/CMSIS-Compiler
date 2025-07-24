@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tty_20interface_0',['TTY Interface',['../group__tty__api.html',1,'']]]
+  ['modes_0',['Open Modes',['../group__fs__interface__open__modes.html',1,'']]]
 ];

@@ -12,8 +12,8 @@ function tabElement(id, folderName, tabTxt )  {
 // array of objects
 var arr = [];
 
-// fill array
-// arr.push( new tabElement( "Zone",     ".",     "Zone"));
+// fill array (not needed in case of a single tab)
+// arr.push( new tabElement( "id",     "folderName",     "tabTxt"));
 
 // write tabs
 // called from the header file.

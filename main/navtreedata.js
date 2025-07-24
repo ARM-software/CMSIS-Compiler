@@ -39,18 +39,18 @@ var NAVTREE =
     [ "Multithreading Support Retarget", "rt_os.html", [
       [ "OS Interface", "rt_os.html#rt_os_components", null ]
     ] ],
-    [ "I/O Retarget example project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html", [
-      [ "Prerequisites", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md1", [
-        [ "Tools", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md2", null ],
-        [ "Packs", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md3", null ]
+    [ "I/O Retarget example project", "rt_example.html", [
+      [ "Prerequisites", "rt_example.html#autotoc_md0", [
+        [ "Tools", "rt_example.html#autotoc_md1", null ],
+        [ "Packs", "rt_example.html#autotoc_md2", null ]
       ] ],
-      [ "Project Structure", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md4", null ],
-      [ "Build project in VS Code using Arm Keil Studio Pack extensions", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md5", null ],
-      [ "Build Project from the Command Line", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md6", null ],
-      [ "Execute Project", "md__home_runner_work_CMSIS_Compiler_CMSIS_Compiler_example_README.html#autotoc_md7", null ]
+      [ "Project Structure", "rt_example.html#autotoc_md3", null ],
+      [ "Build project in VS Code", "rt_example.html#autotoc_md4", null ],
+      [ "Build Project from the Command Line", "rt_example.html#autotoc_md5", null ],
+      [ "Execute Project", "rt_example.html#autotoc_md6", null ]
     ] ],
     [ "Templates", "rt_templates.html", "rt_templates" ],
-    [ "API Reference", "modules.html", "modules" ]
+    [ "API Reference", "topics.html", "topics" ]
   ] ]
 ];
 
@@ -59,5 +59,5 @@ var NAVTREEINDEX =
 "group__fs__interface__api.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
