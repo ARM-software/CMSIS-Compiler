@@ -25,12 +25,13 @@ is defined in [`csolution`](https://open-cmsis-pack.github.io/cmsis-toolbox/YML-
 - `retarget.csolution.yml` lists the required packs and defines the hardware target and build-types (along with the compiler).
 - `retarget.cproject.yml` defines the source files and the software components.
 
-## Build project in VS Code using Arm Keil Studio Pack extensions
+## Build project in VS Code
+
+[Arm Keil Studio Pack Extensions](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack) for VS Code
+include all required tools and interfaces to build the `csolution` projects.
 
 > - See [Arm Keil Studio for VS Code Extensions User Guide](https://mdk-packs.github.io/vscode-cmsis-solution-docs/index.html)
 >   for more information about using the Keil Studio extensions.
-> - Search for [Arm Keil Studio Pack](https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack)
->   in the Visual Studio Marketplace to download the extensions.
 
 When the project is opened in VS Code with Arm Keil Studio Extensions installed one must first ensure that the build tools are configured.
 The `Arm Tools Environment Manager` should handle this automatically and create `vcpkg-configuration.json` with all the necessary tools listed.
@@ -41,7 +42,7 @@ To build a project using Keil Studio extensions open [CMSIS view](https://mdk-pa
 open "Manage Solution Settings" view and verify that "Active Target", "Active Projects" and "Build Type" are selected. Since there is only
 one option in each category they should all be automatically selected.
 
-You can execute the build by [selecting "Build"](https://mdk-packs.github.io/vscode-cmsis-solution-docs/build.html) from the CMSIS view.
+You can execute the build by [selecting "Build"](https://mdk-packs.github.io/vscode-cmsis-solution-docs/userinterface.html#3-actions-available-through-the-cmsis-view) from the CMSIS view.
 
 ## Build Project from the Command Line
 
@@ -66,13 +67,17 @@ By default the project does not specify the toolchain and one can build the proj
 The project is configured for execution on Arm Virtual Hardware which removes the requirement for a physical hardware board.
 
 To execute application image on Arm Virtual Hardware use below command:
+
 ```bash
 FVP_MPS2_Cortex-M3 -f fvp-config.txt out/retarget/VHT_CM3/Debug/retarget.axf
 ```
+
 > **Note**
+>
 > - For GCC and CLANG, the application image file has extension `.elf` and extension `.out` for IAR.
 
 This command will execute the simulation model and in the default terminal window you should see the following output:
+
 ```
 Starting ...
 Hello World 1
@@ -88,4 +93,5 @@ Hello World 10
 
 Finished
 ```
+
 The simulation model will automatically terminate after the above output.
