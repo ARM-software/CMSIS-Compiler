@@ -61,11 +61,15 @@ struct rt_mutex_s {
 __USED int _mutex_initialize(rt_mutex_t *mutex) {
   int result = 0;
 
-  if (os_kernel_is_initialized()) {
-    mutex->id = osMutexNew(NULL);
+  if (mutex != NULL) {
+    mutex->id = NULL;
 
-    if (mutex->id != NULL) {
-      result = 1;
+    if (os_kernel_is_initialized()) {
+      mutex->id = osMutexNew(NULL);
+
+      if (mutex->id != NULL) {
+        result = 1;
+      }
     }
   }
   return result;
