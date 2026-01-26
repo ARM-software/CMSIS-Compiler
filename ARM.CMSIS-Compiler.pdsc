@@ -218,25 +218,25 @@
     <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.1.1" condition="ARMCC CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
-        <file category="sourceC" name="source/armcc/retarget_io.c"/>
+        <file category="sourceC" name="source/core/armcc/retarget_io.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.1.0" condition="GCC CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
-        <file category="sourceC" name="source/gcc/retarget_syscalls.c"/>
+        <file category="sourceC" name="source/core/gcc/retarget_syscalls.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.1.0" condition="CLANG CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
-        <file category="sourceC" name="source/clang/retarget_syscalls.c"/>
+        <file category="sourceC" name="source/core/clang/retarget_syscalls.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.2.0" condition="IAR CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
-        <file category="sourceC" name="source/iar/retarget_io.c"/>
+        <file category="sourceC" name="source/core/iar/retarget_io.c"/>
       </files>
     </component>
 
@@ -259,7 +259,7 @@
         #define RTE_CMSIS_Compiler_File_Interface_Breakpoint /* Compiler File Interface: Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/retarget_fs_bkpt.c"/>
+        <file category="sourceC" name="source/file_interface/retarget_fs_bkpt.c"/>
       </files>
     </component>
 
@@ -281,7 +281,7 @@
         #define RTE_CMSIS_Compiler_STDERR_Breakpoint     /* CMSIS-Compiler STDERR: Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/stderr_bkpt.c"/>
+        <file category="sourceC" name="source/stderr/stderr_bkpt.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="STDERR" Csub="Event Recorder" Capiversion="1.1.0" Cversion="1.1.0" condition="CORE EVR">
@@ -291,7 +291,7 @@
         #define RTE_CMSIS_Compiler_STDERR_Event_Recorder /* CMSIS-Compiler STDERR: Event Recorder */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/stderr_evr.c"/>
+        <file category="sourceC" name="source/stderr/stderr_evr.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="STDERR" Csub="ITM" Capiversion="1.1.0" Cversion="1.1.0" condition="CORE ITM">
@@ -301,7 +301,7 @@
         #define RTE_CMSIS_Compiler_STDERR_ITM            /* CMSIS-Compiler STDERR: ITM */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/stderr_itm.c"/>
+        <file category="sourceC" name="source/stderr/stderr_itm.c"/>
       </files>
     </component>
 
@@ -323,7 +323,7 @@
         #define RTE_CMSIS_Compiler_STDIN_Breakpoint      /* CMSIS-Compiler STDIN: Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/stdin_bkpt.c"/>
+        <file category="sourceC" name="source/stdin/stdin_bkpt.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="STDIN" Csub="ITM" Capiversion="1.1.0" Cversion="1.1.0" condition="CORE ITM">
@@ -333,7 +333,7 @@
         #define RTE_CMSIS_Compiler_STDIN_ITM             /* CMSIS-Compiler STDIN: ITM */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/stdin_itm.c"/>
+        <file category="sourceC" name="source/stdin/stdin_itm.c"/>
       </files>
     </component>
 
@@ -355,7 +355,7 @@
         #define RTE_CMSIS_Compiler_STDOUT_Breakpoint     /* CMSIS-Compiler STDOUT: Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/stdout_bkpt.c"/>
+        <file category="sourceC" name="source/stdout/stdout_bkpt.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="STDOUT" Csub="Event Recorder" Capiversion="1.1.0" Cversion="1.1.0" condition="CORE EVR">
@@ -365,7 +365,7 @@
         #define RTE_CMSIS_Compiler_STDOUT_Event_Recorder /* CMSIS-Compiler STDOUT: Event Recorder */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/stdout_evr.c"/>
+        <file category="sourceC" name="source/stdout/stdout_evr.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="STDOUT" Csub="ITM" Capiversion="1.1.0" Cversion="1.1.0" condition="CORE ITM">
@@ -375,7 +375,7 @@
         #define RTE_CMSIS_Compiler_STDOUT_ITM            /* CMSIS-Compiler STDOUT: ITM */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/stdout_itm.c"/>
+        <file category="sourceC" name="source/stdout/stdout_itm.c"/>
       </files>
     </component>
 
@@ -397,7 +397,7 @@
         #define RTE_CMSIS_Compiler_TTY_Breakpoint        /* CMSIS-Compiler TTY: Breakpoint */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/tty_bkpt.c"/>
+        <file category="sourceC" name="source/tty/tty_bkpt.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="TTY" Csub="ITM" Capiversion="1.1.0" Cversion="1.1.0" condition="ARMCC CORE ITM">
@@ -407,7 +407,7 @@
         #define RTE_CMSIS_Compiler_TTY_ITM               /* CMSIS-Compiler TTY: ITM */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/tty_itm.c"/>
+        <file category="sourceC" name="source/tty/tty_itm.c"/>
       </files>
     </component>
 
@@ -443,7 +443,7 @@
         #define RTE_CMSIS_Compiler_OS_Interface_RTOS2_LIBSPACE  /* Implements per-thread static data management */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/armcc/retarget_os_rtos2.c"/>
+        <file category="sourceC" name="source/os_interface/armcc/retarget_os_rtos2.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Capiversion="1.1.0" Cversion="2.1.0" condition="GCC CORE CMSIS-RTOS2">
@@ -455,7 +455,7 @@
         #define RTE_CMSIS_Compiler_OS_Interface_RTOS2_LOCKS     /* Implements locking routines */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/gcc/retarget_lock_rtos2.c"/>
+        <file category="sourceC" name="source/os_interface/gcc/retarget_lock_rtos2.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="OS Interface" Csub="CMSIS-RTOS2" Capiversion="1.0.0" Cversion="2.0.0" condition="IAR CORE CMSIS-RTOS2">
@@ -467,7 +467,7 @@
         #define RTE_CMSIS_Compiler_OS_Interface_RTOS2_LOCKS     /* Implements locking routines */
       </RTE_Components_h>
       <files>
-        <file category="sourceC" name="source/iar/retarget_os_rtos2.c"/>
+        <file category="sourceC" name="source/os_interface/iar/retarget_os_rtos2.c"/>
       </files>
     </component>
   </components>
