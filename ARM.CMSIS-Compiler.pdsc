@@ -15,6 +15,7 @@
   <releases>
     <release version="2.2.0-dev">
       Active Development ...
+      Add components that enable stdio retarget to UART
       AC6:
       - Corrected _sys_read return value when rt_fs_read returns with error (#62)
       IAR:
@@ -108,6 +109,11 @@
       <require condition="CORE"/>
       <require condition="CortexDevice_ITM"/>
     </condition>
+    <condition id="CORE UART_CMSIS">
+      <description>CMSIS-Compiler CORE component and CMSIS-Driver USART</description>
+      <require condition="CORE"/>
+      <require Cclass="CMSIS Driver" Cgroup="USART"/>
+    </condition>
 
     <condition id="ARMCC CORE">
       <description>ARMCC and CORE component</description>
@@ -154,6 +160,13 @@
       <require Tcompiler="IAR"/>
       <require condition="CORE"/>
       <require Cclass="CMSIS" Cgroup="RTOS2"/>
+    </condition>
+
+    <condition id="STDIO UART CMSIS">
+      <description>STDIO retarget to CMSIS Driver UART</description>
+      <accept Cclass="CMSIS-Compiler" Cgroup="STDERR" Csub="UART" Cvariant="CMSIS"/>
+      <accept Cclass="CMSIS-Compiler" Cgroup="STDIN"  Csub="UART" Cvariant="CMSIS"/>
+      <accept Cclass="CMSIS-Compiler" Cgroup="STDOUT" Csub="UART" Cvariant="CMSIS"/>
     </condition>
   </conditions>
   <taxonomy>
@@ -215,28 +228,36 @@
 
   <components>
     <!-- Core -->
-    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.1.1" condition="ARMCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.2.0" condition="ARMCC CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/core/armcc/retarget_io.c"/>
+        <file category="sourceC" name="source/core/stdio_cmsis_uart.c"                                 condition="STDIO UART CMSIS"/>
+        <file category="header"  name="config/stdio_cmsis_uart_config.h" attr="config" version="1.0.0" condition="STDIO UART CMSIS"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.1.0" condition="GCC CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.2.0" condition="GCC CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/core/gcc/retarget_syscalls.c"/>
+        <file category="sourceC" name="source/core/stdio_cmsis_uart.c"                                 condition="STDIO UART CMSIS"/>
+        <file category="header"  name="config/stdio_cmsis_uart_config.h" attr="config" version="1.0.0" condition="STDIO UART CMSIS"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.1.0" condition="CLANG CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.2.0" condition="CLANG CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/core/clang/retarget_syscalls.c"/>
+        <file category="sourceC" name="source/core/stdio_cmsis_uart.c"                                 condition="STDIO UART CMSIS"/>
+        <file category="header"  name="config/stdio_cmsis_uart_config.h" attr="config" version="1.0.0" condition="STDIO UART CMSIS"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.2.0" condition="IAR CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.3.0" condition="IAR CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/core/iar/retarget_io.c"/>
+        <file category="sourceC" name="source/core/stdio_cmsis_uart.c"                                 condition="STDIO UART CMSIS"/>
+        <file category="header"  name="config/stdio_cmsis_uart_config.h" attr="config" version="1.0.0" condition="STDIO UART CMSIS"/>
       </files>
     </component>
 
@@ -304,6 +325,16 @@
         <file category="sourceC" name="source/stderr/stderr_itm.c"/>
       </files>
     </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="STDERR" Csub="UART" Cvariant="CMSIS" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE UART_CMSIS">
+      <description>Redirect STDERR to a CMSIS-Driver USART</description>
+      <RTE_Components_h>
+        #define RTE_CMSIS_Compiler_STDERR                /* CMSIS-Compiler STDERR */
+        #define RTE_CMSIS_Compiler_STDERR_UART_CMSIS     /* CMSIS-Compiler STDERR: UART: CMSIS */
+      </RTE_Components_h>
+      <files>
+        <file category="header" name="config/stderr_cmsis_uart_config.h" attr="config" version="1.0.0"/>
+      </files>
+    </component>
 
     <!-- STDIN -->
     <component Cclass="CMSIS-Compiler" Cgroup="STDIN" Csub="Custom" Capiversion="1.1.0" Cversion="1.1.0" custom="1" condition="CORE">
@@ -334,6 +365,16 @@
       </RTE_Components_h>
       <files>
         <file category="sourceC" name="source/stdin/stdin_itm.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="STDIN" Csub="UART" Cvariant="CMSIS" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE UART_CMSIS">
+      <description>Retrieve STDIN from a CMSIS-Driver USART</description>
+      <RTE_Components_h>
+        #define RTE_CMSIS_Compiler_STDIN                 /* CMSIS-Compiler STDIN */
+        #define RTE_CMSIS_Compiler_STDIN_UART_CMSIS      /* CMSIS-Compiler STDIN: UART: CMSIS */
+      </RTE_Components_h>
+      <files>
+        <file category="header" name="config/stdin_cmsis_uart_config.h" attr="config" version="1.0.0"/>
       </files>
     </component>
 
@@ -376,6 +417,16 @@
       </RTE_Components_h>
       <files>
         <file category="sourceC" name="source/stdout/stdout_itm.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="STDOUT" Csub="UART" Cvariant="CMSIS" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE UART_CMSIS">
+      <description>Redirect STDOUT to a CMSIS-Driver USART</description>
+      <RTE_Components_h>
+        #define RTE_CMSIS_Compiler_STDOUT                /* CMSIS-Compiler STDOUT */
+        #define RTE_CMSIS_Compiler_STDOUT_UART_CMSIS     /* CMSIS-Compiler STDOUT: UART: CMSIS */
+      </RTE_Components_h>
+      <files>
+        <file category="header" name="config/stdout_cmsis_uart_config.h" attr="config" version="1.0.0"/>
       </files>
     </component>
 

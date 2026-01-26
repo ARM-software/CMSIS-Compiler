@@ -39,7 +39,8 @@ The following subcomponents are available:
 **Breakpoint**        | When the I/O stream is used, the application stops with [BKPT](https://developer.arm.com/documentation/100073/latest/The-Arm-C-and-C---Libraries/Support-for-building-an-application-with-the-C-library/Using-the-C-and-C---libraries-with-an-application-in-a-semihosting-environment?lang=en) instruction. No additional code is required.
 **Event Recorder**    | STDOUT and STDERR can be redirected using the [Event Recorder](https://arm-software.github.io/CMSIS-View/main/evr.html) (especially interesting for targets without ITM (such as Cortex-M0/M0+/M23)).
 **ITM**               | Use [Instrumentation Trace Macrocell (ITM)](https://developer.arm.com/documentation/ddi0314/h/Instrumentation-Trace-Macrocell?lang=en) for I/O communication via the debugger (only available for Cortex-M3/M4/M7/M33/M55/M85 processors).<br/> Usually, data is shown in a dedicated window.<br/> No additional code is required to output or input data through the ITM channel. However, you have to configure the ITM channel for tracing.
-**Custom**            | Retarget I/O stream to a user defined interface (such as UART or other application specific interface).<br/>See \subpage custom_subcomponent for further details.
+**UART**              | Retarget I/O streams to UART. Default implementation variant uses CMSIS-Driver USART.
+**Custom**            | Retarget I/O stream to a user defined interface (such as custom UART implementation or other application specific interface).<br/>See \subpage custom_subcomponent for further details.
 
 
 > **Note**

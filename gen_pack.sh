@@ -29,6 +29,7 @@ DEFAULT_ARGS=(-c "v")
 # Default: empty (all folders)
 #
 PACK_DIRS="
+  config
   documentation
   example
   include
