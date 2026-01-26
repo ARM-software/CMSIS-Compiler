@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023-2025 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2023-2026 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -32,14 +32,23 @@
 
 #ifdef RTE_CMSIS_Compiler_STDERR
 #include "retarget_stderr.h"
+#ifdef RTE_CMSIS_Compiler_STDERR_UART_CMSIS
+#include "stderr_cmsis_uart_config.h"
+#endif
 #endif
 
 #ifdef RTE_CMSIS_Compiler_STDIN
 #include "retarget_stdin.h"
+#ifdef RTE_CMSIS_Compiler_STDIN_UART_CMSIS
+#include "stdin_cmsis_uart_config.h"
+#endif
 #endif
 
 #ifdef RTE_CMSIS_Compiler_STDOUT
 #include "retarget_stdout.h"
+#ifdef RTE_CMSIS_Compiler_STDOUT_UART_CMSIS
+#include "stdout_cmsis_uart_config.h"
+#endif
 #endif
 
 #ifdef RTE_CMSIS_Compiler_TTY
