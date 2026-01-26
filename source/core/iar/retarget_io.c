@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2023-2026 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -27,14 +27,23 @@
 
 #ifdef RTE_CMSIS_Compiler_STDERR
 #include "retarget_stderr.h"
+#ifdef RTE_CMSIS_Compiler_STDERR_UART_CMSIS
+#include "stderr_cmsis_uart_config.h"
+#endif
 #endif
 
 #ifdef RTE_CMSIS_Compiler_STDIN
 #include "retarget_stdin.h"
+#ifdef RTE_CMSIS_Compiler_STDIN_UART_CMSIS
+#include "stdin_cmsis_uart_config.h"
+#endif
 #endif
 
 #ifdef RTE_CMSIS_Compiler_STDOUT
 #include "retarget_stdout.h"
+#ifdef RTE_CMSIS_Compiler_STDOUT_UART_CMSIS
+#include "stdout_cmsis_uart_config.h"
+#endif
 #endif
 
 #if defined(RTE_CMSIS_Compiler_STDIN) || defined(RTE_CMSIS_Compiler_File_Interface)
@@ -52,6 +61,9 @@ size_t __read(int handle, unsigned char *buf, size_t bufSize)
         break;
       } 
       *buf++ = (unsigned char)c;
+#if (STDIN_ECHO != 0)
+      stdout_putchar(c);
+#endif
       nChars++;
     }
     return nChars;
@@ -86,6 +98,11 @@ size_t __write(int handle, const unsigned char *buf, size_t bufSize)
   if (handle == _LLIO_STDOUT) {
     for (size_t i = bufSize; i > 0; --i)
     {
+#if (STDOUT_CR_LF != 0)
+      if (*buf == '\n') {
+        stdout_putchar('\r');
+      }
+#endif
       stdout_putchar(*buf++);
     }
     return bufSize;
@@ -96,6 +113,11 @@ size_t __write(int handle, const unsigned char *buf, size_t bufSize)
   if (handle == _LLIO_STDERR) {
     for (size_t i = bufSize; i > 0; --i)
     {
+#if (STDERR_CR_LF != 0)
+      if (*buf == '\n') {
+        stderr_putchar('\r');
+      }
+#endif
       stderr_putchar(*buf);
       ++buf;
     }

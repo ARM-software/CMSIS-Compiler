@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2023-2026 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,14 +22,23 @@
 
 #ifdef RTE_CMSIS_Compiler_STDERR
 #include "retarget_stderr.h"
+#ifdef RTE_CMSIS_Compiler_STDERR_UART_CMSIS
+#include "stderr_cmsis_uart_config.h"
+#endif
 #endif
 
 #ifdef RTE_CMSIS_Compiler_STDIN
 #include "retarget_stdin.h"
+#ifdef RTE_CMSIS_Compiler_STDIN_UART_CMSIS
+#include "stdin_cmsis_uart_config.h"
+#endif
 #endif
 
 #ifdef RTE_CMSIS_Compiler_STDOUT
 #include "retarget_stdout.h"
+#ifdef RTE_CMSIS_Compiler_STDOUT_UART_CMSIS
+#include "stdout_cmsis_uart_config.h"
+#endif
 #endif
 
 #if defined(RTE_CMSIS_Compiler_STDIN)
@@ -39,8 +48,16 @@
   \return     The next character from the input, or -1 on read error.
 */
 static int stdin_getc(FILE *file) {
+  int ch;
   (void)file;
-  return stdin_getchar();
+
+  ch = stdin_getchar();
+#if (STDIN_ECHO != 0)
+  if (ch >= 0) {
+    stdout_putchar(ch);
+  }
+#endif
+  return (ch);
 }
 
 static FILE __stdin = FDEV_SETUP_STREAM(NULL,
@@ -58,9 +75,15 @@ FILE *const stdin = &__stdin;
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */
-static int stdout_putc(char c, FILE *file) {
+static int stdout_putc(char ch, FILE *file) {
   (void)file;
-  return stdout_putchar(c);
+
+#if (STDOUT_CR_LF != 0)
+  if (ch == '\n') {
+    stdout_putchar('\r');
+  }
+#endif
+  return stdout_putchar(ch);
 }
 
 static FILE __stdout = FDEV_SETUP_STREAM(stdout_putc,
@@ -78,9 +101,16 @@ FILE *const stdout = &__stdout;
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */
-static int stderr_putc(char c, FILE *file) {
+static int stderr_putc(char ch, FILE *file) {
   (void)file;
-  return stderr_putchar(c);
+
+#if (STDERR_CR_LF != 0)
+  if (ch == '\n') {
+    stderr_putchar('\r');
+  }
+#endif
+
+  return stderr_putchar(ch);
 }
 
 static FILE __stderr = FDEV_SETUP_STREAM(stderr_putc,
