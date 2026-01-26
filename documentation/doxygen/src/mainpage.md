@@ -60,10 +60,10 @@ This documentation contains the following sections:
 - \ref rev_hist : lists CMSIS-Compiler releases.
 - \ref rt_io : explains low-level I/O retargeting, list available components and describes available user code templates.
 - \ref rt_os : explains multithreading support retargeting, list available components and describes available user code templates.
+- \ref usage : instructs how to enable and use the CMSIS-Compiler software components.
 - \ref rt_example shows how to retarget the output to a UART on an Arm Virtual Hardware model.
 - \ref rt_templates : contains the user code template files for the different use cases.
 - [**API Reference**](topics.html) describes the API and the functions of the CMSIS-Compiler components in details.
-
 
 ## License {#doc_license}
 

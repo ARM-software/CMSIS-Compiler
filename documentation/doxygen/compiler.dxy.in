@@ -996,6 +996,7 @@ INPUT                  = ./src/mainpage.md                 \
                          ./src/history.txt                 \
                          ./src/rt_io.md                    \
                          ./src/rt_os.md                    \
+                         ./src/usage.md                    \
                          ./src/rt_example.md               \
                          ./src/templates.md                \
                          ./src/templates_file.md           \
