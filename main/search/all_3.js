@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['c_20library_0',['Arm C Library',['../group__retarget__os__armclib.html',1,'']]],
+  ['c_20library_0',['C Library',['../group__retarget__os__armclib.html',1,'Arm C Library'],['../group__retarget__os__iarclib.html',1,'IAR C Library']]],
   ['change_1',['change',['../group__fs__interface__api.html#ab032f8794e275c62e4912ed0ed21045a',1,'rt_fs_stat_t']]],
   ['cmsis_20compiler_2',['Access to CMSIS-Compiler',['../index.html#compiler_access',1,'']]],
   ['code_3',['Build project in VS Code',['../rt_example.html#autotoc_md4',1,'']]],
