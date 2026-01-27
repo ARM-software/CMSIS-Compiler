@@ -27,8 +27,6 @@
   and file stream locks. The file stream locks are used when the state of a
   file stream is updated (only in the Full library configuration). The system
   locks are used to guard heap and the C library internal states.
-
-  Note: To enable multithread support, use the linker option ‑‑threaded_lib.
 */
 #include <DLib_Threads.h>
 
