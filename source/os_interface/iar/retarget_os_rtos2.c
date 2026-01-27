@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2023-2026 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include "retarget_os.h"
 
 #include "cmsis_os2.h"
 #include "cmsis_compiler.h"
@@ -47,71 +48,84 @@ static uint32_t is_thread_mode (void) {
 }
 
 /* Define retarget mutex structure to hold mutex identifier */
-struct rt_mutex_s {
+typedef struct {
   osMutexId_t id;
-};
+} rt_mutex_t;
 
 #pragma language=save
 #pragma language=extended
-/* Initialize mutex */
-__USED void __iar_system_Mtxinit(struct rt_mutex_s *mutex)
-{
+
+/* Initialize a system lock (create new mutex) */
+__USED void __iar_system_Mtxinit(__iar_Rmtx *lock) {
+  rt_mutex_t *mutex = (rt_mutex_t *)lock;
+  osMutexAttr_t attr = {
+    .attr_bits = osMutexRecursive
+  };
+
   if (os_kernel_is_initialized()) {
-    mutex->id = osMutexNew(NULL);
+    mutex->id = osMutexNew(&attr);
   }
 }
 
-/* Acquire mutex */
-__USED void __iar_system_Mtxlock(struct rt_mutex_s *mutex)
-{
+/* Lock a system lock (acquire mutex) */
+__USED void __iar_system_Mtxlock(__iar_Rmtx *lock) {
+  rt_mutex_t *mutex = (rt_mutex_t *)lock;
+
   if (os_kernel_is_running() && is_thread_mode()) {
     (void)osMutexAcquire(mutex->id, osWaitForever);
   }
 }
 
-/* Release mutex */
-__USED void __iar_system_Mtxunlock(struct rt_mutex_s *mutex) // Unlock a system lock
-{
+/*  Unlock a system lock (release mutex) */
+__USED void __iar_system_Mtxunlock(__iar_Rmtx *lock) {
+  rt_mutex_t *mutex = (rt_mutex_t *)lock;
+
   if (os_kernel_is_running() && is_thread_mode()) {
     (void)osMutexRelease(mutex->id);
   }
 }
 
-/* Free mutex */
-__USED void __iar_system_Mtxdst(struct rt_mutex_s *mutex)    // Destroy a system lock
-{
+/* Destroy a system lock (delete mutex) */
+__USED void __iar_system_Mtxdst(__iar_Rmtx *lock) {
+  rt_mutex_t *mutex = (rt_mutex_t *)lock;
+
   (void)osMutexDelete(mutex->id);
 }
 
-//#endif //defined(_DLIB_THREAD_SUPPORT) && _DLIB_THREAD_SUPPORT > 0
+/* Initialize a file lock (create new mutex) */
+__USED void __iar_file_Mtxinit(__iar_Rmtx *lock) {
+  rt_mutex_t *mutex = (rt_mutex_t *)lock;
+  osMutexAttr_t attr = {
+    .attr_bits = osMutexRecursive
+  };
 
-/* Initialize mutex */
-__USED void __iar_file_Mtxinit(struct rt_mutex_s *mutex)
-{
   if (os_kernel_is_initialized()) {
-    mutex->id = osMutexNew(NULL);
+    mutex->id = osMutexNew(&attr);
   }
 }
 
-/* Acquire mutex */
-__USED void __iar_file_Mtxlock(struct rt_mutex_s *mutex)
-{
+/* Lock a file lock (acquire mutex) */
+__USED void __iar_file_Mtxlock(__iar_Rmtx *lock) {
+  rt_mutex_t *mutex = (rt_mutex_t *)lock;
+
   if (os_kernel_is_running() && is_thread_mode()) {
     (void)osMutexAcquire(mutex->id, osWaitForever);
   }
 }
 
-/* Release mutex */
-__USED void __iar_file_Mtxunlock(struct rt_mutex_s *mutex) // Unlock a system lock
-{
+/* Unlock a file lock (release mutex) */
+__USED void __iar_file_Mtxunlock(__iar_Rmtx *lock) {
+  rt_mutex_t *mutex = (rt_mutex_t *)lock;
+
   if (os_kernel_is_running() && is_thread_mode()) {
     (void)osMutexRelease(mutex->id);
   }
 }
 
-/* Free mutex */
-__USED void __iar_file_Mtxdst(struct rt_mutex_s *mutex)    // Destroy a system lock
-{
+/* Destroy a file lock (delete mutex) */
+__USED void __iar_file_Mtxdst(__iar_Rmtx *lock) {
+  rt_mutex_t *mutex = (rt_mutex_t *)lock;
+
   (void)osMutexDelete(mutex->id);
 }
 

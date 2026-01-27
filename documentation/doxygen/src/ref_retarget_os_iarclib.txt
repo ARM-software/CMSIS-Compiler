@@ -1,0 +1,27 @@
+
+/**
+\defgroup retarget_os_iarclib IAR C Library
+\ingroup os_interface_api
+\brief Declarations of types and functions for integrating an RTOS with the IAR Standard C Library
+@{
+*/
+
+void __iar_system_Mtxinit(__iar_Rmtx *lock);
+
+void __iar_system_Mtxdst(__iar_Rmtx *lock);
+
+void __iar_system_Mtxlock(__iar_Rmtx *lock);
+
+void __iar_system_Mtxunlock(__iar_Rmtx *lock);
+
+void __iar_file_Mtxinit(__iar_Rmtx *lock);
+
+void __iar_file_Mtxdst(__iar_Rmtx *lock);
+
+void __iar_file_Mtxlock(__iar_Rmtx *lock);
+
+void __iar_file_Mtxunlock(__iar_Rmtx *lock);
+
+/**
+@}
+*/
