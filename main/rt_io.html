@@ -180,7 +180,9 @@ STDERR/STDIN/STDOUT subcomponents</div></div>
  Usually, data is shown in a dedicated window.<br  />
  No additional code is required to output or input data through the ITM channel. However, you have to configure the ITM channel for tracing.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft"><b>Custom</b>   </td><td class="markdownTableBodyLeft">Retarget I/O stream to a user defined interface (such as UART or other application specific interface).<br  />
+<td class="markdownTableBodyLeft"><b>UART</b>   </td><td class="markdownTableBodyLeft">Retarget I/O streams to UART. Default implementation variant uses CMSIS-Driver USART.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><b>Custom</b>   </td><td class="markdownTableBodyLeft">Retarget I/O stream to a user defined interface (such as custom UART implementation or other application specific interface).<br  />
 See <a class="el" href="#custom_subcomponent">"Custom" Subcomponent</a> for further details.   </td></tr>
 </table>
 <blockquote class="doxtable">
