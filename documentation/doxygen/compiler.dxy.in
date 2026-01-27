@@ -1007,12 +1007,14 @@ INPUT                  = ./src/mainpage.md                 \
                          ./src/ref_retarget_fs.txt         \
                          ./src/ref_retarget_os.txt         \
                          ./src/ref_retarget_os_armclib.txt \
+                         ./src/ref_retarget_os_iarclib.txt \
                          ./src/ref_retarget_os_newlib.txt  \
                          ./src/ref_retarget_stderr.txt     \
                          ./src/ref_retarget_stdin.txt      \
                          ./src/ref_retarget_stdout.txt     \
                          ./src/ref_retarget_tty.txt        \
                          ../../include/armcc/retarget_os.h \
+                         ../../include/iarcc/retarget_os.h \
                          ../../include/gcc/retarget_os.h   \
                          ../../include/retarget_fs.h       \
                          ../../include/retarget_stderr.h   \

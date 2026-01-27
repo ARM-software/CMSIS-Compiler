@@ -224,6 +224,13 @@
         <file category="header" name="include/gcc/retarget_os.h"/>
       </files>
     </api>
+    <api Cclass="CMSIS-Compiler" Cgroup="OS Interface" Capiversion="1.0.0" exclusive="1" condition="IAR CortexDevice">
+      <description>Standard C Library OS Retarget Interface</description>
+      <files>
+        <file category="doc" name="documentation/html/group__retarget__os__iarclib.html"/>
+        <file category="header" name="include/iarcc/retarget_os.h"/>
+      </files>
+    </api>
   </apis>
 
   <components>
