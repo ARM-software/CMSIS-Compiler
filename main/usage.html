@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CMSIS-Compiler Support: Usage and Description</title>
+<title>CMSIS-Compiler Support: Use CMSIS-Compiler</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -100,7 +100,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('pages.html',''); initResizable(true); });
+$(function(){initNavTree('usage.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -125,27 +125,38 @@ $(function(){initNavTree('pages.html',''); initResizable(true); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Usage and Description</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">Use CMSIS-Compiler</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all related documentation pages:</div><div class="directory">
-<div class="levels">[detail level <span onclick="javascript:dynsection.toggleLevel(1);">1</span><span onclick="javascript:dynsection.toggleLevel(2);">2</span>]</div><table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="rev_hist.html" target="_self">Revision History</a></td><td class="desc"></td></tr>
-<tr id="row_1_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="rt_io.html" target="_self">Low-Level I/O Retarget</a></td><td class="desc"></td></tr>
-<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="rt_os.html" target="_self">Multithreading Support Retarget</a></td><td class="desc"></td></tr>
-<tr id="row_3_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="usage.html" target="_self">Use CMSIS-Compiler</a></td><td class="desc"></td></tr>
-<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="rt_example.html" target="_self">I/O Retarget example project</a></td><td class="desc"></td></tr>
-<tr id="row_5_" class="odd"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_5_" class="arrow" onclick="dynsection.toggleFolder('5_')">&#9658;</span><a class="el" href="rt_templates.html" target="_self">Templates</a></td><td class="desc"></td></tr>
-<tr id="row_5_0_" class="even" style="display:none;"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="rt_template_file_interface.html" target="_self">File Interface</a></td><td class="desc"></td></tr>
-<tr id="row_5_1_" class="even" style="display:none;"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="rt_template_os_interface.html" target="_self">OS Interface</a></td><td class="desc"></td></tr>
-<tr id="row_5_2_" class="even" style="display:none;"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="rt_template_stderr.html" target="_self">STDERR</a></td><td class="desc"></td></tr>
-<tr id="row_5_3_" class="even" style="display:none;"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="rt_template_stdin.html" target="_self">STDIN</a></td><td class="desc"></td></tr>
-<tr id="row_5_4_" class="even" style="display:none;"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="rt_template_stdout.html" target="_self">STDOUT</a></td><td class="desc"></td></tr>
-<tr id="row_5_5_" class="even" style="display:none;"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="rt_template_tty.html" target="_self">TTY</a></td><td class="desc"></td></tr>
-</table>
-</div><!-- directory -->
-</div><!-- contents -->
+<div class="textblock"><p><a class="anchor" id="md_src_2usage"></a></p>
+<p>The following steps are required to install the <b>ARM::CMSIS-Compiler</b> pack and to use the software components that are shipped with the CMSIS-Pack.</p>
+<blockquote class="doxtable">
+<p><b>Note</b></p>
+<p>The installation and usage instructions are assuming you are using a <a href="https://open-cmsis-pack.github.io/cmsis-toolbox/">CMSIS-Toolbox</a> based environment. </p>
+</blockquote>
+<h1><a class="anchor" id="autotoc_md0"></a>
+Pack installation</h1>
+<p>Add the <b>ARM::CMSIS-Compiler</b> pack to your installation:</p>
+<div class="fragment"><div class="line">cpackget add ARM::CMSIS-Compiler</div>
+</div><!-- fragment --><p>Alternatively, you can download the latest version from the <a href="https://www.keil.arm.com/packs/cmsis-compiler-arm/versions/">CMSIS-Compiler</a> page.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Component selection and usage</h1>
+<ol type="1">
+<li>In your IDE, open the <a href="https://mdk-packs.github.io/vscode-cmsis-solution-docs/create_app.html#software-components">Manage software components</a> dialog.</li>
+<li>If you cannot see the <b>CMSIS-Compiler</b> component, select to display <b>All installed packs</b>.</li>
+<li>You must select the component <b>CMSIS-Compiler::CORE</b> and at least one additional <b>API</b>.</li>
+</ol>
+<div class="image">
+<img src="component-selection.png" alt=""/>
+<div class="caption">
+Manage software components</div></div>
+    <blockquote class="doxtable">
+<p><b>Note</b></p>
+<p>Refer to the sections <a class="el" href="rt_io.html#md_src_2rt__io">Low-level I/O</a> and <a class="el" href="rt_os.html#md_src_2rt__os">Multithreading Support Retarget</a> for more information about the retargeting options. </p>
+</blockquote>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

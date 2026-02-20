@@ -131,9 +131,9 @@ $(function(){initNavTree('rt_example.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_src_2rt__example"></a></p>
 <p>This project prints "Hello World" and a counter value via the UART output. It is configured for Arm Virtual Hardware, but other target hardware that provides a CMSIS Driver:USART can be easily added.</p>
-<h1><a class="anchor" id="autotoc_md0"></a>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Prerequisites</h1>
-<h2><a class="anchor" id="autotoc_md1"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Tools</h2>
 <ul>
 <li><a href="https://github.com/Open-CMSIS-Pack/devtools/releases">CMSIS-Toolbox 2.10.0</a> or higher</li>
@@ -143,19 +143,19 @@ Tools</h2>
 <li><a href="https://www.iar.com/embedded-development-tools">IAR Build Tools for Arm</a></li>
 <li><a href="https://developer.arm.com/Tools%20and%20Software/Arm%20Virtual%20Hardware">Arm Virtual Hardware</a> for local execution</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md2"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 Packs</h2>
 <ul>
 <li>Required packs are listed in the file <code>retarget.csolution.yml</code></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Project Structure</h1>
 <p>The project is generated using the <a href="https://open-cmsis-pack.github.io/cmsis-toolbox/">CMSIS-Toolbox</a> and is defined in <a href="https://open-cmsis-pack.github.io/cmsis-toolbox/YML-Input-Format/"><code>csolution</code></a> format:</p>
 <ul>
 <li><code>retarget.csolution.yml</code> lists the required packs and defines the hardware target and build-types (along with the compiler).</li>
 <li><code>retarget.cproject.yml</code> defines the source files and the software components.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
 Build project in VS Code</h1>
 <p><a href="https://marketplace.visualstudio.com/items?itemName=Arm.keil-studio-pack">Arm Keil Studio Pack Extensions</a> for VS Code include all required tools and interfaces to build the <code>csolution</code> projects.</p>
 <blockquote class="doxtable">
@@ -166,7 +166,7 @@ Build project in VS Code</h1>
 <p>When the project is opened in VS Code with Arm Keil Studio Extensions installed one must first ensure that the build tools are configured. The <code>Arm Tools Environment Manager</code> should handle this automatically and create <code>vcpkg-configuration.json</code> with all the necessary tools listed. Right-click anywhere in the workspace and select "Configure Arm Tools Environment" to modify tools configuration. See <a href="https://marketplace.visualstudio.com/items?itemName=Arm.environment-manager">Arm Tools Environment Manager Overview</a> for available functionality.</p>
 <p>To build a project using Keil Studio extensions open <a href="https://mdk-packs.github.io/vscode-cmsis-solution-docs/userinterface.html">CMSIS view</a>, open "Manage Solution Settings" view and verify that "Active Target", "Active Projects" and "Build Type" are selected. Since there is only one option in each category they should all be automatically selected.</p>
 <p>You can execute the build by <a href="https://mdk-packs.github.io/vscode-cmsis-solution-docs/userinterface.html#3-actions-available-through-the-cmsis-view">selecting "Build"</a> from the CMSIS view.</p>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Build Project from the Command Line</h1>
 <p><a href="https://open-cmsis-pack.github.io/cmsis-toolbox/">CMSIS-Toolbox</a> provides <a href="https://open-cmsis-pack.github.io/cmsis-toolbox/build-tools/">cbuild</a> command-line tool that builds <code>csolution</code> projects.</p>
 <p>The <code>retarget.csolution.yml</code> solution files defines <code>Debug</code> build-type and <code>VHT_CM3</code> target-type. To build this configuration using Arm Compiler 6 toolchain execute the following command:</p>
@@ -178,7 +178,7 @@ Build Project from the Command Line</h1>
 </ul>
 </blockquote>
 <p>By default the project does not specify the toolchain and one can build the project by specifying the AC6, GCC, CLANG or IAR toolchain.</p>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Execute Project</h1>
 <p>The project is configured for execution on Arm Virtual Hardware which removes the requirement for a physical hardware board.</p>
 <p>To execute application image on Arm Virtual Hardware use below command:</p>

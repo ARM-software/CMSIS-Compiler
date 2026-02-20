@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['stderr_0',['STDERR',['../rt_template_stderr.html',1,'rt_templates']]],
-  ['stdin_1',['STDIN',['../rt_template_stdin.html',1,'rt_templates']]],
-  ['stdout_2',['STDOUT',['../rt_template_stdout.html',1,'rt_templates']]],
-  ['support_20retarget_3',['Multithreading Support Retarget',['../rt_os.html',1,'']]]
+  ['retarget_0',['Retarget',['../rt_io.html',1,'Low-Level I/O Retarget'],['../rt_os.html',1,'Multithreading Support Retarget']]],
+  ['retarget_20example_20project_1',['I/O Retarget example project',['../rt_example.html',1,'']]],
+  ['revision_20history_2',['Revision History',['../rev_hist.html',1,'']]]
 ];
