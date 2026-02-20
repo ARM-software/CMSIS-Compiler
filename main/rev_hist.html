@@ -136,6 +136,17 @@ $(function(){initNavTree('rev_hist.html',''); initResizable(true); });
 <tr>
 <th>Version </th><th>Description  </th></tr>
 <tr>
+<td>v2.2.0 </td><td><p class="starttd">Changes since CMSIS-Compiler 2.1.0:</p>
+<ul>
+<li>Add components that enable stdio retarget to UART</li>
+<li>Update example project AC6:</li>
+<li>correct _sys_read return value when rt_fs_read returns with error</li>
+<li>correct _mutex_initialize to check whether RTOS2 kernel is initialized IAR:</li>
+<li>add support for multithreading</li>
+<li>add support for file redirection </li>
+</ul>
+</td></tr>
+<tr>
 <td>v2.1.0 </td><td><ul>
 <li>AC6: correct _sys_open handling for OPEN_A, file is created if non-existent (#50)</li>
 <li>GCC: add missing forward declarations for retargeted functions (#51, #53)</li>
