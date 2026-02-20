@@ -27,5 +27,4 @@ thread safe operations using RTOS interface.
 ## Links
 
 - [Documentation](https://arm-software.github.io/CMSIS-Compiler/latest/index.html)
-- [Repository](https://github.com/ARM-software/CMSIS-Compiler)
 - [Issues](https://github.com/ARM-software/CMSIS-Compiler/issues)
