@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/github/license/Arm-Software/CMSIS-Compiler?label=License)](https://github.com/Arm-Software/CMSIS-Compiler/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-Apache--2.0-green?label=License)](https://github.com/Arm-Software/CMSIS-Compiler/blob/main/LICENSE)
 [![Usage Example](https://img.shields.io/github/actions/workflow/status/Arm-Software/CMSIS-Compiler/example.yml?logo=arm&logoColor=0091bd&label=Usage%20Example)](./.github/workflows/example.yml)
 [![Build pack](https://img.shields.io/github/actions/workflow/status/Arm-Software/CMSIS-Compiler/pack.yml?logo=arm&logoColor=0091bd&label=Build%20pack)](./.github/workflows/pack.yml)
 # CMSIS-Compiler Support
