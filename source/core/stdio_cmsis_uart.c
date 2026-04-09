@@ -19,6 +19,7 @@
 
 #include <stdint.h>
 #include "cmsis_compiler.h"
+#include "Driver_USART.h"
 
 #include "RTE_Components.h"
 
@@ -39,6 +40,9 @@
 
 /* Global initialization function */
 extern int stdio_cmsis_uart_init (void);
+
+/* Underlying USART driver instance */
+extern ARM_DRIVER_USART ARM_Driver_USART_(STDIO_UART_DRIVER);
 
 /* Reference to the underlying USART driver */
 #define ptrUSART  (&ARM_Driver_USART_(STDIO_UART_DRIVER))
