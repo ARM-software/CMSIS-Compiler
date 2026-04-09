@@ -15,6 +15,8 @@
   <releases>
     <release version="2.2.1-dev">
       Active Development ...
+      CLANG:
+      - Added standard I/O stream support for LLVM-libc
     </release>
   </releases>
 
@@ -245,7 +247,7 @@
         <file category="header"  name="config/stdio_cmsis_uart_config.h" attr="config" version="1.0.0" condition="STDIO UART CMSIS"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.2.0" condition="CLANG CortexDevice">
+    <component Cclass="CMSIS-Compiler" Cgroup="CORE" Cversion="1.3.0" condition="CLANG CortexDevice">
       <description>Standard C Library Retarget Core</description>
       <files>
         <file category="sourceC" name="source/core/clang/retarget_syscalls.c"/>
