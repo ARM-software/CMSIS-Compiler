@@ -1,0 +1,44 @@
+layer:
+  type: Board
+  description: Cortex-M3 board layer targeting FVP_MPS2_Cortex-M3 model
+  for-device: ARMCM3
+
+  connections:
+    - connect: Cortex-M3
+      provides:
+        - CMSIS_USART
+        - Heap: 32768
+
+  # List the packs that define the device and/or board.
+  packs:
+    - pack: ARM::CMSIS
+    - pack: ARM::Cortex_DFP
+
+  add-path:
+    - ./CMSDK_UART
+
+  # List components used in a layer.
+  components:
+    - component: CMSIS:CORE
+    - component: Device:Startup&C Startup
+    - component: CMSIS Driver:USART:Custom
+
+  # List of source groups and files added to the layer.
+  groups:
+    - group: Board
+      files:
+        - file: ./main.c
+        - file: ./main.h
+
+    - group: FVP Config
+      files:
+        - file: ./fvp_config.txt
+
+    - group: UART
+      files:
+        - file: ./CMSDK_UART/USART_MPS2_Config.h
+        - file: ./CMSDK_UART/USART_MPS2.c
+
+  # Linker files used in the layer.
+  linker:
+    - regions: ./regions_mps2.h
