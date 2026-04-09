@@ -6,10 +6,10 @@ This project prints "Hello World" and a counter value via the UART output. It is
 
 ### Tools
 
-- [CMSIS-Toolbox 2.10.0](https://github.com/Open-CMSIS-Pack/devtools/releases) or higher
+- [CMSIS-Toolbox 2.12.0](https://github.com/Open-CMSIS-Pack/cmsis-toolbox/releases) or higher
 - [Arm Compiler for Embedded](https://developer.arm.com/downloads/view/ACOMPE), or
 - [GCC Compiler for Arm bare-metal](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads) or
-- [Clang Compiler](https://github.com/ARM-software/LLVM-embedded-toolchain-for-Arm) or
+- [Clang Compiler](https://github.com/arm/arm-toolchain/releases) or
 - [IAR Build Tools for Arm](https://www.iar.com/embedded-development-tools)
 - [Arm Virtual Hardware](https://developer.arm.com/Tools%20and%20Software/Arm%20Virtual%20Hardware) for local execution
 
@@ -49,11 +49,11 @@ You can execute the build by [selecting "Build"](https://mdk-packs.github.io/vsc
 [CMSIS-Toolbox](https://open-cmsis-pack.github.io/cmsis-toolbox/) provides [cbuild](https://open-cmsis-pack.github.io/cmsis-toolbox/build-tools/)
 command-line tool that builds `csolution` projects.
 
-The `retarget.csolution.yml` solution files defines `Debug` build-type and `VHT_CM3` target-type. To build this configuration
+The `retarget.csolution.yml` solution files defines `Debug` build-type and `FVP_MPS2_CM3` target-type. To build this configuration
 using Arm Compiler 6 toolchain execute the following command:
 
 ```bash
-cbuild retarget.csolution.yml --toolchain AC6 --packs --context retarget.Debug+VHT_CM3
+cbuild retarget.csolution.yml --toolchain AC6 --packs --context retarget.Debug+FVP_MPS2_CM3
 ```
 
 > **Note**
@@ -69,7 +69,7 @@ The project is configured for execution on Arm Virtual Hardware which removes th
 To execute application image on Arm Virtual Hardware use below command:
 
 ```bash
-FVP_MPS2_Cortex-M3 -f fvp-config.txt out/retarget/VHT_CM3/Debug/retarget.axf
+FVP_MPS2_Cortex-M3 -f fvp-config.txt out/retarget/FVP_MPS2_CM3/Debug/retarget.axf
 ```
 
 > **Note**
@@ -78,7 +78,7 @@ FVP_MPS2_Cortex-M3 -f fvp-config.txt out/retarget/VHT_CM3/Debug/retarget.axf
 
 This command will execute the simulation model and in the default terminal window you should see the following output:
 
-```
+```txt
 Starting ...
 Hello World 1
 Hello World 2

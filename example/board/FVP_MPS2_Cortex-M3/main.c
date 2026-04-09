@@ -1,5 +1,5 @@
-/*---------------------------------------------------------------------------
- * Copyright (c) 2023 Arm Limited (or its affiliates). All rights reserved.
+/*
+ * Copyright 2026 Arm Limited and/or its affiliates.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -14,33 +14,17 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *---------------------------------------------------------------------------*/
-
-#include <stdlib.h>
-#include <stdio.h>
+ */
 
 #include "RTE_Components.h"
 #include  CMSIS_device_header
 
-#include "retarget_stdout.h"
-
-extern int stdout_init (void);
+#include "main.h"
 
 int main (void) {
-  uint32_t count;
 
-  stdout_init();
+  /* System Initialization */
+  SystemCoreClockUpdate();
 
-  printf("Starting ...\r\n");
-
-  while (1)  {
-    /* Use printf via USART to output "Hello World" lines */
-    for (count = 1U; count <= 10U; count++) {
-      printf ("Hello World %u\r\n", (unsigned int)count);
-    }
-
-    printf("\r\nFinished\r\n\x04");
-  }
-
-  return 0;
+  return (app_main());
 }

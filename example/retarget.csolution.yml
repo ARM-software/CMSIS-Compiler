@@ -1,7 +1,8 @@
 # A solution is a collection of related projects that share same base configuration.
 solution:
-  created-for: CMSIS-Toolbox@2.10.0
-  cdefault:
+  description: Standard output retargeting example
+  created-for: CMSIS-Toolbox@2.12.0
+  cdefault: # use CMSIS-Toolbox default Compiler options
 
   # Compilers that can be selected
   select-compiler:
@@ -12,12 +13,23 @@ solution:
 
   # List the packs that define the device and/or board.
   packs:
-    - pack: Keil::V2M-MPS2_CMx_BSP@1.8.0
+    - pack: ARM::Cortex_DFP
 
   # List different targets that are used to deploy the solution.
   target-types:
-    - type: VHT_CM3
-      device: CMSDK_CM3_VHT
+    - type: FVP_MPS2_CM3
+      device: ARMCM3
+      variables:
+        - Board-Layer: ../board/FVP_MPS2_Cortex-M3/Board.clayer.yml
+      target-set:
+        - set: "FVP_MPS2_Cortex-M3"
+          images:
+            - project-context: retarget.Debug
+          debugger:
+            name: Arm-FVP
+            model: FVP_MPS2_Cortex-M3
+            config-file: board/FVP_MPS2_Cortex-M3/fvp_config.txt
+            args: ""
 
   # List of different build configurations.
   build-types:
@@ -31,4 +43,4 @@ solution:
 
   # List related projects.
   projects:
-    - project: ./retarget.cproject.yml
+    - project: ./project/retarget.cproject.yml

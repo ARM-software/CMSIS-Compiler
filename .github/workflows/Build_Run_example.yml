@@ -1,0 +1,136 @@
+# Copyright 2026 Arm Limited and/or its affiliates.
+# 
+# SPDX-License-Identifier: Apache-2.0
+# 
+# Licensed under the Apache License, Version 2.0 (the License); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+# www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Build and Run example project
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      # Execute workflow when PR modifies this file
+      - .github/workflows/Build_Run_example.yml
+      # Execute workflow when PR modifies relevant directories
+      - example/**/*
+      - include/**/*
+      - source/**/*
+      # Execute workflow when PR modifies pack description file
+      - ARM.CMSIS-Compiler.pdsc
+  push:
+    # Execute workflow when main branch is updated
+    branches: [main]
+
+  # schedule:
+  #   - cron: '00 20 * * 6'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  Build_Run:
+    strategy:
+      matrix:
+        context: [
+          {proj: retarget,  build_type: Debug,   target_type: FVP_MPS2_CM3, model: FVP_MPS2_Cortex-M3},
+          {proj: retarget,  build_type: Release, target_type: FVP_MPS2_CM3, model: FVP_MPS2_Cortex-M3}
+        ]
+        toolchain: [
+          {name: AC6,   ext: axf},
+          {name: GCC,   ext: elf},
+          {name: CLANG, ext: elf}
+        ]
+
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    env:
+      ARM_UBL_ACTIVATION_CODE: ${{ secrets.ARM_UBL_ACTIVATION_CODE }}
+
+    steps:
+    - name: Checkout current repository
+      uses: actions/checkout@v6
+
+    - name: Install tools
+      uses: ARM-software/cmsis-actions/vcpkg@v1
+      with:
+        config: ".ci/vcpkg-configuration.json"
+
+    - name: Activate Arm tool license
+      uses: ARM-software/cmsis-actions/armlm@v1
+      with:
+        code: "${{ env.ARM_UBL_ACTIVATION_CODE }}"
+
+    - uses: ammaraskar/gcc-problem-matcher@master
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v4
+      with:
+        languages: cpp
+        queries: security-and-quality
+
+    - name: Initialize CMSIS pack root folder
+      run: |
+        cpackget init https://www.keil.com/pack/index.pidx
+        cpackget update-index
+
+    - name: Add local CMSIS pack
+      run: |
+        cpackget add ./ARM.CMSIS-Compiler.pdsc
+
+    - name: Build example
+      working-directory: ./example
+      run: |
+        cbuild retarget.csolution.yml \
+               --context .${{matrix.context.build_type}}+${{matrix.context.target_type}} \
+               --toolchain ${{matrix.toolchain.name}} \
+               --update-rte --rebuild --packs
+
+    - name: Execute example
+      working-directory: ./example
+      run: |
+        ${{ matrix.context.model }} \
+        -a ./out/${{matrix.context.proj}}/${{matrix.context.target_type}}/${{matrix.context.build_type}}/${{matrix.context.proj}}.${{matrix.toolchain.ext}} \
+        -f ./board/${{matrix.context.model}}/fvp_config.txt \
+        -C fvp_mps2.UART0.out_file=${{matrix.context.proj}}_${{matrix.context.build_type}}_${{matrix.context.target_type}}_${{matrix.toolchain.name}}.log \
+        --simlimit 100
+
+    - name: Show example output
+      working-directory: ./example
+      run: |
+        echo "FVP UART output:"
+        cat ${{matrix.context.proj}}_${{matrix.context.build_type}}_${{matrix.context.target_type}}_${{matrix.toolchain.name}}.log
+
+    - name: Check example output
+      working-directory: ./example
+      run: |
+        echo "Check FVP UART output:"
+        COUNT=$(grep "Hello World" ${{matrix.context.proj}}_${{matrix.context.build_type}}_${{matrix.context.target_type}}_${{matrix.toolchain.name}}.log | wc -l)
+        if [ "$COUNT" -eq 10 ]; then
+          echo "Passed"
+        else
+          echo "Failed"
+          exit 1
+        fi
+
+    - name: Upload FVP UART output log
+      uses: actions/upload-artifact@v7
+      with:
+        name: ${{matrix.context.proj}}_${{matrix.context.build_type}}_${{matrix.context.target_type}}_${{matrix.toolchain.name}}.log
+        path: ./example/${{matrix.context.proj}}_${{matrix.context.build_type}}_${{matrix.context.target_type}}_${{matrix.toolchain.name}}.log
+
+    - name: Perform CodeQL Analysis
+      if: ${{ !cancelled() }}
+      uses: github/codeql-action/analyze@v4
