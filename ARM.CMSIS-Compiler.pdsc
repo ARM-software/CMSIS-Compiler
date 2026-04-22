@@ -17,6 +17,8 @@
       Active Development ...
       CLANG:
       - Added standard I/O stream support for LLVM-libc
+      I/O Retarget:
+      - Added reargeting to RTT
     </release>
   </releases>
 
@@ -104,6 +106,11 @@
       <description>CMSIS-Compiler CORE component and Cortex device with ITM</description>
       <require condition="CORE"/>
       <require condition="CortexDevice_ITM"/>
+    </condition>
+    <condition id="CORE RTT">
+      <description>CMSIS-Compiler CORE component and RTT</description>
+      <require condition="CORE"/>
+      <require Cclass="SEGGER" Cgroup="RTT"/>
     </condition>
     <condition id="CORE UART_CMSIS">
       <description>CMSIS-Compiler CORE component and CMSIS-Driver USART</description>
@@ -328,6 +335,16 @@
         <file category="sourceC" name="source/stderr/stderr_itm.c"/>
       </files>
     </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="STDERR" Csub="RTT" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE RTT">
+      <description>Redirect STDERR to RTT (Channel 0)</description>
+      <RTE_Components_h>
+        #define RTE_CMSIS_Compiler_STDERR                /* CMSIS-Compiler STDERR */
+        #define RTE_CMSIS_Compiler_STDERR_RTT            /* CMSIS-Compiler STDERR: RTT */
+      </RTE_Components_h>
+      <files>
+        <file category="sourceC" name="source/stderr/stderr_rtt.c"/>
+      </files>
+    </component>
     <component Cclass="CMSIS-Compiler" Cgroup="STDERR" Csub="UART" Cvariant="CMSIS" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE UART_CMSIS">
       <description>Redirect STDERR to a CMSIS-Driver USART</description>
       <RTE_Components_h>
@@ -368,6 +385,16 @@
       </RTE_Components_h>
       <files>
         <file category="sourceC" name="source/stdin/stdin_itm.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="STDIN" Csub="RTT" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE RTT">
+      <description>Retrieve STDIN from RTT (Channel 0)</description>
+      <RTE_Components_h>
+        #define RTE_CMSIS_Compiler_STDIN                 /* CMSIS-Compiler STDIN */
+        #define RTE_CMSIS_Compiler_STDIN_RTT             /* CMSIS-Compiler STDIN: RTT */
+      </RTE_Components_h>
+      <files>
+        <file category="sourceC" name="source/stdin/stdin_rtt.c"/>
       </files>
     </component>
     <component Cclass="CMSIS-Compiler" Cgroup="STDIN" Csub="UART" Cvariant="CMSIS" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE UART_CMSIS">
@@ -422,6 +449,16 @@
         <file category="sourceC" name="source/stdout/stdout_itm.c"/>
       </files>
     </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="STDOUT" Csub="RTT" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE RTT">
+      <description>Redirect STDOUT to RTT (Channel 0)</description>
+      <RTE_Components_h>
+        #define RTE_CMSIS_Compiler_STDOUT                /* CMSIS-Compiler STDOUT */
+        #define RTE_CMSIS_Compiler_STDOUT_RTT            /* CMSIS-Compiler STDOUT: RTT */
+      </RTE_Components_h>
+      <files>
+        <file category="sourceC" name="source/stdout/stdout_rtt.c"/>
+      </files>
+    </component>
     <component Cclass="CMSIS-Compiler" Cgroup="STDOUT" Csub="UART" Cvariant="CMSIS" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE UART_CMSIS">
       <description>Redirect STDOUT to a CMSIS-Driver USART</description>
       <RTE_Components_h>
@@ -462,6 +499,16 @@
       </RTE_Components_h>
       <files>
         <file category="sourceC" name="source/tty/tty_itm.c"/>
+      </files>
+    </component>
+    <component Cclass="CMSIS-Compiler" Cgroup="TTY" Csub="RTT" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE RTT">
+      <description>Redirect TTY to RTT (Channel 0)</description>
+      <RTE_Components_h>
+        #define RTE_CMSIS_Compiler_TTY                   /* CMSIS-Compiler TTY */
+        #define RTE_CMSIS_Compiler_TTY_RTT               /* CMSIS-Compiler TTY: RTT */
+      </RTE_Components_h>
+      <files>
+        <file category="sourceC" name="source/tty/tty_rtt.c"/>
       </files>
     </component>
 
