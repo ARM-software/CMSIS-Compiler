@@ -145,6 +145,12 @@
       <require condition="CORE"/>
       <require condition="CortexDevice_ITM"/>
     </condition>
+    <condition id="ARMCC CORE RTT">
+      <description>ARMCC and CORE component and RTT</description>
+      <require Tcompiler="ARMCC"/>
+      <require condition="CORE"/>
+      <require Cclass="SEGGER" Cgroup="RTT"/>
+    </condition>
 
     <condition id="ARMCC CORE CMSIS-RTOS2">
       <description>ARMCC and CORE component and CMSIS-RTOS2</description>
@@ -501,7 +507,7 @@
         <file category="sourceC" name="source/tty/tty_itm.c"/>
       </files>
     </component>
-    <component Cclass="CMSIS-Compiler" Cgroup="TTY" Csub="RTT" Capiversion="1.1.0" Cversion="1.0.0" condition="CORE RTT">
+    <component Cclass="CMSIS-Compiler" Cgroup="TTY" Csub="RTT" Capiversion="1.1.0" Cversion="1.0.0" condition="ARMCC CORE RTT">
       <description>Redirect TTY to RTT (Channel 0)</description>
       <RTE_Components_h>
         #define RTE_CMSIS_Compiler_TTY                   /* CMSIS-Compiler TTY */
