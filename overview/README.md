@@ -15,14 +15,18 @@ serial interface, i.e. terminal. Multithreading support is available for applica
 
 CMSIS-Compiler enables platform specific retargeting by providing software components that break down into the following interfaces:
 
-- **File interface** that enables reading and writing files
-- **STDIN interface** that enables standard input stream redirection
-- **STDOUT interface** that enables standard output stream redirection
-- **STDERR interface** that enables standard error stream redirection
-- **OS interface** that enables multithread safety using an arbitrary RTOS
+- **File interface** that enables reading and writing files, for example to the [File System of MDK-Middleware](https://www.keil.arm.com/packs/mdk-middleware-keil).
+- **STDIN interface** that enables standard input stream redirection.
+- **STDOUT interface** that enables standard output stream redirection.
+- **STDERR interface** that enables standard error stream redirection.
+- **OS interface** that enables multithread safety using an arbitrary RTOS.
 
 Using CMSIS-Compiler developers can retarget standard I/O streams and file operations to specific platform and enable
 thread safe operations using RTOS interface.
+
+The **STDxx** interfaces redirect I/O. During software development typically UART or [RTT](https://www.keil.arm.com/packs/rtt-segger) is used.
+
+![I/O retargeting during software development](stdio-retargeting.png)
 
 ## Links
 
