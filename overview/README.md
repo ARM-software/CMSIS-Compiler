@@ -24,7 +24,7 @@ CMSIS-Compiler enables platform specific retargeting by providing software compo
 Using CMSIS-Compiler developers can retarget standard I/O streams and file operations to specific platform and enable
 thread safe operations using RTOS interface.
 
-The **STDxx** interfaces redirect I/O. During software development typically UART or [RTT](https://www.keil.arm.com/packs/rtt-segger) is used.
+During software development the **STDxx** interfaces typically redirect standard I/O streams to UART or [RTT](https://www.keil.arm.com/packs/rtt-segger):
 
 ![I/O retargeting during software development](stdio-retargeting.png)
 
