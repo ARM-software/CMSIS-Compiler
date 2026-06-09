@@ -136,5 +136,9 @@ var NAVTREEINDEX0 =
 "topics.html":[7],
 "usage.html":[4],
 "usage.html#autotoc_md0":[4,0],
-"usage.html#autotoc_md1":[4,1]
+"usage.html#autotoc_md1":[4,1],
+"usage.html#usage_evr":[4,2,0],
+"usage.html#usage_resolve_dependencies":[4,2],
+"usage.html#usage_rtt":[4,2,1],
+"usage.html#usage_uart":[4,2,2]
 };

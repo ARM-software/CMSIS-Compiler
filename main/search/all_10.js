@@ -2,7 +2,7 @@ var searchData=
 [
   ['sec_0',['sec',['../group__fs__interface__api.html#ad1696900026b287a87c563b733a21bc3',1,'rt_fs_time_t']]],
   ['seek_20operations_1',['Seek Operations',['../group__fs__interface__seek__operations.html',1,'']]],
-  ['selection_20and_20usage_2',['Component selection and usage',['../usage.html#autotoc_md1',1,'']]],
+  ['selection_2',['Component selection',['../usage.html#autotoc_md1',1,'']]],
   ['standard_20stream_20components_3',['Standard Stream Components',['../rt_io.html#rt_io_components',1,'']]],
   ['standard_20stream_20subcomponents_4',['Standard Stream Subcomponents',['../rt_io.html#rt_io_subcomponents',1,'']]],
   ['stderr_5',['STDERR',['../rt_template_stderr.html',1,'rt_templates']]],

@@ -141,7 +141,7 @@ Pack installation</h1>
 <div class="fragment"><div class="line">cpackget add ARM::CMSIS-Compiler</div>
 </div><!-- fragment --><p>Alternatively, you can download the latest version from the <a href="https://www.keil.arm.com/packs/cmsis-compiler-arm/versions/">CMSIS-Compiler</a> page.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
-Component selection and usage</h1>
+Component selection</h1>
 <ol type="1">
 <li>In your IDE, open the <a href="https://mdk-packs.github.io/vscode-cmsis-solution-docs/create_app.html#software-components">Manage software components</a> dialog.</li>
 <li>If you cannot see the <b>CMSIS-Compiler</b> component, select to display <b>All installed packs</b>.</li>
@@ -151,11 +151,78 @@ Component selection and usage</h1>
 <img src="component-selection.png" alt=""/>
 <div class="caption">
 Manage software components</div></div>
-    <blockquote class="doxtable">
+    <h1><a class="anchor" id="usage_resolve_dependencies"></a>
+Resolve Dependencies</h1>
+<h2><a class="anchor" id="usage_evr"></a>
+Using Event Recorder</h2>
+<p>The <b>Event Recorder</b> subcomponent requires the <code>CMSIS-View::Event Recorder</code> component from the <a href="https://www.keil.arm.com/packs/cmsis-view-arm/">CMSIS-View</a> pack.</p>
+<p>1) Install the <b>CMSIS-View</b> pack:</p>
+<div class="fragment"><div class="line">cpackget add ARM::CMSIS-View</div>
+</div><!-- fragment --><p>2) In the <b>Manage Software Components</b> dialog, select <b>Software Pack</b>, then choose <b>All installed packs</b> and find and select <b>ARM::CMSIS-View</b>.</p>
+<div class="image">
+<img src="stdio_evr_pack.png" alt=""/>
+<div class="caption">
+Select CMSIS-View Pack</div></div>
+    <p>3) Select the <b>CMSIS-View::Event Recorder</b> component.</p>
+<div class="image">
+<img src="stdio_evr_components.png" alt=""/>
+<div class="caption">
+Select CMSIS-View::Event Recorder Component</div></div>
+    <p>The project yml file should contain:</p>
+<div class="fragment"><div class="line">packs:</div>
+<div class="line">   - pack: ARM::CMSIS-Compiler</div>
+<div class="line">   - pack: ARM::CMSIS-View</div>
+</div><!-- fragment --><div class="fragment"><div class="line">components:</div>
+<div class="line">   - component: CMSIS-Compiler:CORE</div>
+<div class="line">   - component: CMSIS-Compiler:STDOUT:Event Recorder</div>
+<div class="line">   - component: CMSIS-View:Event Recorder&amp;DAP</div>
+</div><!-- fragment --><h2><a class="anchor" id="usage_rtt"></a>
+Using RTT</h2>
+<p>The <b>RTT</b> subcomponent requires the <code>SEGGER::RTT</code> component from the <a href="https://www.keil.arm.com/packs/rtt-segger/">SEGGER RTT</a> pack.</p>
+<p>1) Install the <b>SEGGER RTT</b> pack:</p>
+<div class="fragment"><div class="line">cpackget add SEGGER::RTT</div>
+</div><!-- fragment --><p>2) In the <b>Manage Software Components</b> dialog, select <b>Software Pack</b>, then choose <b>All installed packs</b> and find and select <b>SEGGER::RTT</b>.</p>
+<div class="image">
+<img src="stdio_rtt_pack.png" alt=""/>
+<div class="caption">
+Select SEGGER Pack</div></div>
+    <p>3) Select the <b>SEGGER::RTT</b> component.</p>
+<div class="image">
+<img src="stdio_rtt_components.png" alt=""/>
+<div class="caption">
+Select SEGGER::RTT Component</div></div>
+    <p>The project yml file should contain:</p>
+<div class="fragment"><div class="line">packs:</div>
+<div class="line">   - pack: ARM::CMSIS-Compiler</div>
+<div class="line">   - pack: SEGGER::RTT</div>
+</div><!-- fragment --><div class="fragment"><div class="line">components:</div>
+<div class="line">   - component: CMSIS-Compiler:CORE</div>
+<div class="line">   - component: CMSIS-Compiler:STDOUT:RTT</div>
+<div class="line">   - component: SEGGER:RTT</div>
+</div><!-- fragment --><h2><a class="anchor" id="usage_uart"></a>
+Using UART</h2>
+<p>The <b>UART</b> subcomponent provides default implementation variant <b>CMSIS</b> which requires the <code>CMSIS Driver::USART</code> implementation, typically provided by a Board Support Pack (BSP) or Device Family Pack (DFP) for the target hardware.</p>
+<blockquote class="doxtable">
 <p><b>Note</b></p>
-<p>Refer to the sections <a class="el" href="rt_io.html#md_src_2rt__io">Low-level I/O</a> and <a class="el" href="rt_os.html#md_src_2rt__os">Multithreading Support Retarget</a> for more information about the retargeting options. </p>
+<p>Use the <a href="https://www.keil.arm.com/packs/">CMSIS Packs catalog</a> to find the appropriate pack for your target hardware. </p>
 </blockquote>
-</div></div><!-- contents -->
+<p>1) Install the Board Support Pack (BSP) or Device Family Pack (DFP):</p>
+<div class="fragment"><div class="line">cpackget add Vendor::Pack</div>
+</div><!-- fragment --><p>2) In the <b>Manage Software Components</b> dialog, select <b>Software Pack</b>, then choose <b>All installed packs</b> and find and select installed BSP or DFP.</p>
+<p>3) Select the <b>CMSIS Driver::USART</b> component.</p>
+<div class="image">
+<img src="stdio_uart_components.png" alt=""/>
+<div class="caption">
+Select CMSIS Driver::USART Component</div></div>
+    <p>The project yml file should contain:</p>
+<div class="fragment"><div class="line">packs:</div>
+<div class="line">   - pack: ARM::CMSIS-Compiler</div>
+<div class="line">   - pack: Vendor::Pack</div>
+</div><!-- fragment --><div class="fragment"><div class="line">components:</div>
+<div class="line">   - component: CMSIS-Compiler:CORE</div>
+<div class="line">   - component: CMSIS-Compiler:STDOUT:UART&amp;CMSIS</div>
+<div class="line">   - component: CMSIS Driver:USART</div>
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -41,7 +41,12 @@ var NAVTREE =
     ] ],
     [ "Use CMSIS-Compiler", "usage.html", [
       [ "Pack installation", "usage.html#autotoc_md0", null ],
-      [ "Component selection and usage", "usage.html#autotoc_md1", null ]
+      [ "Component selection", "usage.html#autotoc_md1", null ],
+      [ "Resolve Dependencies", "usage.html#usage_resolve_dependencies", [
+        [ "Using Event Recorder", "usage.html#usage_evr", null ],
+        [ "Using RTT", "usage.html#usage_rtt", null ],
+        [ "Using UART", "usage.html#usage_uart", null ]
+      ] ]
     ] ],
     [ "I/O Retarget example project", "rt_example.html", [
       [ "Prerequisites", "rt_example.html#autotoc_md2", [
