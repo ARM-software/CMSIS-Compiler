@@ -119,6 +119,8 @@ void UART_Event_Callback(uint32_t event) {
       UART_StdInBuf.flags |= UART_FLAG_RX_ERROR;
     }
   }
+#else
+  (void)event;
 #endif
 }
 
