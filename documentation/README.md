@@ -12,4 +12,4 @@ Generating the HTML-formatted documentation from the source is done with `gen_do
 CMSIS-Compiler $ ./documentation/doxygen/gen_doc.sh
 ```
 
-The script expects specific version of [doxygen](https://www.doxygen.nl/) to be installed locally. After successful execution the resulting documentation package is then available in `./documentation/html/`.
+The script expects [Doxygen 1.18.0](https://www.doxygen.nl/) to be installed locally. After successful execution the resulting documentation package is then available in `./documentation/html/`.

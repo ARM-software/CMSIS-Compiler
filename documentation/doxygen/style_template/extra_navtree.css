@@ -29,6 +29,7 @@
 }
 
 #nav-tree .selected {
+  background-color: transparent;
   background-image: none;
   background-repeat:no-repeat;
   text-shadow: none;
@@ -68,13 +69,17 @@
   line-height: 30px;
 }
 
-#nav-tree .selected a {
-  font-weight: bold;
+#nav-tree .label a:hover {
+  background: none;
 }
 
-/*correction for the larger box border on the left (10px-5px) */
-#nav-tree .selected .arrow {
-  margin-left:5px;
+#nav-tree .label a:hover > span {
+  background: linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), currentColor 100%);
+}
+
+#nav-tree .selected a {
+  color: var(--nav-text-normal-color);
+  font-weight: bold;
 }
 
 #nav-tree .children_ul {
@@ -85,11 +90,14 @@
 #nav-tree {
   padding: 0px 0px;
   padding-left: 10px;  /*correction to add space before the first arrow in nav-tree */
+  margin-right: -5px;  /*fill the 6px resize gutter up to the 1px splitbar */
   overflow:auto;
+  scrollbar-width: auto;
 }
 
 #doc-content {
   overflow:auto;
+  scrollbar-width: auto;
   display:block;
   padding:0px;
   margin:0px;
@@ -97,12 +105,11 @@
 }
 
 #side-nav {
-  padding:0 2px 0 0;
+  padding:0 6px 0 0;
   margin: 0px;
   display:block;
   position: absolute;
   left: 0px;
-  width: 330px;
 }
 
 .ui-resizable .ui-resizable-handle {
@@ -118,6 +125,11 @@
   right:0;
   top:0;
   width:1px;
+}
+
+#splitbar {
+  background-color: var(--nav-splitbar-color);
+  opacity: 1;
 }
 
 .ui-resizable-handle {
@@ -161,4 +173,3 @@
   #nav-tree { display: none; }
   div.ui-resizable-handle { display: none; position: relative; }
 }
-
