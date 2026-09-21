@@ -1,66 +1,63 @@
-<!-- HTML header for doxygen 1.9.6-->
+<!-- HTML header for Doxygen 1.18.0 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>CMSIS-Compiler Support: armcc Directory Reference</title>
-<link href="doxygen.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
-<script type="text/javascript" src="tabs.js"></script>
-<script type="text/javascript" src="footer.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
+<script id="doxygen-config" type="application/json">
+{
+  "serverBasedSearch": false,
+  "disableIndex": true,
+  "dynamicMenus": false,
+  "fullSidebar": false
+}
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <script type="text/javascript" src="darkmode_toggle.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="extra_stylesheet.css" rel="stylesheet" type="text/css"/>
 <link href="extra_navtree.css" rel="stylesheet" type="text/css"/>
 <link href="extra_search.css" rel="stylesheet" type="text/css"/>
 <link href="extra_tabs.css" rel="stylesheet" type="text/css"/>
 <link href="version.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="component_tabs.js"></script>
+<script type="text/javascript" src="navtree_customization.js"></script>
+<script type="text/javascript" src="footer.js"></script>
 <script type="text/javascript" src="../version.js"></script>
 </head>
 <body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="top"><!-- do not remove this div, it is closed by Doxygen! -->
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 55px;">
-  <td id="projectlogo" style="padding: 1.5em;"><a href="https://www.keil.arm.com/cmsis" target="_blank"><img alt="Logo" src="cmsis_logo_white_small.png"/</a></td>
-  <td style="padding-left: 1em; padding-bottom: 1em;padding-top: 1em;">
-   <div id="projectname">CMSIS-Compiler Support
-   &#160;<span id="projectnumber"><script type="text/javascript">
-     <!--
-     writeHeader.call(this);
-     writeVersionDropdown.call(this, "CMSIS-Compiler Support");
-     //-->
-    </script>
-   </span>
+ <tr id="projectrow">
+  <td id="projectlogo"><a href="https://www.keil.arm.com/cmsis" target="_blank"><img alt="Logo" src="logo-cmsis.png"/></a></td>
+  <td id="projectalign">
+   <div id="projectname">CMSIS-Compiler Support<span id="projectnumber"><script type="text/javascript">
+     writeHeader();
+     writeVersionDropdown("CMSIS-Compiler Support");
+    </script></span>
    </div>
    <div id="projectbrief">Standard C Library File, I/O and OS Retargeting</div>
   </td>
-   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"/>
           </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
           </span>
         </div>
 </td>
@@ -69,23 +66,17 @@
 </table>
 </div>
 <!-- end header part -->
-<div id="CMSISnav" class="tabs1">
+<div id="Compnav" class="tabs1">
   <ul class="tablist">
-    <script type="text/javascript">
-      writeComponentTabs.call(this);
-    </script>
+    <script type="text/javascript">writeComponentTabs();</script>
   </ul>
 </div>
-<!-- Generated by Doxygen 1.13.2 -->
+<!-- Generated by Doxygen 1.18.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-var searchBox = new SearchBox("searchBox", "search/",'.html');
-/* @license-end */
+let searchBox = new SearchBox("searchBox", "search/",'.html');
 </script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
+document.addEventListener('DOMContentLoaded', codefold.init);
 </script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
@@ -94,21 +85,16 @@ $(function() { codefold.init(0); });
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
+  <div id="splitbar" class="ui-resizable-handle">
   </div>
 </div>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('dir_8298c34bf52644c50e95f1249d729f76.html',''); initResizable(true); });
-/* @license-end */
+document.addEventListener('DOMContentLoaded',() => { initNavTree('dir_8298c34bf52644c50e95f1249d729f76.html','',''); });
 </script>
+<div id="container">
 <div id="doc-content">
 <!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<div id="MSearchSelectWindow">
 </div>
 
 <!-- iframe showing the search results (closed by default) -->
@@ -131,17 +117,13 @@ $(function(){initNavTree('dir_8298c34bf52644c50e95f1249d729f76.html',''); initRe
 <div class="contents">
 </div><!-- contents -->
 </div><!-- doc-content -->
+</div><!-- container -->
+<!-- HTML footer for Doxygen 1.18.0 -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8298c34bf52644c50e95f1249d729f76.html">armcc</a></li>
-    <li class="footer">
-      <script type="text/javascript">
-        <!--
-        writeFooter.call(this);
-        //-->
-      </script> 
-    </li>
+    <li class="navelem"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="dir_8298c34bf52644c50e95f1249d729f76.html">armcc</a></li>
+    <li class="footer"><script type="text/javascript">writeFooter();</script></li>
   </ul>
 </div>
 </body>

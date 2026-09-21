@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['retarget_0',['Retarget',['../rt_io.html',1,'Low-Level I/O Retarget'],['../rt_os.html',1,'Multithreading Support Retarget']]],
-  ['retarget_20example_20project_1',['I/O Retarget example project',['../rt_example.html',1,'']]],
-  ['revision_20history_2',['Revision History',['../rev_hist.html',1,'']]]
+  ['level_20i_20o_20retarget_0',['Low-Level I/O Retarget',['../rt_io.html',1,'']]],
+  ['license_1',['License',['../index.html#doc_license',1,'']]],
+  ['line_2',['Build Project from the Command Line',['../rt_example.html#autotoc_md7',1,'']]],
+  ['low_20level_20i_20o_20retarget_3',['Low-Level I/O Retarget',['../rt_io.html',1,'']]]
 ];

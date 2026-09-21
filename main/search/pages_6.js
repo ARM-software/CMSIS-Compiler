@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['multithreading_20support_20retarget_0',['Multithreading Support Retarget',['../rt_os.html',1,'']]]
+  ['gcc_20newlib_0',['GCC Newlib',['../rt_template_os_interface.html#retarget_os_gcc',1,'']]]
 ];

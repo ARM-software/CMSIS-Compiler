@@ -1,7 +1,7 @@
 function writeHeader() {
-    document.write('Version 2.3.1-dev3');
+    document.write('Version 2.3.1-dev4');
 };
 
 function writeFooter()  {
-    document.write('Generated on Tue Sep  1 2026 14:12:31 for CMSIS-Compiler Support 2.3.1-dev3+gec230a9. Copyright &copy; 2026 Arm Limited (or its affiliates). All rights reserved.');
+    document.write('Generated on Mon Sep 21 2026 07:48:18 for CMSIS-Compiler Support 2.3.1-dev4+g8cdaa0a. Copyright &copy; 2026 Arm Limited (or its affiliates). All rights reserved.');
 };

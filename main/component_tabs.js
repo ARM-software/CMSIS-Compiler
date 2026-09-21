@@ -1,7 +1,7 @@
-var strgURL =   location.pathname;                      // path of current component
+const strgURL = location.pathname;                      // path of current component
 
 // constructor for the array of objects
-function tabElement(id, folderName, tabTxt )  {
+function tabElement(id, folderName, tabTxt) {
   this.id = id;                                       // elementID as needed in html;
   this.folderName = folderName;                       // folder name of the component
   this.tabTxt = tabTxt;                               // Text displayed as menu on the web
@@ -10,16 +10,16 @@ function tabElement(id, folderName, tabTxt )  {
 };
 
 // array of objects
-var arr = [];
+const arr = [];
 
 // fill array (not needed in case of a single tab)
 // arr.push( new tabElement( "id",     "folderName",     "tabTxt"));
 
 // write tabs
 // called from the header file.
-function writeComponentTabs()  {
-  for ( var i=0; i < arr.length; i++ ) {
-    str = "/" + arr[i].folderName + "/"
+function writeComponentTabs() {
+  for (let i = 0; i < arr.length; i++) {
+    const str = "/" + arr[i].folderName + "/";
     if (strgURL.search(str) > 0) {                    // if this is the current folder
       document.write(arr[i].currentListItem);                       // then print and highlight the tab
     } else {
