@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package schemaVersion="1.7.36" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Open-CMSIS-Pack/Open-CMSIS-Pack-Spec/v1.7.36/schema/PACK.xsd">
+<package schemaVersion="1.7.63" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Open-CMSIS-Pack/Open-CMSIS-Pack-Spec/v1.7.63/schema/PACK.xsd">
   <vendor>ARM</vendor>
   <name>CMSIS-Compiler</name>
   <description overview="overview/README.md">CMSIS Compiler extensions for Arm Compiler, GCC, Clang, and IAR Compiler</description>
@@ -15,12 +15,13 @@
   <releases>
     <release version="2.3.1-dev">
       Active Development ...
+      - Added support for Cortex-M42 processor based devices.
     </release>
   </releases>
 
   <conditions>
     <condition id="Cortex-M Device">
-      <description>Cortex-M processor based device: Cortex-M0/M0+/M1/M3/M4/M7/M23/M33/M35P/M55/M85, ARMV8MBL/ML, Star-MC1, SC000/300</description>
+      <description>Cortex-M processor based device: Cortex-M0/M0+/M1/M3/M4/M7/M23/M33/M35P/M42/M52/M55/M85, ARMV8MBL/ML, Star-MC1, SC000/300</description>
       <accept Dcore="Cortex-M0"/>
       <accept Dcore="Cortex-M0+"/>
       <accept Dcore="Cortex-M1"/>
@@ -30,6 +31,7 @@
       <accept Dcore="Cortex-M23"/>
       <accept Dcore="Cortex-M33"/>
       <accept Dcore="Cortex-M35P"/>
+      <accept Dcore="Cortex-M42"/>
       <accept Dcore="Cortex-M52"/>
       <accept Dcore="Cortex-M55"/>
       <accept Dcore="Cortex-M85"/>
