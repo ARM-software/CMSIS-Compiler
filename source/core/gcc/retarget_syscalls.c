@@ -23,6 +23,13 @@
 
 #include "cmsis_compiler.h"
 
+#if defined(__XC32)
+/* XC32 C library calls POSIX read()/write() directly */
+#include <sys/stat.h>
+#define _write  write
+#define _read   read
+#endif
+
 #include "RTE_Components.h"
 
 #ifdef RTE_CMSIS_Compiler_File_Interface
@@ -84,7 +91,9 @@ void    _exit   (int status);
 int     _kill   (pid_t pid, int sig);
 pid_t   _getpid (void);
 pid_t   _wait    (int *stat_loc);
+#if !defined(__XC32)
 void   *_sbrk_r (struct _reent *reent, ptrdiff_t incr);
+#endif
 
 /**
   Open file.
@@ -622,6 +631,7 @@ pid_t _wait (int *stat_loc) {
 }
 
 
+#if !defined(__XC32)
 /* Extend heap space by incr bytes (reentrant version) */
 __attribute__((weak))
 void *_sbrk_r (struct _reent *reent, ptrdiff_t incr) {
@@ -652,3 +662,4 @@ void *_sbrk_r (struct _reent *reent, ptrdiff_t incr) {
 
   return ((void *)heap_prev);
 }
+#endif
